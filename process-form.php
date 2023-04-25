@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       mail($to, $subject, $message, $headers);
 
       // Redirect to thank-you page
-      header("Location: thank-you.html");
+      header("https://halkhadhami.github.io/#contact");
       exit();
    }
 }

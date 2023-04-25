@@ -688,38 +688,42 @@
             <div class="eight columns">
 
                <!-- form -->
-               <form action="https://formspree.io/f/mknakyjo"method="POST">
+               
+			   <form action="https://formspree.io/f/mknakyjo" method="POST" enctype="multipart/form-data">
 					<fieldset>
-
-					  <div>
+						<div>
 							<label for="contactName">Name <span class="required">*</span></label>
 							<input type="text" value="" size="35" id="contactName" name="contactName">
-					  </div>
+						</div>
 
-					  <div>
+						<div>
 							<label for="contactEmail">Email <span class="required">*</span></label>
 							<input type="text" value="" size="35" id="contactEmail" name="contactEmail">
-					  </div>
+						</div>
 
-					  <div>
+						<div>
 							<label for="contactSubject">Subject</label>
 							<input type="text" value="" size="35" id="contactSubject" name="contactSubject">
-					  </div>
+						</div>
 
-					  <div>
-						    <label for="contactMessage">Message <span class="required">*</span></label>
-						    <textarea cols="50" rows="15" id="contactMessage" name="contactMessage"></textarea>
-					  </div>
+						<div>
+							<label for="contactMessage">Message <span class="required">*</span></label>
+							<textarea cols="50" rows="15" id="contactMessage" name="contactMessage"></textarea>
+						</div>
 
-					  <div>
-						    <button class="submit" type="submit" id="submit">Submit</button>
-						    <span id="image-loader">
-							    <img alt="" src="images/loader.gif">
-						    </span>
-					    </div>
+						<div>
+							<label for="contactFile">File Upload</label>
+							<input type="file" id="contactFile" name="contactFile">
+						</div>
 
+						<div>
+							<button class="submit" type="submit" id="submit">Submit</button>
+							<span id="image-loader">
+								<img alt="" src="images/loader.gif">
+							</span>
+						</div>
 					</fieldset>
-					
+					<input type="hidden" name="honeypot" value="">
 				</form> <!-- Form End -->
 				
                <!-- contact-warning -->

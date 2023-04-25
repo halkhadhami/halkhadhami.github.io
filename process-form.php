@@ -1,29 +1,40 @@
 <?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-   // Retrieve form data
-   $name = $_POST['contactName'];
-   $email = $_POST['contactEmail'];
-   $subject = $_POST['contactSubject'];
-   $message = $_POST['contactMessage'];
+if(isset($_POST['submit'])) {
+    // Check if the honeypot field is empty
+    if(!empty($_POST['honeypot'])) {
+        die();
+    }
 
-   // Perform validation
-   if (empty($name) || empty($email) || empty($message)) {
-      $error = "Please fill in all required fields.";
-   } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-      $error = "Please enter a valid email address.";
-   }
+    // Get the form data
+    $name = $_POST['contactName'];
+    $email = $_POST['contactEmail'];
+    $subject = $_POST['contactSubject'];
+    $message = $_POST['contactMessage'];
 
-   // Process form data
-   if (empty($error)) {
-      $to = "hayl.khadhami@gmail.com";
-      $subject = "New message from website";
-      $message = "Name: $name\nEmail: $email\nMessage: $message";
-      $headers = "From: $email";
-      mail($to, $subject, $message, $headers);
+    // Validate the form data
+    if(empty($name) || empty($email) || empty($message)) {
+        $error_message = "Please fill in all the required fields.";
+    } else if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $error_message = "Please enter a valid email address.";
+    } else {
+        // Send the email
+        $to = "hayl.khadhami@gmail.com";
+        $headers = "From: " . strip_tags($email) . "\r\n";
+        $headers .= "Reply-To: " . strip_tags($email) . "\r\n";
+        $headers .= "CC: \r\n";
+        $headers .= "MIME-Version: 1.0\r\n";
+        $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
 
-      // Redirect to thank-you page
-      header("https://halkhadhami.github.io/#contact");
-      exit();
-   }
+        $body = "Name: " . $name . "<br>";
+        $body .= "Email: " . $email . "<br>";
+        $body .= "Subject: " . $subject . "<br>";
+        $body .= "Message: " . nl2br($message);
+
+        if(mail($to, $subject, $body, $headers)) {
+            $success_message = "Your message was sent, thank you!";
+        } else {
+            $error_message = "There was a problem sending your message. Please try again later.";
+        }
+    }
 }
 ?>

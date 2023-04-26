@@ -57,7 +57,7 @@
       <div class="row banner">
          <div class="banner-text">
             <h1 class="responsive-headline">Hayl Khadhami</h1>
-			<h7 class="responsive-headline">Idustirial Automation & AI Engineer</h7>
+			<h7 class="responsive-headline">Industrial Automation & AI Engineer</h7>
             <h3>I'm an  <span>automation Engineer</span>, <span>PLC</span> and <span>SCADA</span> hardware and software <span>systems</span> creating professional and
             effective control system for Various machines and equipment of all sizes around the globe. Let's <a class="smoothscroll" href="#about">start scrolling</a>
             and learn more <a class="smoothscroll" href="#about">about me</a>.</h3>
@@ -457,7 +457,7 @@
 
          <div id="modal-02" class="popup-modal mfp-hide">
 
-		      <img class="scale-with-grid" src="images/portfolio/modals/crtr.JPEG" alt="" />
+		      <img class="scale-with-grid" src="images/portfolio/modals/crtr.jpeg" alt="" />
 
 		      <div class="description-box">
 			      <h4>Control Panel</h4>
@@ -474,7 +474,7 @@
 
          <div id="modal-03" class="popup-modal mfp-hide">
 
-		      <img class="scale-with-grid" src="images/portfolio/modals/avr.JPEG" alt="" />
+		      <img class="scale-with-grid" src="images/portfolio/modals/avr.jpeg" alt="" />
 
 		      <div class="description-box">
 			      <h4>Embedded System PCB</h4>
@@ -688,39 +688,42 @@
             <div class="eight columns">
 
                <!-- form -->
-               <form action="process-form.php" method="post" id="contactForm" name="contactForm">
+               
+			   <form action="https://formspree.io/f/mknakyjo" method="POST" enctype="multipart/form-data">
 					<fieldset>
-
-					  <div>
+						<div>
 							<label for="contactName">Name <span class="required">*</span></label>
-							<input type="text" value="" size="35" id="contactName" name="contactName">
-					  </div>
+							<input type="text" value="" size="35" id="contactName" name="contactName" required>
+						</div>
 
-					  <div>
+						<div>
 							<label for="contactEmail">Email <span class="required">*</span></label>
-							<input type="text" value="" size="35" id="contactEmail" name="contactEmail">
-					  </div>
+							<input type="email" value="" size="35" id="contactEmail" name="contactEmail" required>
+						</div>
 
-					  <div>
+						<div>
 							<label for="contactSubject">Subject</label>
 							<input type="text" value="" size="35" id="contactSubject" name="contactSubject">
-					  </div>
+						</div>
 
-					  <div>
-						    <label for="contactMessage">Message <span class="required">*</span></label>
-						    <textarea cols="50" rows="15" id="contactMessage" name="contactMessage"></textarea>
-					  </div>
+						<div>
+							<label for="contactMessage">Message <span class="required">*</span></label>
+							<textarea cols="50" rows="15" id="contactMessage" name="contactMessage" required></textarea>
+						</div>
 
-					  <div>
-						    <button class="submit" type="submit" id="submit">Submit</button>
-						    <span id="image-loader">
-							    <img alt="" src="images/loader.gif">
-						    </span>
-					    </div>
+						<div>
+							<label for="contactFile">File Upload</label>
+							<input type="file" id="contactFile" name="contactFile">
+						</div>
 
+						<div>
+							<button class="submit" type="submit" id="submit">Submit</button>
+							<span id="image-loader">
+								<img alt="" src="images/loader.gif">
+							</span>
+						</div>
 					</fieldset>
 					<input type="hidden" name="honeypot" value="">
-
 				</form> <!-- Form End -->
 				
                <!-- contact-warning -->

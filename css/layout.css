@@ -39,7 +39,7 @@ header {
    text-align: center;
    overflow: hidden;
    animation-name: backgroundLoop;
-   animation-duration: 20s;
+   animation-duration: 30s;
    animation-iteration-count: infinite;
 }
 

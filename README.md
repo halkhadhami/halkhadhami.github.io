@@ -22,5 +22,5 @@ Follow these steps to host your website for free on GitHub, with some restrictio
 2. Create a new public repository with the following name format: `<user>.github.io`. Make sure to include a README file.
 3. In the repository settings, go to **Code and authentication > Pages > Build and deployment > Source** and choose to deploy from the **master branch**. These settings should be the default.
 4. Upload your website, which should include an `index.html` file, to the repository using either the GitHub desktop application or drag and drop directly onto the website.
-5. After waiting for a few minutes, your website should be ready. You can access it by clicking on [halkhadhami.github.io](https://halkhadhami.github.io/).
+5. After waiting for a few minutes, your website should be ready. You can access it by clicking on the linke that created in step 2 for me here is >> [halkhadhami.github.io](https://halkhadhami.github.io/).
 

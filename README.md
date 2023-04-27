@@ -1,5 +1,4 @@
-# halkhadhami.github.io
-خطوات الحصول على استضافة مجانية على GitHub ولكن ببعض القيود مثل عدم دعم لغات السيرفر مثل PHP و Python وغيرها، حيث يكون نوع الاستضافة هو استضافة ستاتيك.
+# خطوات الحصول على استضافة مجانية على GitHub ولكن ببعض القيود مثل عدم دعم لغات السيرفر مثل PHP و Python وغيرها، حيث يكون نوع الاستضافة هو استضافة ستاتيك.
 
 1. أنشئ حسابًا على GitHub إذا لم يكن لديك حساب بالفعل.
 
@@ -20,7 +19,7 @@ Follow these steps to host your website for free on GitHub, with some restrictio
 
 1. Create a GitHub account if you don't have one already.
 2. Create a new public repository with the following name format: `<user>.github.io`. Make sure to include a README file.
-3. In the repository settings, go to **Code and authentication > Pages > Build and deployment > Source** and choose to deploy from the **master branch**. These settings should be the default.
+3. In the repository settings, go to **Code and authentication > Pages > Build and deployment > Source** and choose to deploy from the **master branch**. These settings is the default but mentioned for confirmation only.
 4. Upload your website, which should include an `index.html` file, to the repository using either the GitHub desktop application or drag and drop directly onto the website.
 5. After waiting for a few minutes, your website should be ready. You can access it by clicking on the linke that created in step 2 for me here is >> [halkhadhami.github.io](https://halkhadhami.github.io/).
 

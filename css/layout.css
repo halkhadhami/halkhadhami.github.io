@@ -930,6 +930,44 @@ call-to-action .button {
 }
 
 
+/* Outlinks section styles */
+#outlinks {
+  background-color: #f7f7f7;
+  padding: 80px 0;
+}
+
+#outlinks h2 {
+  text-align: center;
+  font-size: 36px;
+  margin-bottom: 30px;
+}
+
+.outlink-item {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.outlink-item a {
+  text-decoration: none;
+  color: #333;
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+.outlink-item a:hover {
+  background-color: #333;
+  color: #fff;
+}
+
+.outlinks img {
+  max-width: 50px;
+  height: auto;
+}
+
 /* Twitter Feed */
 #twitter {
    margin-top: 12px;

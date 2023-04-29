@@ -967,6 +967,11 @@ call-to-action .button {
   max-width: 50px;
   height: auto;
 }
+.outlinks li p {
+   font-size: 14px;
+   color: #999;
+   margin-top: 5px;
+}
 
 /* Twitter Feed */
 #twitter {

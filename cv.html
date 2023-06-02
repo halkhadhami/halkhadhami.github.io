@@ -264,10 +264,10 @@
 			<p><strong>Educational Background:</strong> Completed bachelor's and diploma studies while working at Yemen Dairy and Food Products Company</p>
 		</div>
 		
-		
-		<div class="button-container">
-			<button id="downloadBtn">Download as PDF</button>
-		</div>
+	    <div class="button-container">
+		    <button id="downloadBtn">Download as PDF</button>
+	    </div>
+
 
 			
 		<div class="footer">
@@ -291,20 +291,17 @@
 			}, 500);
 		});
 	</script>
-	<script>
-		  document.getElementById('downloadBtn').addEventListener('click', function() {
-			const filename = "resume.pdf";  // Specify the filename of the existing PDF file
-			
-			// Create a temporary link element
-			const link = document.createElement('a');
-			link.href = 'files/resume.pdf';  // Specify the path to the existing PDF file
-			link.download = filename;
-			link.target = '_blank';
-
-			// Trigger the click event on the link element
-			link.click();
-		  });
-	</script>
+	
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        document.getElementById("downloadBtn").addEventListener("click", function() {
+          var link = document.createElement('a');
+          link.href = 'https://halkhadhami.github.io/files/resume.pdf';
+          link.download = 'resume.pdf';
+          link.click();
+        });
+      });
+    </script>
 	
 
 

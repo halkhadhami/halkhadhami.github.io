@@ -241,11 +241,12 @@ ul#nav li.current a { color: #F06000; }
 }
 #about .contact-details { width: 41.66667%; }
 #about .download {
-   width: 50%;
+   width: 58.33333%;
    padding-top: 6px;
 }
 #about .main-col { padding-right: 5%; }
 #about .download .button {
+   width: 60%;
    margin-top: 6px;
    background: #444;
 }
@@ -254,9 +255,10 @@ ul#nav li.current a { color: #F06000; }
    color: #2B2B2B;
 }
 #about .download .button i {
-   margin-right: 15px;
-   font-size: 20px;
+   margin-right: 10px;
+   font-size: 15px;
 }
+
 
 
 /* ------------------------------------------------------------------ */

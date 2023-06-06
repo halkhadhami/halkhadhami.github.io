@@ -246,7 +246,7 @@ ul#nav li.current a { color: #F06000; }
 }
 #about .main-col { padding-right: 5%; }
 #about .download .button {
-   width: 60%;
+   width: 70%;
    margin-top: 6px;
    background: #444;
 }
@@ -256,7 +256,7 @@ ul#nav li.current a { color: #F06000; }
 }
 #about .download .button i {
    margin-right: 10px;
-   font-size: 15px;
+   font-size: 25px;
 }
 
 

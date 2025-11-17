@@ -87,7 +87,7 @@ The website is fully responsive and optimized for:
 
 ## 📞 Contact & Links
 
-- **WhatsApp**: wa.me/+869032051
+- **WhatsApp**: https://wa.me/+869032051
 - **Email**: hayl.khadhami@gmail.com
 - **GitHub**: https://github.com/halkhadhami
 - **Facebook**: https://www.facebook.com/haylkhadhami

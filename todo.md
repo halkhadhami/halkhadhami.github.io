@@ -59,3 +59,18 @@
 - [ ] Deploy website
 
 ## Completed Items
+
+
+## Static Website Conversion (GitHub Pages)
+- [x] Remove Express backend and server code (not needed for static export)
+- [x] Remove tRPC API layer (converted to static data)
+- [x] Convert database queries to static data (portfolio-data.ts created)
+- [x] Remove contact form backend integration (converted to email links)
+- [x] Update Skills page to use static data
+- [x] Update Publications page to use static data
+- [x] Update Projects page to use static data
+- [ ] Remove database dependencies from package.json
+- [ ] Update build configuration for static export
+- [x] Test all pages with static data
+- [ ] Create GitHub Pages deployment guide
+- [x] Remove "Made with Manus" branding (no Manus references in footer)

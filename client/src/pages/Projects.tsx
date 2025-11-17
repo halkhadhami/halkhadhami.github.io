@@ -1,34 +1,20 @@
-import { useEffect, useState } from "react";
-import { trpc } from "@/lib/trpc";
-import { ExternalLink, Loader2 } from "lucide-react";
+import { useMemo, useState } from "react";
+import { projectsData } from "@/data/portfolio-data";
+import { ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export default function Projects() {
-  const { data: projects, isLoading } = trpc.portfolio.getProjects.useQuery();
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  const [categories, setCategories] = useState<string[]>([]);
 
-  useEffect(() => {
-    if (projects) {
-      const cats = Array.from(new Set(projects.map((p) => p.category))).sort();
-      setCategories(cats);
-      if (!selectedCategory && cats.length > 0) {
-        setSelectedCategory(null);
-      }
-    }
-  }, [projects, selectedCategory]);
+  const categories = useMemo(() => {
+    return Array.from(new Set(projectsData.map((p) => p.category))).sort();
+  }, []);
 
-  if (isLoading) {
-    return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <Loader2 className="w-8 h-8 animate-spin text-primary" />
-      </div>
-    );
-  }
-
-  const filteredProjects = selectedCategory
-    ? projects?.filter((p) => p.category === selectedCategory)
-    : projects;
+  const filteredProjects = useMemo(() => {
+    return selectedCategory
+      ? projectsData.filter((p) => p.category === selectedCategory)
+      : projectsData;
+  }, [selectedCategory]);
 
   return (
     <div className="min-h-screen bg-background py-20">
@@ -61,7 +47,7 @@ export default function Projects() {
 
         {/* Projects Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-          {filteredProjects?.map((project, idx) => {
+          {filteredProjects.map((project, idx) => {
             const technologies = Array.isArray(project.technologies)
               ? project.technologies
               : typeof project.technologies === "string"
@@ -133,7 +119,7 @@ export default function Projects() {
           })}
         </div>
 
-        {(!filteredProjects || filteredProjects.length === 0) && (
+        {filteredProjects.length === 0 && (
           <div className="text-center py-12">
             <p className="text-foreground/60 text-lg">No projects found in this category.</p>
           </div>

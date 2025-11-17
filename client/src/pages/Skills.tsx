@@ -1,6 +1,5 @@
-import { useEffect, useState } from "react";
-import { trpc } from "@/lib/trpc";
-import { Loader2 } from "lucide-react";
+import { useState, useMemo } from "react";
+import { skillsData } from "@/data/portfolio-data";
 
 const proficiencyColors = {
   beginner: "bg-blue-100 text-blue-800",
@@ -17,31 +16,17 @@ const categoryIcons = {
 };
 
 export default function Skills() {
-  const { data: skills, isLoading } = trpc.portfolio.getSkills.useQuery();
-  const [groupedSkills, setGroupedSkills] = useState<Record<string, any[]>>({});
+  const groupedSkills = useMemo(() => {
+    return skillsData.reduce((acc: Record<string, any[]>, skill) => {
+      if (!acc[skill.category]) {
+        acc[skill.category] = [];
+      }
+      acc[skill.category].push(skill);
+      return acc;
+    }, {});
+  }, []);
 
-  useEffect(() => {
-    if (skills) {
-      const grouped = skills.reduce((acc: Record<string, any[]>, skill) => {
-        if (!acc[skill.category]) {
-          acc[skill.category] = [];
-        }
-        acc[skill.category].push(skill);
-        return acc;
-      }, {});
-      setGroupedSkills(grouped);
-    }
-  }, [skills]);
-
-  if (isLoading) {
-    return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <Loader2 className="w-8 h-8 animate-spin text-primary" />
-      </div>
-    );
-  }
-
-  const categories = Object.keys(groupedSkills).sort();
+  const categories = useMemo(() => Object.keys(groupedSkills).sort(), [groupedSkills]);
 
   return (
     <div className="min-h-screen bg-background py-20">
@@ -52,7 +37,7 @@ export default function Skills() {
         </p>
 
         <div className="space-y-12">
-          {categories.map((category) => (
+          {categories.map((category: string) => (
             <div key={category} className="bg-white rounded-lg shadow-md p-8">
               <div className="flex items-center gap-3 mb-6">
                 <span className="text-4xl">{categoryIcons[category as keyof typeof categoryIcons] || "📌"}</span>

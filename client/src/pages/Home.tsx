@@ -269,28 +269,26 @@ export default function Home() {
             </div>
 
             <div className="bg-white p-8 rounded-lg shadow-lg">
-              <h3 className="text-2xl font-bold text-primary mb-6">Send a Message</h3>
-              <form className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-foreground mb-2">Name *</label>
-                  <input type="text" required className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary" />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-foreground mb-2">Email *</label>
-                  <input type="email" required className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary" />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-foreground mb-2">Subject *</label>
-                  <input type="text" required className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary" />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-foreground mb-2">Message *</label>
-                  <textarea required rows={5} className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary resize-none"></textarea>
-                </div>
-                <Button type="submit" className="w-full bg-primary hover:bg-primary/90">
-                  Send Message
-                </Button>
-              </form>
+              <h3 className="text-2xl font-bold text-primary mb-6">Connect With Me</h3>
+              <p className="text-foreground/80 mb-6">Feel free to reach out via email or connect with me on social media for collaborations and inquiries.</p>
+              <div className="space-y-3">
+                <a href={`mailto:${OWNER_EMAIL}`} className="flex items-center gap-3 p-4 border border-border rounded-lg hover:bg-primary/5 transition-colors">
+                  <Mail className="w-5 h-5 text-primary" />
+                  <span className="font-medium text-foreground">Send Email</span>
+                </a>
+                <a href="https://github.com/halkhadhami" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 p-4 border border-border rounded-lg hover:bg-primary/5 transition-colors">
+                  <Github className="w-5 h-5 text-primary" />
+                  <span className="font-medium text-foreground">GitHub Profile</span>
+                </a>
+                <a href="https://facebook.com/haylkhadhami" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 p-4 border border-border rounded-lg hover:bg-primary/5 transition-colors">
+                  <Facebook className="w-5 h-5 text-primary" />
+                  <span className="font-medium text-foreground">Facebook</span>
+                </a>
+                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 p-4 border border-border rounded-lg hover:bg-primary/5 transition-colors">
+                  <Linkedin className="w-5 h-5 text-primary" />
+                  <span className="font-medium text-foreground">LinkedIn</span>
+                </a>
+              </div>
             </div>
           </div>
         </div>

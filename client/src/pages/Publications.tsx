@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
-import { trpc } from "@/lib/trpc";
-import { FileText, ExternalLink, Loader2 } from "lucide-react";
+import { useMemo } from "react";
+import { publicationsData } from "@/data/portfolio-data";
+import { FileText, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const statusBadgeColor = {
@@ -10,36 +10,22 @@ const statusBadgeColor = {
 };
 
 export default function Publications() {
-  const { data: publications, isLoading } = trpc.portfolio.getPublications.useQuery();
-  const [groupedPublications, setGroupedPublications] = useState<Record<string, any[]>>({});
+  const groupedPublications = useMemo(() => {
+    return publicationsData.reduce((acc: Record<string, any[]>, pub) => {
+      if (!acc[pub.status]) {
+        acc[pub.status] = [];
+      }
+      acc[pub.status].push(pub);
+      return acc;
+    }, {});
+  }, []);
 
-  useEffect(() => {
-    if (publications) {
-      const grouped = publications.reduce((acc: Record<string, any[]>, pub) => {
-        if (!acc[pub.status]) {
-          acc[pub.status] = [];
-        }
-        acc[pub.status].push(pub);
-        return acc;
-      }, {});
-      setGroupedPublications(grouped);
-    }
-  }, [publications]);
-
-  if (isLoading) {
-    return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <Loader2 className="w-8 h-8 animate-spin text-primary" />
-      </div>
-    );
-  }
-
-  const statusOrder = ["published", "under-review", "in-progress"];
-  const statusLabels = {
+  const statusOrder = useMemo(() => ["published", "under-review", "in-progress"], []);
+  const statusLabels = useMemo(() => ({
     published: "Published Papers",
     "under-review": "Under Review",
     "in-progress": "In Progress"
-  };
+  }), []);
 
   return (
     <div className="min-h-screen bg-background py-20">
@@ -51,7 +37,8 @@ export default function Publications() {
 
         <div className="space-y-12">
           {statusOrder.map((status) => {
-            if (!groupedPublications[status] || groupedPublications[status].length === 0) {
+            const pubs = groupedPublications[status as keyof typeof groupedPublications];
+            if (!pubs || pubs.length === 0) {
               return null;
             }
 
@@ -63,7 +50,7 @@ export default function Publications() {
                 </h2>
 
                 <div className="space-y-4">
-                  {groupedPublications[status].map((pub, idx) => (
+                  {pubs.map((pub, idx) => (
                     <div
                       key={idx}
                       className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow border-l-4 border-primary"

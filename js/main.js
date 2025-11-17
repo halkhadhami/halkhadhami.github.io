@@ -135,3 +135,47 @@ document.addEventListener('keydown', function(event) {
 });
 
 console.log('Portfolio website loaded successfully');
+
+// ===== Page Transition Animation =====
+window.addEventListener('beforeunload', function() {
+    document.body.style.opacity = '0';
+    document.body.style.transition = 'opacity 0.5s ease';
+});
+
+// ===== Stagger Animation for Lists =====
+function staggerElements(selector, delay = 0.1) {
+    const elements = document.querySelectorAll(selector);
+    elements.forEach((el, index) => {
+        el.style.animation = 'fadeInUp 0.6s ease ' + (index * delay) + 's both';
+    });
+}
+
+// Apply stagger animations to common elements
+window.addEventListener('load', function() {
+    staggerElements('.timeline-item', 0.15);
+    staggerElements('.project-card', 0.1);
+    staggerElements('.publication-item', 0.1);
+    staggerElements('.award-card', 0.1);
+    staggerElements('.skill-category', 0.15);
+});
+
+// ===== Parallax Effect on Scroll =====
+window.addEventListener('scroll', function() {
+    const scrollPosition = window.pageYOffset;
+    const heroSection = document.querySelector('.hero');
+    if (heroSection) {
+        heroSection.style.backgroundPosition = '0 ' + (scrollPosition * 0.5) + 'px';
+    }
+});
+
+// ===== Enhanced Hover Effects =====
+document.querySelectorAll('.project-card, .award-card, .stat').forEach(card => {
+    card.addEventListener('mouseenter', function() {
+        this.style.transform = 'translateY(-10px) scale(1.02)';
+    });
+    card.addEventListener('mouseleave', function() {
+        this.style.transform = 'translateY(0) scale(1)';
+    });
+});
+
+console.log('Portfolio website loaded with enhanced animations and transitions');

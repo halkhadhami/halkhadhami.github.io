@@ -224,10 +224,20 @@ img {
 }
 
 .logo-subtitle {
-    font-size: 0.9rem;
-    color: var(--text-secondary);
-    font-weight: 400;
+    font-size: 1.95rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-family: var(--font-mono);
+    transition: var(--transition-normal);
 }
+
+.logo:hover .logo-subtitle {
+    color: var(--secondary-color);
+    letter-spacing: 2px;
+}
+
 
 .nav-menu {
     display: flex;
@@ -2354,7 +2364,7 @@ section {
 }
 .logo-image {
     height: 40px;
-    width: 40px;
+    width: auto;
     display: block;
     transition: var(--transition-normal);
 }

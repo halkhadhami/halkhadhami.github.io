@@ -267,89 +267,147 @@
         padding: 1rem 1.5rem;
     }
     
-    /* ===== Floating Cards Mobile ===== */
+/* ===================================
+   Floating Cards - All Visible on Mobile
+   =================================== */
+@media (max-width: 768px) {
     .floating-card {
-        padding: 0.4rem 0.7rem;
-        font-size: 0.7rem;
+        padding: 0.4rem 0.75rem;
+        font-size: 0.72rem;
+        white-space: nowrap;
+        gap: 0.35rem;
     }
     
     .floating-card i {
-        font-size: 0.9rem;
-    }
-    
-    .card-1 { right: -5px; top: 5%; }
-    .card-2 { left: -5px; top: 30%; }
-    .card-3 { right: -5px; bottom: 25%; }
-    .card-4 { left: -5px; top: 18%; }
-    .card-5 { right: -5px; top: 48%; }
-    .card-6 { left: -5px; bottom: 12%; }
-    
-    .frame-corner {
-        width: 20px;
-        height: 20px;
-        border-width: 2px;
-    }
-    
-    .scroll-indicator {
-        display: none;
-    }
-    
-    /* ===== Sections ===== */
-    section {
-        padding: 3rem 0;
-    }
-    
-    .section-header {
-        margin-bottom: 2.5rem;
-    }
-    
-    .page-header {
-        padding: 6rem 0 3rem;
-    }
-    
-    /* ===== About Section ===== */
-    .about-text .lead {
-        font-size: 1.1rem;
-    }
-    
-    .about-text p {
         font-size: 0.95rem;
     }
     
-    .about-stats {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1rem;
+    /* Top section */
+    .card-1 {
+        top: 2%;
+        right: 10px;
+        left: auto;
     }
     
-    .stat-card {
-        padding: 1.5rem 1rem;
+    /* Upper middle - left */
+    .card-2 {
+        top: 22%;
+        left: 10px;
+        right: auto;
     }
     
-    .stat-icon {
-        width: 50px;
-        height: 50px;
+    /* Middle - right */
+    .card-3 {
+        top: 42%;
+        right: 10px;
+        left: auto;
     }
     
-    .stat-icon i {
-        font-size: 1.5rem;
+    /* Lower middle - left */
+    .card-4 {
+        top: 62%;
+        left: 10px;
+        right: auto;
     }
     
-    .stat-number {
-        font-size: 2rem;
+    /* Bottom section - right */
+    .card-5 {
+        bottom: 18%;
+        right: 10px;
+        left: auto;
     }
     
-    .stat-label {
+    /* Bottom - left */
+    .card-6 {
+        bottom: 2%;
+        left: 10px;
+        right: auto;
+    }
+    
+    /* Reduce image size to fit cards better */
+    .hero-image {
+        max-width: 280px;
+    }
+}
+
+/* Small Mobile (max-width: 480px) - Keep All Cards */
+@media (max-width: 480px) {
+    .floating-card {
+        padding: 0.35rem 0.65rem;
+        font-size: 0.68rem;
+    }
+    
+    .floating-card i {
         font-size: 0.85rem;
     }
     
-    .quick-facts {
-        gap: 1rem;
+    /* Adjust positions for smaller screens */
+    .card-1 {
+        top: 0%;
+        right: 5px;
     }
     
-    .fact-item {
-        padding: 0.75rem;
-        font-size: 0.9rem;
+    .card-2 {
+        top: 20%;
+        left: 5px;
     }
+    
+    .card-3 {
+        top: 40%;
+        right: 5px;
+    }
+    
+    .card-4 {
+        top: 60%;
+        left: 5px;
+    }
+    
+    .card-5 {
+        bottom: 15%;
+        right: 5px;
+    }
+    
+    .card-6 {
+        bottom: 0%;
+        left: 5px;
+    }
+    
+    /* Smaller image for more space */
+    .hero-image {
+        max-width: 250px;
+    }
+    
+    /* Tighter frame corners */
+    .frame-corner {
+        width: 18px;
+        height: 18px;
+    }
+}
+
+/* Extra Small Screens (max-width: 360px) */
+@media (max-width: 360px) {
+    .floating-card {
+        padding: 0.3rem 0.6rem;
+        font-size: 0.65rem;
+    }
+    
+    .floating-card i {
+        font-size: 0.8rem;
+    }
+    
+    .hero-image {
+        max-width: 220px;
+    }
+    
+    /* Stack cards closer */
+    .card-1 { top: 0%; right: 2px; }
+    .card-2 { top: 18%; left: 2px; }
+    .card-3 { top: 36%; right: 2px; }
+    .card-4 { top: 54%; left: 2px; }
+    .card-5 { top: 72%; right: 2px; }
+    .card-6 { bottom: 0%; left: 2px; }
+}
+
     
     /* ===== Expertise Grid ===== */
     .expertise-grid {

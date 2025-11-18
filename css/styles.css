@@ -2352,3 +2352,20 @@ section {
         justify-content: center;
     }
 }
+.logo-image {
+    height: 40px;
+    width: auto;
+    display: block;
+    transition: var(--transition-normal);
+}
+
+.logo:hover .logo-image {
+    transform: scale(1.05);
+}
+
+/* Adjust logo container */
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}

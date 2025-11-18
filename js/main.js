@@ -120,10 +120,7 @@ function animateCounters() {
     
     stats.forEach(stat => {
         const target = parseInt(stat.getAttribute('data-target'));
-        if (!target) {
-            // If no animation, just show the number
-            return;
-        }
+        if (!target) return;
         
         const duration = 2000;
         const increment = target / (duration / 16);
@@ -148,13 +145,8 @@ function animateCounters() {
 // Initialize counters
 const aboutSection = document.querySelector('.about');
 if (aboutSection && stats.length > 0) {
-    // Lower threshold for mobile
     const observerOptions = {
-<<<<<<< HEAD
         threshold: 0.2,
-=======
-        threshold: 0.2,  // Changed from 0.5 to 0.2 for mobile
->>>>>>> 60f1d9a12be898d057357499e0973f4a4d0c6ed7
         rootMargin: '0px 0px -10% 0px'
     };
     
@@ -168,11 +160,7 @@ if (aboutSection && stats.length > 0) {
     
     observer.observe(aboutSection);
     
-<<<<<<< HEAD
     // Fallback: Animate after 2 seconds
-=======
-    // Fallback: Animate after 2 seconds if observer doesn't trigger
->>>>>>> 60f1d9a12be898d057357499e0973f4a4d0c6ed7
     setTimeout(() => {
         if (!hasAnimated) {
             animateCounters();
@@ -180,7 +168,6 @@ if (aboutSection && stats.length > 0) {
     }, 2000);
 }
 
-<<<<<<< HEAD
 // Final fallback: Show numbers after 3 seconds
 setTimeout(() => {
     stats.forEach(stat => {
@@ -190,19 +177,6 @@ setTimeout(() => {
         }
     });
 }, 3000);
-=======
-// Another fallback: Show numbers immediately if animation fails
-stats.forEach(stat => {
-    const target = parseInt(stat.getAttribute('data-target'));
-    if (target && stat.textContent === '0') {
-        setTimeout(() => {
-            if (stat.textContent === '0') {
-                stat.textContent = target;
-            }
-        }, 3000);
-    }
-});
->>>>>>> 60f1d9a12be898d057357499e0973f4a4d0c6ed7
 
 
 // ===================================
@@ -403,3 +377,5 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }, 2000);
 });
+
+// ===================================

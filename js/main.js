@@ -1,6 +1,15 @@
 // ===================================
 // Loading Screen
 // ===================================
+window.addEventListener('load', () => {
+    const loadingScreen = document.getElementById('loadingScreen');
+    // Ensure minimum loading time for smooth transition
+    setTimeout(() => {
+        if (loadingScreen) {
+            loadingScreen.classList.add('hidden');
+        }
+    }, 500); // Reduced from 1500ms to 1000ms
+});
 
 // ===================================
 // Navbar Scroll Effect
@@ -101,7 +110,7 @@ if (typingText) {
 }
 
 // ===================================
-// Animated Counter for Stats
+// Animated Counter for Stats - MOBILE FIXED
 // ===================================
 const stats = document.querySelectorAll('.stat-number');
 let hasAnimated = false;
@@ -113,8 +122,8 @@ function animateCounters() {
         const target = parseInt(stat.getAttribute('data-target'));
         if (!target) return;
         
-        const duration = 2000; // 2 seconds
-        const increment = target / (duration / 16); // 60fps
+        const duration = 2000;
+        const increment = target / (duration / 16);
         let current = 0;
         
         const updateCounter = () => {
@@ -133,11 +142,12 @@ function animateCounters() {
     hasAnimated = true;
 }
 
-// Trigger counter animation when stats section is visible
+// Initialize counters
 const aboutSection = document.querySelector('.about');
 if (aboutSection && stats.length > 0) {
     const observerOptions = {
-        threshold: 0.5
+        threshold: 0.2,
+        rootMargin: '0px 0px -10% 0px'
     };
     
     const observer = new IntersectionObserver((entries) => {
@@ -149,7 +159,25 @@ if (aboutSection && stats.length > 0) {
     }, observerOptions);
     
     observer.observe(aboutSection);
+    
+    // Fallback: Animate after 2 seconds
+    setTimeout(() => {
+        if (!hasAnimated) {
+            animateCounters();
+        }
+    }, 2000);
 }
+
+// Final fallback: Show numbers after 3 seconds
+setTimeout(() => {
+    stats.forEach(stat => {
+        const target = parseInt(stat.getAttribute('data-target'));
+        if (target && (stat.textContent === '0' || stat.textContent === '')) {
+            stat.textContent = target;
+        }
+    });
+}, 3000);
+
 
 // ===================================
 // Scroll Animations (AOS Alternative)

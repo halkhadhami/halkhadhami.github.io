@@ -95,7 +95,7 @@ img {
 }
 
 /* ===================================
-   Loading Screen (Updated)
+   Loading Screen - Tight Interlocking Gears
    =================================== */
 .loading-screen {
     position: fixed;
@@ -109,16 +109,13 @@ img {
     justify-content: center;
     z-index: 10000;
     transition: opacity 0.5s ease, visibility 0.5s ease;
-    opacity: 1;
-    visibility: visible;
 }
 
 .loading-screen.hidden {
     opacity: 0;
     visibility: hidden;
-    pointer-events: none; /* Added this to prevent interaction */
+    pointer-events: none;
 }
-
 
 .loader {
     text-align: center;
@@ -126,50 +123,56 @@ img {
 
 .gear-system {
     position: relative;
-    width: 120px;
-    height: 120px;
+    width: 160px;
+    height: 90px;
     margin: 0 auto 2rem;
 }
 
 .gear-system i {
     position: absolute;
     color: var(--primary-color);
-    font-size: 3rem;
+    font-size: 3rem; /* Same size for all */
+    filter: drop-shadow(0 0 12px rgba(22, 163, 74, 0.5));
 }
 
+/* Top center gear */
 .gear-1 {
     top: 0;
     left: 50%;
-    transform: translateX(-50%);
-    animation: rotateClockwise 3s linear infinite;
+    margin-left: -24px; /* Half of icon width for centering */
+    animation: rotate-cw 3s linear infinite;
 }
 
+/* Bottom-left gear */
 .gear-2 {
-    bottom: 0;
-    left: 0;
-    animation: rotateCounterClockwise 3s linear infinite;
+    bottom: 5px;
+    left: 15px;
+    animation: rotate-ccw 3s linear infinite;
 }
 
+/* Bottom-right gear */
 .gear-3 {
-    bottom: 0;
-    right: 0;
-    animation: rotateClockwise 3s linear infinite;
+    bottom: 5px;
+    right: 15px;
+    animation: rotate-cw 3s linear infinite;
 }
 
-@keyframes rotateClockwise {
-    from { transform: translateX(-50%) rotate(0deg); }
-    to { transform: translateX(-50%) rotate(360deg); }
+@keyframes rotate-cw {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
 }
 
-@keyframes rotateCounterClockwise {
+@keyframes rotate-ccw {
     from { transform: rotate(0deg); }
     to { transform: rotate(-360deg); }
 }
 
 .loading-text {
+    font-size: 1rem;
     color: var(--text-secondary);
-    font-size: 1.1rem;
-    letter-spacing: 2px;
+    font-weight: 500;
+    letter-spacing: 0.8px;
+    margin-top: 0.5rem;
     animation: pulse 1.5s ease-in-out infinite;
 }
 
@@ -177,6 +180,7 @@ img {
     0%, 100% { opacity: 1; }
     50% { opacity: 0.5; }
 }
+
 
 /* ===================================
    Navigation
@@ -224,10 +228,20 @@ img {
 }
 
 .logo-subtitle {
-    font-size: 0.9rem;
-    color: var(--text-secondary);
-    font-weight: 400;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-family: var(--font-mono);
+    transition: var(--transition-normal);
 }
+
+.logo:hover .logo-subtitle {
+    color: var(--secondary-color);
+    letter-spacing: 2px;
+}
+
 
 .nav-menu {
     display: flex;
@@ -587,16 +601,35 @@ img {
 }
 
 .card-2 {
-    top: 45%;
+    top: 50%;
     left: -30px;
     animation-delay: 1s;
 }
 
 .card-3 {
-    bottom: 15%;
+    top: 70%;
     right: -10px;
     animation-delay: 2s;
 }
+/* Additional Floating Cards */
+.card-4 {
+    top: 25%;
+    left: -25px;
+    animation-delay: 0.5s;
+}
+
+.card-5 {
+    top: 40%;
+    right: -35px;
+    animation-delay: 1.5s;
+}
+
+.card-6 {
+    top: 85%;
+    left: -15px;
+    animation-delay: 2.5s;
+}
+
 
 @keyframes float {
     0%, 100% { transform: translateY(0); }
@@ -2332,4 +2365,21 @@ section {
         width: 100%;
         justify-content: center;
     }
+}
+.logo-image {
+    height: 40px;
+    width: auto;
+    display: block;
+    transition: var(--transition-normal);
+}
+
+.logo:hover .logo-image {
+    transform: scale(1.05);
+}
+
+/* Adjust logo container */
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }

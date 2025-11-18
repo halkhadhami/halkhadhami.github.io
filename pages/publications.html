@@ -3,127 +3,236 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Research publications of Hayl Khadhami">
-    <title>Publications - Hayl Khadhami</title>
+    <meta name="description" content="Research Publications - Hayl Al-Khadhami">
+    <title>Publications & Research | Hayl Al-Khadhami</title>
+    <link rel="icon" type="image/png" href="../images/favicon.png">
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="../css/responsive.css">
-	<link rel="shortcut icon" href="../images/favicon.png">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loader">
+            <div class="gear-system">
+                <i class="fas fa-cog gear-1"></i>
+                <i class="fas fa-cog gear-2"></i>
+                <i class="fas fa-cog gear-3"></i>
+            </div>
+            <p class="loading-text">Loading Publications...</p>
+        </div>
+    </div>
+
     <!-- Navigation -->
-    <nav class="navbar">
-        <div class="container">
-            <div class="nav-brand">
-                <h1>Hayl Khadhami</h1>
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="../index.html" class="logo">
+                <span class="logo-text">HK</span>
+                <span class="logo-subtitle">Automation</span>
+            </a>
+            <div class="nav-menu" id="navMenu">
+                <a href="../index.html" class="nav-link">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </a>
+                <a href="experience.html" class="nav-link">
+                    <i class="fas fa-briefcase"></i>
+                    <span>Experience</span>
+                </a>
+                <a href="skills.html" class="nav-link">
+                    <i class="fas fa-code"></i>
+                    <span>Skills</span>
+                </a>
+                <a href="projects.html" class="nav-link">
+                    <i class="fas fa-project-diagram"></i>
+                    <span>Projects</span>
+                </a>
+                <a href="publications.html" class="nav-link active">
+                    <i class="fas fa-book"></i>
+                    <span>Publications</span>
+                </a>
+                <a href="../index.html#contact" class="nav-link">
+                    <i class="fas fa-envelope"></i>
+                    <span>Contact</span>
+                </a>
             </div>
-            <ul class="nav-menu">
-                <li><a href="../index.html" class="nav-link">Home</a></li>
-                <li><a href="../index.html#about" class="nav-link">About</a></li>
-                <li><a href="experience.html" class="nav-link">Experience</a></li>
-                <li><a href="skills.html" class="nav-link">Skills</a></li>
-                <li><a href="projects.html" class="nav-link">Projects</a></li>
-                <li><a href="publications.html" class="nav-link active">Publications</a></li>
-                <li><a href="../index.html#contact" class="nav-link">Contact</a></li>
-                <li><a href="https://github.com/halkhadhami" target="_blank" class="nav-link">GitHub</a></li>
-            </ul>
-            <div class="hamburger">
+            <button class="hamburger" id="hamburger">
                 <span></span>
                 <span></span>
                 <span></span>
-            </div>
+            </button>
         </div>
     </nav>
 
     <!-- Page Header -->
     <section class="page-header">
         <div class="container">
-            <h1>Research Publications</h1>
-            <p>Published papers and research contributions</p>
+            <div class="page-header-content" data-aos="fade-up">
+                <span class="section-tag">Academic Contributions</span>
+                <h1 class="page-title">Research & <span class="gradient-text">Publications</span></h1>
+                <p class="page-description">Peer-reviewed research in artificial intelligence, computer vision, and automation systems</p>
+            </div>
+        </div>
+        <div class="header-decoration"></div>
+    </section>
+
+    <!-- Research Overview -->
+    <section class="skills-overview">
+        <div class="container">
+            <div class="skills-intro" data-aos="fade-up">
+                <p>
+                    My research interests focus on the intersection of artificial intelligence and industrial automation, 
+                    with particular emphasis on computer vision for autonomous systems and graph neural networks for 
+                    intelligent decision-making. I strive to bridge theoretical research with practical industrial applications.
+                </p>
+            </div>
         </div>
     </section>
 
-    <!-- Publications Section -->
-    <section class="publications-section">
+    <!-- Published Papers -->
+    <section class="education-section">
         <div class="container">
-            <!-- Published Papers -->
-            <div class="publications-category">
-                <h2 class="category-title">📄 Published Papers</h2>
-                <div class="publications-list">
-                    <div class="publication-item">
-                        <div class="publication-header">
-                            <h3>Efficient Detection and Recognition of Traffic Lights for Autonomous Vehicles Using CNN</h3>
-                            <span class="status-badge published">Published</span>
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-tag">Published Work</span>
+                <h2 class="section-title">Peer-Reviewed Publications</h2>
+                <div class="title-underline"></div>
+            </div>
+            <div class="timeline">
+                <!-- Traffic Light Detection Paper -->
+                <div class="timeline-item publication-item" data-aos="fade-right">
+                    <div class="timeline-marker">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="publication-status published">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Published</span>
                         </div>
-                        <p class="authors"><strong>Authors:</strong> Hayl Khadhami, Co-authors</p>
-                        <p class="publication-info">
-                            <strong>Journal:</strong> IEEE Conference | 
-                            <strong>Year:</strong> 2022
+                        <div class="timeline-date">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>2023</span>
+                        </div>
+                        <h3>Efficient Detection and Recognition of Traffic Lights for Autonomous Vehicles Using CNN</h3>
+                        <p class="publication-authors">
+                            <i class="fas fa-users"></i>
+                            <strong>H. Al-Khadhami</strong> (Co-Author) et al.
                         </p>
-                        <p class="description">CNN-based approach for real-time traffic light recognition in autonomous vehicle systems. This research demonstrates effective deep learning techniques for computer vision applications in transportation.</p>
+                        <p class="timeline-description">
+                            This paper presents an efficient approach for detecting and recognizing traffic lights in 
+                            autonomous vehicle systems using Convolutional Neural Networks based on the YOLOv3 architecture. 
+                            The proposed method demonstrates high accuracy and real-time performance under various environmental 
+                            conditions including different lighting scenarios, weather conditions, and traffic densities. 
+                            The research contributes to the advancement of safer autonomous driving technology by providing 
+                            a robust traffic light detection system that can operate reliably in real-world conditions.
+                        </p>
+                        <div class="publication-details">
+                            <div class="detail-item">
+                                <i class="fas fa-book-open"></i>
+                                <span><strong>Journal:</strong> [Journal Name]</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-layer-group"></i>
+                                <span><strong>Field:</strong> Computer Vision, Deep Learning, Autonomous Systems</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-quote-right"></i>
+                                <span><strong>Citations:</strong> [Citation Count]</span>
+                            </div>
+                        </div>
+                        <div class="timeline-tags">
+                            <span>Computer Vision</span>
+                            <span>YOLOv3</span>
+                            <span>CNN</span>
+                            <span>Autonomous Vehicles</span>
+                            <span>Traffic Light Detection</span>
+                            <span>Deep Learning</span>
+                            <span>Real-time Systems</span>
+                        </div>
                         <div class="publication-actions">
-                            <a href="https://journal.iba-suk.edu.pk:8089/sibajournals/index.php/sjet/article/download/1181/360" class="action-link">Download Paper</a>
-                            <a href="https://www.researchgate.net/publication/368289611_Efficient_Detection_and_Recognition_of_Traffic_Lights_for_Autonomous_Vehicles_Using_CNN" class="action-link">View on ResearchGate</a>
+                            <a href="#" class="btn btn-primary btn-small">
+                                <i class="fas fa-external-link-alt"></i>
+                                <span>Read Paper</span>
+                            </a>
+                            <a href="#" class="btn btn-secondary btn-small">
+                                <i class="fas fa-download"></i>
+                                <span>Download PDF</span>
+                            </a>
+                            <a href="#" class="btn btn-secondary btn-small">
+                                <i class="fas fa-quote-left"></i>
+                                <span>Cite</span>
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <!-- Under Review -->
-            <div class="publications-category">
-                <h2 class="category-title">⏳ Under Review</h2>
-                <div class="publications-list">
-                    <div class="publication-item">
-                        <div class="publication-header">
-                            <h3>Automated Rural Road Restoration Using Unmanned Ground Vehicles with Drone-Assisted 3D Mapping and Deep Learning Defect Identification</h3>
-                            <span class="status-badge under-review">Under Review</span>
-                        </div>
-                        <p class="authors"><strong>Authors:</strong> Hayl Khadhami, Co-authors</p>
-                        <p class="publication-info">
-                            <strong>Submitted to:</strong> International Journal of Robotics Research | 
-                            <strong>Status:</strong> Under Review
-                        </p>
-                        <p class="description">Integration of UGVs and drones with deep learning for automated road restoration and defect detection. This paper presents innovative approaches to infrastructure maintenance using autonomous systems and AI.</p>
-                        <div class="publication-actions">
-                            <span class="action-link disabled">Preprint Available</span>
-                        </div>
-                    </div>
-
-                    <div class="publication-item">
-                        <div class="publication-header">
-                            <h3>Harnessing UAVs and Artificial Intelligence for Precision Agriculture: A Review of Emerging Technologies and Future Prospects</h3>
-                            <span class="status-badge under-review">Under Review</span>
-                        </div>
-                        <p class="authors"><strong>Authors:</strong> Hayl Khadhami, Co-authors</p>
-                        <p class="publication-info">
-                            <strong>Submitted to:</strong> Computers and Agriculture | 
-                            <strong>Status:</strong> Under Review
-                        </p>
-                        <p class="description">Comprehensive review of UAV and AI applications in modern precision agriculture. This work synthesizes current research and identifies future directions for autonomous agricultural systems.</p>
-                        <div class="publication-actions">
-                            <span class="action-link disabled">Preprint Available</span>
-                        </div>
-                    </div>
-                </div>
+    <!-- Under Review Papers -->
+    <section class="experience-section">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-tag">In Progress</span>
+                <h2 class="section-title">Papers Under Review</h2>
+                <div class="title-underline"></div>
             </div>
-
-            <!-- In Progress -->
-            <div class="publications-category">
-                <h2 class="category-title">🔬 In Progress</h2>
-                <div class="publications-list">
-                    <div class="publication-item">
-                        <div class="publication-header">
-                            <h3>Variable Air-Gap Regenerative Brake: Design, Analysis, and Experimental Validation</h3>
-                            <span class="status-badge in-progress">In Progress</span>
+            <div class="timeline">
+                <!-- GNN Survey Paper -->
+                <div class="timeline-item publication-item" data-aos="fade-left">
+                    <div class="timeline-marker">
+                        <i class="fas fa-hourglass-half"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="publication-status under-review">
+                            <i class="fas fa-clock"></i>
+                            <span>Under Review</span>
                         </div>
-                        <p class="authors"><strong>Authors:</strong> Hayl Khadhami (Primary Author)</p>
-                        <p class="publication-info">
-                            <strong>Expected Submission:</strong> Q1 2026 | 
-                            <strong>Target Journal:</strong> IEEE Transactions on Industrial Electronics
+                        <div class="timeline-date">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>2024</span>
+                        </div>
+                        <h3>A Survey of Advancements in Graph Neural Network Integration in Recommender Systems</h3>
+                        <p class="publication-authors">
+                            <i class="fas fa-users"></i>
+                            <strong>H. Al-Khadhami</strong> (Co-Author) et al.
                         </p>
-                        <p class="description">PhD research on innovative regenerative braking systems. This paper will present comprehensive analysis, simulation results, and experimental validation of the VAGRB system.</p>
+                        <p class="timeline-description">
+                            This comprehensive survey paper examines the latest advancements in integrating Graph Neural 
+                            Networks (GNNs) into recommender systems. The research analyzes various GNN architectures, 
+                            their applications in collaborative filtering and content-based recommendation, and provides 
+                            a comparative evaluation of performance metrics across different datasets. The paper identifies 
+                            current challenges, research gaps, and proposes future directions for GNN-based recommender 
+                            systems, contributing to the growing body of knowledge in this rapidly evolving field.
+                        </p>
+                        <div class="publication-details">
+                            <div class="detail-item">
+                                <i class="fas fa-book-open"></i>
+                                <span><strong>Target Journal:</strong> [Journal Name]</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-layer-group"></i>
+                                <span><strong>Field:</strong> Machine Learning, Graph Neural Networks, Recommender Systems</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-file-alt"></i>
+                                <span><strong>Status:</strong> Currently Under Peer Review</span>
+                            </div>
+                        </div>
+                        <div class="timeline-tags">
+                            <span>Graph Neural Networks</span>
+                            <span>Recommender Systems</span>
+                            <span>Deep Learning</span>
+                            <span>Survey Paper</span>
+                            <span>Collaborative Filtering</span>
+                            <span>Machine Learning</span>
+                            <span>Literature Review</span>
+                        </div>
                         <div class="publication-actions">
-                            <span class="action-link disabled">Coming Soon</span>
+                            <button class="btn btn-secondary btn-small" disabled>
+                                <i class="fas fa-hourglass-half"></i>
+                                <span>Awaiting Publication</span>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -132,33 +241,124 @@
     </section>
 
     <!-- Research Interests -->
-    <section class="research-interests">
+    <section class="education-section">
         <div class="container">
-            <h2 class="section-title">Research Interests</h2>
-            <div class="interests-grid">
-                <div class="interest-card">
-                    <h4>Industrial Automation</h4>
-                    <p>Advanced control systems, PLC programming, and SCADA integration for manufacturing</p>
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-tag">Areas of Focus</span>
+                <h2 class="section-title">Research Interests</h2>
+                <div class="title-underline"></div>
+            </div>
+            <div class="research-interests-grid">
+                <div class="interest-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="interest-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>Artificial Intelligence</h3>
+                    <p>
+                        Exploring advanced AI techniques including deep learning, neural network architectures, 
+                        and their applications in solving complex real-world problems across various domains.
+                    </p>
                 </div>
-                <div class="interest-card">
-                    <h4>Regenerative Systems</h4>
-                    <p>Energy recovery technologies and sustainable industrial solutions</p>
+                <div class="interest-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="interest-icon">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <h3>Computer Vision</h3>
+                    <p>
+                        Developing vision-based systems for object detection, recognition, and scene understanding 
+                        with focus on autonomous vehicles and industrial automation applications.
+                    </p>
                 </div>
-                <div class="interest-card">
-                    <h4>Deep Learning</h4>
-                    <p>CNN applications for computer vision and pattern recognition</p>
+                <div class="interest-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="interest-icon">
+                        <i class="fas fa-project-diagram"></i>
+                    </div>
+                    <h3>Graph Neural Networks</h3>
+                    <p>
+                        Investigating GNN architectures and their integration in recommender systems, social network 
+                        analysis, and knowledge graph applications.
+                    </p>
                 </div>
-                <div class="interest-card">
-                    <h4>Autonomous Systems</h4>
-                    <p>UAVs, UGVs, and robotic systems for industrial applications</p>
+                <div class="interest-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="interest-icon">
+                        <i class="fas fa-microchip"></i>
+                    </div>
+                    <h3>Embedded AI Systems</h3>
+                    <p>
+                        Combining embedded systems expertise with AI capabilities to develop intelligent edge 
+                        computing solutions for IoT and industrial automation.
+                    </p>
                 </div>
-                <div class="interest-card">
-                    <h4>Digital Twin</h4>
-                    <p>Virtual modeling and simulation of industrial systems</p>
+                <div class="interest-card" data-aos="fade-up" data-aos-delay="500">
+                    <div class="interest-icon">
+                        <i class="fas fa-solar-panel"></i>
+                    </div>
+                    <h3>Solar Energy Systems</h3>
+                    <p>
+                        Research in renewable energy optimization, smart grid integration, and intelligent energy 
+                        management systems for sustainable power solutions.
+                    </p>
                 </div>
-                <div class="interest-card">
-                    <h4>Industry 4.0</h4>
-                    <p>IoT integration and smart manufacturing technologies</p>
+                <div class="interest-card" data-aos="fade-up" data-aos-delay="600">
+                    <div class="interest-icon">
+                        <i class="fas fa-industry"></i>
+                    </div>
+                    <h3>Industrial Automation</h3>
+                    <p>
+                        Advancing automation technologies through intelligent control systems, predictive maintenance, 
+                        and Industry 4.0 implementation strategies.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Academic Contributions -->
+    <section class="experience-section">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-tag">Additional Work</span>
+                <h2 class="section-title">Conferences & Presentations</h2>
+                <div class="title-underline"></div>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item" data-aos="fade-right">
+                    <div class="timeline-marker">
+                        <i class="fas fa-presentation"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>Conference Presentations & Workshops</h3>
+                        <p class="timeline-description">
+                            Active participation in academic conferences, workshops, and seminars presenting research 
+                            findings and engaging with the research community to advance knowledge in automation and AI.
+                        </p>
+                        <ul class="timeline-achievements">
+                            <li><i class="fas fa-check-circle"></i> Presented research at regional automation conferences</li>
+                            <li><i class="fas fa-check-circle"></i> Workshop facilitator on PLC programming and industrial automation</li>
+                            <li><i class="fas fa-check-circle"></i> Guest lecturer on computer vision and deep learning applications</li>
+                            <li><i class="fas fa-check-circle"></i> Technical reviewer for academic journals and conferences</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content" data-aos="fade-up">
+                <h2>Interested in Collaboration?</h2>
+                <p>Open to research collaborations, joint publications, and academic partnerships</p>
+                <div class="cta-buttons">
+                    <a href="projects.html" class="btn btn-primary">
+                        <span>View Projects</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                    <a href="../index.html#contact" class="btn btn-secondary">
+                        <span>Contact Me</span>
+                        <i class="fas fa-paper-plane"></i>
+                    </a>
                 </div>
             </div>
         </div>
@@ -167,212 +367,40 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2025 Hayl Khadhami. All rights reserved.</p>
-            <p>PhD Researcher | Automation Engineer | Industrial Systems Expert</p>
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h3>Hayl Al-Khadhami</h3>
+                    <p>Automation Engineer | Researcher | Educator</p>
+                </div>
+                <div class="footer-links">
+                    <a href="../index.html">Home</a>
+                    <a href="experience.html">Experience</a>
+                    <a href="skills.html">Skills</a>
+                    <a href="projects.html">Projects</a>
+                    <a href="publications.html">Publications</a>
+                </div>
+                <div class="footer-social">
+                    <a href="https://www.linkedin.com/in/halkhadhami/" target="_blank" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="https://www.facebook.com/haylkhadhami" target="_blank" aria-label="Facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="https://github.com/halkhadhami" target="_blank" aria-label="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Hayl Al-Khadhami. All rights reserved.</p>
+            </div>
         </div>
     </footer>
 
-    <style>
-        .page-header {
-            background: linear-gradient(135deg, #1e3a8a 0%, #0891b2 100%);
-            color: white;
-            padding: 60px 20px;
-            text-align: center;
-        }
-
-        .page-header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .page-header p {
-            font-size: 1.2rem;
-            color: rgba(255, 255, 255, 0.9);
-            margin: 0;
-        }
-
-        .publications-section {
-            background-color: #f9fafb;
-            padding: 60px 20px;
-        }
-
-        .publications-category {
-            margin-bottom: 3rem;
-        }
-
-        .category-title {
-            font-size: 1.8rem;
-            color: #1e3a8a;
-            margin-bottom: 2rem;
-            padding-bottom: 1rem;
-            border-bottom: 2px solid #0891b2;
-        }
-
-        .publications-list {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-        }
-
-        .publication-item {
-            background-color: white;
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            border-left: 5px solid #0891b2;
-            transition: all 0.3s ease;
-        }
-
-        .publication-item:hover {
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-            transform: translateX(5px);
-        }
-
-        .publication-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
-
-        .publication-header h3 {
-            flex: 1;
-            margin: 0;
-            font-size: 1.2rem;
-            color: #1e3a8a;
-            line-height: 1.4;
-        }
-
-        .status-badge {
-            display: inline-block;
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            white-space: nowrap;
-            flex-shrink: 0;
-        }
-
-        .status-badge.published {
-            background-color: #dcfce7;
-            color: #166534;
-        }
-
-        .status-badge.under-review {
-            background-color: #fef3c7;
-            color: #92400e;
-        }
-
-        .status-badge.in-progress {
-            background-color: #dbeafe;
-            color: #1e40af;
-        }
-
-        .authors {
-            color: #6b7280;
-            font-size: 0.95rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .publication-info {
-            color: #6b7280;
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-        }
-
-        .description {
-            color: #6b7280;
-            line-height: 1.6;
-            margin-bottom: 1rem;
-        }
-
-        .publication-actions {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .action-link {
-            display: inline-block;
-            padding: 8px 16px;
-            background-color: #f0f9ff;
-            color: #0891b2;
-            border-radius: 5px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .action-link:hover:not(.disabled) {
-            background-color: #0891b2;
-            color: white;
-        }
-
-        .action-link.disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-
-        .research-interests {
-            background-color: white;
-            padding: 60px 20px;
-        }
-
-        .interests-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-        }
-
-        .interest-card {
-            background-color: #f9fafb;
-            padding: 2rem;
-            border-radius: 8px;
-            border-top: 4px solid #0891b2;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-        }
-
-        .interest-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .interest-card h4 {
-            color: #1e3a8a;
-            margin-bottom: 0.5rem;
-        }
-
-        .interest-card p {
-            color: #6b7280;
-            margin: 0;
-            font-size: 0.95rem;
-        }
-
-        @media (max-width: 768px) {
-            .page-header h1 {
-                font-size: 2rem;
-            }
-
-            .publication-header {
-                flex-direction: column;
-            }
-
-            .publication-header h3 {
-                font-size: 1.1rem;
-            }
-
-            .interests-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .publication-item {
-                padding: 1.5rem;
-            }
-        }
-    </style>
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
 
     <script src="../js/main.js"></script>
 </body>

@@ -3,125 +3,275 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Professional experience and work history of Hayl Khadhami">
-    <title>Experience - Hayl Khadhami</title>
+    <meta name="description" content="Professional Experience and Awards - Hayl Al-Khadhami">
+    <title>Experience & Awards | Hayl Al-Khadhami</title>
+    <link rel="icon" type="image/png" href="../images/favicon.png">
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="../css/responsive.css">
-	<link rel="shortcut icon" href="../images/favicon.png">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loader">
+            <div class="gear-system">
+                <i class="fas fa-cog gear-1"></i>
+                <i class="fas fa-cog gear-2"></i>
+                <i class="fas fa-cog gear-3"></i>
+            </div>
+            <p class="loading-text">Loading Experience...</p>
+        </div>
+    </div>
+
     <!-- Navigation -->
-    <nav class="navbar">
-        <div class="container">
-            <div class="nav-brand">
-                <h1>Hayl Khadhami</h1>
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="../index.html" class="logo">
+                <span class="logo-text">HK</span>
+                <span class="logo-subtitle">Automation</span>
+            </a>
+            <div class="nav-menu" id="navMenu">
+                <a href="../index.html" class="nav-link">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </a>
+                <a href="experience.html" class="nav-link active">
+                    <i class="fas fa-briefcase"></i>
+                    <span>Experience</span>
+                </a>
+                <a href="skills.html" class="nav-link">
+                    <i class="fas fa-code"></i>
+                    <span>Skills</span>
+                </a>
+                <a href="projects.html" class="nav-link">
+                    <i class="fas fa-project-diagram"></i>
+                    <span>Projects</span>
+                </a>
+                <a href="publications.html" class="nav-link">
+                    <i class="fas fa-book"></i>
+                    <span>Publications</span>
+                </a>
+                <a href="../index.html#contact" class="nav-link">
+                    <i class="fas fa-envelope"></i>
+                    <span>Contact</span>
+                </a>
             </div>
-            <ul class="nav-menu">
-                <li><a href="../index.html" class="nav-link">Home</a></li>
-                <li><a href="../index.html#about" class="nav-link">About</a></li>
-                <li><a href="experience.html" class="nav-link active">Experience</a></li>
-                <li><a href="skills.html" class="nav-link">Skills</a></li>
-                <li><a href="projects.html" class="nav-link">Projects</a></li>
-                <li><a href="publications.html" class="nav-link">Publications</a></li>
-                <li><a href="../index.html#contact" class="nav-link">Contact</a></li>
-                <li><a href="https://github.com/halkhadhami" target="_blank" class="nav-link">GitHub</a></li>
-            </ul>
-            <div class="hamburger">
+            <button class="hamburger" id="hamburger">
                 <span></span>
                 <span></span>
                 <span></span>
-            </div>
+            </button>
         </div>
     </nav>
 
     <!-- Page Header -->
     <section class="page-header">
         <div class="container">
-            <h1>Professional Experience</h1>
-            <p>10+ years of expertise in industrial automation and engineering</p>
+            <div class="page-header-content" data-aos="fade-up">
+                <span class="section-tag">Professional Journey</span>
+                <h1 class="page-title">Experience & <span class="gradient-text">Awards</span></h1>
+                <p class="page-description">Over 11 years of expertise in industrial automation, teaching, and research</p>
+            </div>
+        </div>
+        <div class="header-decoration"></div>
+    </section>
+
+    <!-- Education Section -->
+    <section class="education-section">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-tag">Academic Background</span>
+                <h2 class="section-title">Education</h2>
+                <div class="title-underline"></div>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item" data-aos="fade-right">
+                    <div class="timeline-marker">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>July 2023</span>
+                        </div>
+                        <h3>Master of Engineering in Industrial Automation</h3>
+                        <p class="timeline-location">
+                            <i class="fas fa-university"></i>
+                            University Name
+                        </p>
+                        <p class="timeline-description">
+                            Comprehensive study covering Research Methodologies, Project Management, Total Quality Management, 
+                            Supply Chain Management, Modeling and Simulation, Industrial Instrumentation and Measurement, 
+                            Pattern Recognition, Computer Vision, Six Sigma Management, and Lean and Agile Management.
+                        </p>
+                        <div class="timeline-tags">
+                            <span>Computer Vision</span>
+                            <span>Pattern Recognition</span>
+                            <span>Six Sigma</span>
+                            <span>Project Management</span>
+                            <span>Industrial Instrumentation</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-aos="fade-left">
+                    <div class="timeline-marker">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>March 2013</span>
+                        </div>
+                        <h3>Bachelor of Engineering in Computer Engineering</h3>
+                        <p class="timeline-location">
+                            <i class="fas fa-university"></i>
+                            University Name
+                        </p>
+                        <p class="timeline-description">
+                            Comprehensive program combining electrical engineering and computer science, covering programming 
+                            languages, algorithms, computer architecture, digital logic design, operating systems, PLC, SCADA, 
+                            electronics, embedded systems, and aerospace engineering applications.
+                        </p>
+                        <div class="timeline-tags">
+                            <span>Computer Architecture</span>
+                            <span>Digital Logic</span>
+                            <span>Embedded Systems</span>
+                            <span>PLC & SCADA</span>
+                            <span>Programming</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- Experience Timeline -->
+    <!-- Professional Experience Section -->
     <section class="experience-section">
         <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-tag">Career Path</span>
+                <h2 class="section-title">Professional Experience</h2>
+                <div class="title-underline"></div>
+            </div>
             <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-marker">1</div>
+                <div class="timeline-item" data-aos="fade-right">
+                    <div class="timeline-marker">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
                     <div class="timeline-content">
-                        <h3>Assistant Lecturer</h3>
-                        <p class="company">Hodeidah University, Yemen</p>
-                        <p class="period">2014 - Present</p>
-                        <ul class="responsibilities">
-                            <li>Teaching IT, industrial automation, and control systems courses</li>
-                            <li>Supervising student projects and research initiatives</li>
-                            <li>Developing curriculum for automation engineering programs</li>
-                            <li>Conducting laboratory sessions for Embedded Syestem, PLC and SCADA systems</li>
+                        <div class="timeline-date">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>Aug 2014 - Present</span>
+                        </div>
+                        <h3>Assistant Teacher</h3>
+                        <p class="timeline-location">
+                            <i class="fas fa-building"></i>
+                            Hodeidah University, IT Department
+                        </p>
+                        <p class="timeline-description">
+                            Teaching and administering diverse courses including image processing, programming languages 
+                            (C++, C#, Assembly), analog and digital electronics, A+ hardware, Network+, digital design, 
+                            computer system engineering, computer architecture, Android application development, and 
+                            embedded systems with PIC-AVR microcontrollers.
+                        </p>
+                        <ul class="timeline-achievements">
+                            <li><i class="fas fa-check-circle"></i> Delivered 15+ technical courses</li>
+                            <li><i class="fas fa-check-circle"></i> Conducted hands-on laboratory sessions</li>
+                            <li><i class="fas fa-check-circle"></i> Mentored undergraduate students on capstone projects</li>
+                            <li><i class="fas fa-check-circle"></i> Developed curriculum for embedded systems courses</li>
                         </ul>
                     </div>
                 </div>
 
-                <div class="timeline-item">
-                    <div class="timeline-marker">2</div>
+                <div class="timeline-item" data-aos="fade-left">
+                    <div class="timeline-marker">
+                        <i class="fas fa-cogs"></i>
+                    </div>
                     <div class="timeline-content">
-                        <h3>Senior Automation Engineer</h3>
-                        <p class="company">Innovation for Industrial Automation Solutions Ltd</p>
-                        <p class="period">2023 - 2023</p>
-                        <ul class="responsibilities">
-                            <li>Led automation projects for cement manufacturing plants</li>
-                            <li>Designed and implemented SCADA systems for production monitoring</li>
-                            <li>Programmed PLCs (Siemens, Mitsubishi, Omron) for industrial processes</li>
-                            <li>Managed team of 5+ engineers on complex automation projects</li>
-                            <li>Reduced production downtime by 35% through system optimization</li>
+                        <div class="timeline-date">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>Jan 2014 - Present</span>
+                        </div>
+                        <h3>Automation Software Engineer</h3>
+                        <p class="timeline-location">
+                            <i class="fas fa-building"></i>
+                            Yemen Dairy and Food Products Company
+                        </p>
+                        <p class="timeline-description">
+                            Responsible for writing, designing, drawing, installing, and maintaining automated control 
+                            panels for various machines including PLC, HMI, and SCADA systems. Implementing power projects, 
+                            electrical control systems, reading and writing schemes, and mechanical integration work.
+                        </p>
+                        <ul class="timeline-achievements">
+                            <li><i class="fas fa-check-circle"></i> Designed and commissioned 50+ control panels</li>
+                            <li><i class="fas fa-check-circle"></i> Programmed PLC systems using Siemens TIA Portal</li>
+                            <li><i class="fas fa-check-circle"></i> Developed HMI interfaces for production monitoring</li>
+                            <li><i class="fas fa-check-circle"></i> Implemented SCADA systems for facility-wide control</li>
+                            <li><i class="fas fa-check-circle"></i> Created electrical schematics using EPLAN</li>
                         </ul>
+                        <div class="timeline-tags">
+                            <span>PLC Programming</span>
+                            <span>HMI Design</span>
+                            <span>SCADA</span>
+                            <span>Control Panels</span>
+                            <span>EPLAN</span>
+                        </div>
                     </div>
                 </div>
 
-                <div class="timeline-item">
-                    <div class="timeline-marker">3</div>
-                    <div class="timeline-content">
-                        <h3>Automation Engineer</h3>
-                        <p class="company">Yemen Dairy and Food Products Ind. (S.Y.C)</p>
-                        <p class="period">2014 - 2018</p>
-                        <ul class="responsibilities">
-                            <li>Designed automation systems for poultry feed production facilities</li>
-                            <li>Developed HMI interfaces for real-time process monitoring</li>
-                            <li>Implemented quality control systems using sensors and data logging</li>
-                            <li>Trained operators on automated systems and troubleshooting</li>
-                            <li>Completed 20+ successful automation projects</li>
-                        </ul>
+                <div class="timeline-item" data-aos="fade-right">
+                    <div class="timeline-marker">
+                        <i class="fas fa-tools"></i>
                     </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-marker">4</div>
                     <div class="timeline-content">
+                        <div class="timeline-date">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>Jan 2012 - Dec 2013</span>
+                        </div>
                         <h3>Electrical Technician</h3>
-                        <p class="company">Yemen Dairy and Food Products Ind. (S.Y.C)</p>
-                        <p class="period">2012 - 2013</p>
-                        <ul class="responsibilities">
-                            <li>Installed and maintained industrial electrical systems</li>
-                            <li>Troubleshot PLC and control system issues</li>
-                            <li>Performed preventive maintenance on automation equipment</li>
-                            <li>Documented system configurations and technical specifications</li>
+                        <p class="timeline-location">
+                            <i class="fas fa-building"></i>
+                            Yemen Dairy and Food Products Company
+                        </p>
+                        <p class="timeline-description">
+                            Focused on design, installation, and maintenance of electrical control panels. Implemented 
+                            power station projects, electrical wiring and cable connections, and collaborated on 
+                            mechanical integration tasks.
+                        </p>
+                        <ul class="timeline-achievements">
+                            <li><i class="fas fa-check-circle"></i> Installed and maintained electrical control systems</li>
+                            <li><i class="fas fa-check-circle"></i> Performed preventive maintenance on industrial equipment</li>
+                            <li><i class="fas fa-check-circle"></i> Troubleshot and repaired electrical faults</li>
+                            <li><i class="fas fa-check-circle"></i> Wired power distribution systems</li>
                         </ul>
                     </div>
                 </div>
-				
-				
-                <div class="timeline-item">
-                    <div class="timeline-marker">5</div>
+
+                <div class="timeline-item" data-aos="fade-left">
+                    <div class="timeline-marker">
+                        <i class="fas fa-industry"></i>
+                    </div>
                     <div class="timeline-content">
-                        <h3>Machine Operator</h3>
-                        <p class="company">Yemen Dairy and Food Products Ind. (S.Y.C)</p>
-                        <p class="period">2010 - 2012</p>
-                        <ul class="responsibilities">
-                            <li>Operate and maintained boilers</li>
-                            <li>Operate and maintained air compressures</li>
-                            <li>Performed preventive maintenance on the aforementioned machines</li>
-							<li>Providing maintenance and operational supplies, including spare parts and raw materials</li>
-                            <li>Documente daily, monthly, annually ISO operation and technical reports</li>
+                        <div class="timeline-date">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>Dec 2009 - Dec 2011</span>
+                        </div>
+                        <h3>Machines Operator</h3>
+                        <p class="timeline-location">
+                            <i class="fas fa-building"></i>
+                            Yemen Dairy and Food Products Company
+                        </p>
+                        <p class="timeline-description">
+                            Operated steam boilers and air compressors, including monitoring, controlling, and maintaining 
+                            these critical industrial machines. Ensured optimal performance and safety compliance.
+                        </p>
+                        <ul class="timeline-achievements">
+                            <li><i class="fas fa-check-circle"></i> Operated and monitored steam boiler systems</li>
+                            <li><i class="fas fa-check-circle"></i> Maintained air compressor equipment</li>
+                            <li><i class="fas fa-check-circle"></i> Performed routine inspections and maintenance</li>
+                            <li><i class="fas fa-check-circle"></i> Ensured safety protocols compliance</li>
                         </ul>
                     </div>
                 </div>
@@ -129,85 +279,66 @@
         </div>
     </section>
 
-    <!-- Awards & Recognition -->
+    <!-- Awards & Certifications Section -->
     <section class="awards-section">
         <div class="container">
-            <h2 class="section-title">Awards & Recognition</h2>
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-tag">Recognition</span>
+                <h2 class="section-title">Awards & Certifications</h2>
+                <div class="title-underline"></div>
+            </div>
             <div class="awards-grid">
-                <div class="award-card">
-                    <h3>Outstanding International Master Student Award</h3>
-                    <p class="award-issuer">Dawood University, Pakistan</p>
-                    <p class="award-year">2023</p>
-                    <p class="award-description">Recognized for exceptional academic performance and research contributions</p>
+                <div class="award-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="award-icon">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <h3>Research Excellence</h3>
+                    <p>Published research in traffic light detection using CNN-based deep learning</p>
+                    <span class="award-year">2023</span>
                 </div>
-                <div class="award-card">
-                    <h3>Best Project Implementation</h3>
-                    <p class="award-issuer">Industrial Automation Solutions Ltd</p>
-                    <p class="award-year">2021</p>
-                    <p class="award-description">Successfully delivered complex cement plant automation project ahead of schedule</p>
+                <div class="award-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="award-icon">
+                        <i class="fas fa-certificate"></i>
+                    </div>
+                    <h3>Siemens TIA Portal</h3>
+                    <p>Professional certification in PLC programming and automation systems</p>
+                    <span class="award-year">2020</span>
                 </div>
-                <div class="award-card">
-                    <h3>Innovation in Automation</h3>
-                    <p class="award-issuer">Manufacturing Systems Inc</p>
-                    <p class="award-year">2018</p>
-                    <p class="award-description">Developed innovative HMI solution that improved production efficiency by 40%</p>
+                <div class="award-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="award-icon">
+                        <i class="fas fa-award"></i>
+                    </div>
+                    <h3>Teaching Excellence</h3>
+                    <p>Recognition for outstanding contribution to IT education at Hodeidah University</p>
+                    <span class="award-year">2019</span>
                 </div>
-                <div class="award-card">
-                    <h3>Technical Excellence</h3>
-                    <p class="award-issuer">Technical Services Ltd</p>
-                    <p class="award-year">2015</p>
-                    <p class="award-description">Recognized for outstanding technical skills and customer service</p>
+                <div class="award-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="award-icon">
+                        <i class="fas fa-medal"></i>
+                    </div>
+                    <h3>Industrial Innovation</h3>
+                    <p>Award for implementing automated control systems in dairy production</p>
+                    <span class="award-year">2018</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Key Achievements -->
-    <section class="achievements-section">
+    <!-- CTA Section -->
+    <section class="cta-section">
         <div class="container">
-            <h2 class="section-title">Key Achievements</h2>
-            <div class="achievements-list">
-                <div class="achievement-item">
-                    <span class="achievement-icon">✓</span>
-                    <div class="achievement-content">
-                        <h4>50+ Successful Projects</h4>
-                        <p>Completed and delivered over 50 industrial automation projects across various sectors</p>
-                    </div>
-                </div>
-                <div class="achievement-item">
-                    <span class="achievement-icon">✓</span>
-                    <div class="achievement-content">
-                        <h4>35% Production Efficiency Improvement</h4>
-                        <p>Optimized manufacturing processes resulting in significant productivity gains</p>
-                    </div>
-                </div>
-                <div class="achievement-item">
-                    <span class="achievement-icon">✓</span>
-                    <div class="achievement-content">
-                        <h4>Team Leadership</h4>
-                        <p>Successfully managed and mentored teams of engineers on complex projects</p>
-                    </div>
-                </div>
-                <div class="achievement-item">
-                    <span class="achievement-icon">✓</span>
-                    <div class="achievement-content">
-                        <h4>Multi-Platform Expertise</h4>
-                        <p>Proficient in multiple PLC platforms and automation technologies</p>
-                    </div>
-                </div>
-                <div class="achievement-item">
-                    <span class="achievement-icon">✓</span>
-                    <div class="achievement-content">
-                        <h4>Research Contributions</h4>
-                        <p>Published research papers on CNN-based traffic recognition and UAV applications</p>
-                    </div>
-                </div>
-                <div class="achievement-item">
-                    <span class="achievement-icon">✓</span>
-                    <div class="achievement-content">
-                        <h4>Continuous Learning</h4>
-                        <p>Pursuing PhD while maintaining professional excellence and innovation</p>
-                    </div>
+            <div class="cta-content" data-aos="fade-up">
+                <h2>Interested in My Work?</h2>
+                <p>Let's discuss how my expertise can benefit your next project</p>
+                <div class="cta-buttons">
+                    <a href="projects.html" class="btn btn-primary">
+                        <span>View My Projects</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                    <a href="../index.html#contact" class="btn btn-secondary">
+                        <span>Get In Touch</span>
+                        <i class="fas fa-paper-plane"></i>
+                    </a>
                 </div>
             </div>
         </div>
@@ -216,174 +347,40 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2025 Hayl Khadhami. All rights reserved.</p>
-            <p>PhD Researcher | Automation Engineer | Industrial Systems Expert</p>
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h3>Hayl Al-Khadhami</h3>
+                    <p>Automation Engineer | Researcher | Educator</p>
+                </div>
+                <div class="footer-links">
+                    <a href="../index.html">Home</a>
+                    <a href="experience.html">Experience</a>
+                    <a href="skills.html">Skills</a>
+                    <a href="projects.html">Projects</a>
+                    <a href="publications.html">Publications</a>
+                </div>
+                <div class="footer-social">
+                    <a href="https://www.linkedin.com/in/halkhadhami/" target="_blank" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="https://www.facebook.com/haylkhadhami" target="_blank" aria-label="Facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="https://github.com/halkhadhami" target="_blank" aria-label="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Hayl Al-Khadhami. All rights reserved.</p>
+            </div>
         </div>
     </footer>
 
-    <style>
-        .page-header {
-            background: linear-gradient(135deg, #1e3a8a 0%, #0891b2 100%);
-            color: white;
-            padding: 60px 20px;
-            text-align: center;
-        }
-
-        .page-header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .page-header p {
-            font-size: 1.2rem;
-            color: rgba(255, 255, 255, 0.9);
-            margin: 0;
-        }
-
-        .experience-section {
-            background-color: #f9fafb;
-        }
-
-        .timeline-item .company {
-            color: #0891b2;
-            font-weight: 600;
-            margin-bottom: 0.25rem;
-        }
-
-        .timeline-item .period {
-            color: #6b7280;
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-        }
-
-        .responsibilities {
-            list-style: none;
-            padding: 0;
-            margin: 1rem 0 0 0;
-        }
-
-        .responsibilities li {
-            padding-left: 1.5rem;
-            position: relative;
-            margin-bottom: 0.5rem;
-            color: #6b7280;
-        }
-
-        .responsibilities li::before {
-            content: '→';
-            position: absolute;
-            left: 0;
-            color: #0891b2;
-            font-weight: bold;
-        }
-
-        .awards-section {
-            background-color: white;
-        }
-
-        .awards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-        }
-
-        .award-card {
-            background-color: #f9fafb;
-            padding: 2rem;
-            border-radius: 8px;
-            border-left: 4px solid #ea580c;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-        }
-
-        .award-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .award-card h3 {
-            margin-bottom: 0.5rem;
-            color: #1e3a8a;
-        }
-
-        .award-issuer {
-            color: #0891b2;
-            font-weight: 600;
-            margin-bottom: 0.25rem;
-        }
-
-        .award-year {
-            color: #ea580c;
-            font-weight: 600;
-            margin-bottom: 1rem;
-        }
-
-        .award-description {
-            color: #6b7280;
-            font-size: 0.95rem;
-            margin: 0;
-        }
-
-        .achievements-section {
-            background-color: #f9fafb;
-        }
-
-        .achievements-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .achievement-item {
-            display: flex;
-            gap: 1.5rem;
-            background-color: white;
-            padding: 1.5rem;
-            border-radius: 8px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-        }
-
-        .achievement-icon {
-            flex-shrink: 0;
-            width: 40px;
-            height: 40px;
-            background-color: #0891b2;
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 1.2rem;
-        }
-
-        .achievement-content h4 {
-            margin-bottom: 0.5rem;
-            color: #1e3a8a;
-        }
-
-        .achievement-content p {
-            margin: 0;
-            color: #6b7280;
-            font-size: 0.95rem;
-        }
-
-        @media (max-width: 768px) {
-            .page-header h1 {
-                font-size: 2rem;
-            }
-
-            .awards-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .achievements-list {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
 
     <script src="../js/main.js"></script>
 </body>

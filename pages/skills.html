@@ -3,222 +3,181 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Technical skills and expertise of Hayl Khadhami">
-    <title>Skills - Hayl Khadhami</title>
+    <meta name="description" content="Technical Skills and Competencies - Hayl Al-Khadhami">
+    <title>Skills & Competencies | Hayl Al-Khadhami</title>
+    <link rel="icon" type="image/png" href="../images/favicon.png">
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="../css/responsive.css">
-	<link rel="shortcut icon" href="../images/favicon.png">
-
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loader">
+            <div class="gear-system">
+                <i class="fas fa-cog gear-1"></i>
+                <i class="fas fa-cog gear-2"></i>
+                <i class="fas fa-cog gear-3"></i>
+            </div>
+            <p class="loading-text">Loading Skills...</p>
+        </div>
+    </div>
+
     <!-- Navigation -->
-    <nav class="navbar">
-        <div class="container">
-            <div class="nav-brand">
-                <h1>Hayl Khadhami</h1>
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="../index.html" class="logo">
+                <span class="logo-text">HK</span>
+                <span class="logo-subtitle">Automation</span>
+            </a>
+            <div class="nav-menu" id="navMenu">
+                <a href="../index.html" class="nav-link">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </a>
+                <a href="experience.html" class="nav-link">
+                    <i class="fas fa-briefcase"></i>
+                    <span>Experience</span>
+                </a>
+                <a href="skills.html" class="nav-link active">
+                    <i class="fas fa-code"></i>
+                    <span>Skills</span>
+                </a>
+                <a href="projects.html" class="nav-link">
+                    <i class="fas fa-project-diagram"></i>
+                    <span>Projects</span>
+                </a>
+                <a href="publications.html" class="nav-link">
+                    <i class="fas fa-book"></i>
+                    <span>Publications</span>
+                </a>
+                <a href="../index.html#contact" class="nav-link">
+                    <i class="fas fa-envelope"></i>
+                    <span>Contact</span>
+                </a>
             </div>
-            <ul class="nav-menu">
-                <li><a href="../index.html" class="nav-link">Home</a></li>
-                <li><a href="../index.html#about" class="nav-link">About</a></li>
-                <li><a href="experience.html" class="nav-link">Experience</a></li>
-                <li><a href="skills.html" class="nav-link active">Skills</a></li>
-                <li><a href="projects.html" class="nav-link">Projects</a></li>
-                <li><a href="publications.html" class="nav-link">Publications</a></li>
-                <li><a href="../index.html#contact" class="nav-link">Contact</a></li>
-                <li><a href="https://github.com/halkhadhami" target="_blank" class="nav-link">GitHub</a></li>
-            </ul>
-            <div class="hamburger">
+            <button class="hamburger" id="hamburger">
                 <span></span>
                 <span></span>
                 <span></span>
-            </div>
+            </button>
         </div>
     </nav>
 
     <!-- Page Header -->
     <section class="page-header">
         <div class="container">
-            <h1>Technical Skills</h1>
-            <p>20+ years of combined expertise across multiple domains</p>
+            <div class="page-header-content" data-aos="fade-up">
+                <span class="section-tag">Technical Expertise</span>
+                <h1 class="page-title">Skills & <span class="gradient-text">Competencies</span></h1>
+                <p class="page-description">Comprehensive technical abilities spanning automation, programming, AI, and electrical systems</p>
+            </div>
         </div>
+        <div class="header-decoration"></div>
     </section>
 
-    <!-- Skills Section -->
-    <section class="skills-section">
+    <!-- Industrial Automation & Control Systems -->
+    <section class="education-section">
         <div class="container">
-            <div class="skills-grid">
-                <!-- Simulation & Design -->
-                <div class="skill-category">
-                    <h3>🎨 Simulation & Design</h3>
-                    <div class="skills-list">
-                        <div class="skill-item">
-                            <span class="skill-name">ANSYS Maxwell</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 95%"></div>
-                            </div>
-                            <span class="skill-level">Expert</span>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">COMSOL</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 90%"></div>
-                            </div>
-                            <span class="skill-level">Expert</span>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">SolidWorks</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 85%"></div>
-                            </div>
-                            <span class="skill-level">Advanced</span>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">MATLAB/Simulink</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 85%"></div>
-                            </div>
-                            <span class="skill-level">Advanced</span>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">Eplan E3 Series</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 80%"></div>
-                            </div>
-                            <span class="skill-level">Advanced</span>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">PCB Design (Proteus, Eagle)</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 80%"></div>
-                            </div>
-                            <span class="skill-level">Advanced</span>
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-tag">Core Expertise</span>
+                <h2 class="section-title">Industrial Automation & Control Systems</h2>
+                <div class="title-underline"></div>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item" data-aos="fade-right">
+                    <div class="timeline-marker">
+                        <i class="fas fa-microchip"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>PLC Programming & Design</h3>
+                        <p class="skill-level-badge expert">Expert Level</p>
+                        <p class="timeline-description">
+                            Extensive experience in designing, programming, and commissioning programmable logic controllers 
+                            for industrial machinery and production lines. Proficient in multiple PLC platforms and 
+                            programming languages with hands-on implementation of complex control algorithms.
+                        </p>
+                        <div class="timeline-tags">
+                            <span>Siemens TIA Portal</span>
+                            <span>Step 7</span>
+                            <span>Allen-Bradley</span>
+                            <span>Ladder Logic</span>
+                            <span>Function Block Diagram</span>
+                            <span>Structured Text</span>
+                            <span>Sequential Function Chart</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Control & Automation -->
-                <div class="skill-category">
-                    <h3>⚙️ Control & Automation</h3>
-                    <div class="skills-list">
-                        <div class="skill-item">
-                            <span class="skill-name">PLC Programming (Siemens, Mitsubishi, Omron)</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 95%"></div>
-                            </div>
-                            <span class="skill-level">Expert</span>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">SCADA Systems</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 90%"></div>
-                            </div>
-                            <span class="skill-level">Expert</span>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">HMI Development</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 85%"></div>
-                            </div>
-                            <span class="skill-level">Advanced</span>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">OPC UA & MQTT</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 80%"></div>
-                            </div>
-                            <span class="skill-level">Advanced</span>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">Digital Twin Development</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 80%"></div>
-                            </div>
-                            <span class="skill-level">Advanced</span>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">IoT Integration</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 70%"></div>
-                            </div>
-                            <span class="skill-level">Intermediate</span>
+                <div class="timeline-item" data-aos="fade-left">
+                    <div class="timeline-marker">
+                        <i class="fas fa-desktop"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>HMI & SCADA Systems</h3>
+                        <p class="skill-level-badge expert">Expert Level</p>
+                        <p class="timeline-description">
+                            Design and development of intuitive Human-Machine Interfaces and supervisory control systems. 
+                            Expertise in creating operator-friendly interfaces with real-time monitoring, data visualization, 
+                            alarm management, and trend analysis for industrial processes.
+                        </p>
+                        <div class="timeline-tags">
+                            <span>Siemens WinCC</span>
+                            <span>FactoryTalk View</span>
+                            <span>Wonderware</span>
+                            <span>SCADA Architecture</span>
+                            <span>Data Acquisition</span>
+                            <span>Process Monitoring</span>
+                            <span>Alarm Configuration</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Data & AI Tools -->
-                <div class="skill-category">
-                    <h3>🤖 Data & AI Tools</h3>
-                    <div class="skills-list">
-                        <div class="skill-item">
-                            <span class="skill-name">Python (SciPy, NumPy)</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 85%"></div>
-                            </div>
-                            <span class="skill-level">Advanced</span>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">TensorFlow & Deep Learning</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 85%"></div>
-                            </div>
-                            <span class="skill-level">Advanced</span>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">CNN Pattern Recognition</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 85%"></div>
-                            </div>
-                            <span class="skill-level">Advanced</span>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">Data Analytics (SPSS)</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 75%"></div>
-                            </div>
-                            <span class="skill-level">Intermediate</span>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">Jupyter Lab & Kaggle</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 75%"></div>
-                            </div>
-                            <span class="skill-level">Intermediate</span>
+                <div class="timeline-item" data-aos="fade-right">
+                    <div class="timeline-marker">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>Control Panel Design & Implementation</h3>
+                        <p class="skill-level-badge expert">Expert Level</p>
+                        <p class="timeline-description">
+                            Complete lifecycle management of electrical control panels from concept to commissioning. 
+                            Skilled in creating detailed electrical schematics, panel layouts, component selection, 
+                            wiring implementation, and on-site installation with safety compliance.
+                        </p>
+                        <div class="timeline-tags">
+                            <span>EPLAN Electric P8</span>
+                            <span>AutoCAD Electrical</span>
+                            <span>Panel Layout Design</span>
+                            <span>Wiring Diagrams</span>
+                            <span>Component Selection</span>
+                            <span>Installation & Commissioning</span>
+                            <span>IEC Standards</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Programming Languages -->
-                <div class="skill-category">
-                    <h3>💻 Programming Languages</h3>
-                    <div class="skills-list">
-                        <div class="skill-item">
-                            <span class="skill-name">C++</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 85%"></div>
-                            </div>
-                            <span class="skill-level">Advanced</span>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">C#</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 85%"></div>
-                            </div>
-                            <span class="skill-level">Advanced</span>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">Embedded Systems (AVR, PIC)</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 85%"></div>
-                            </div>
-                            <span class="skill-level">Advanced</span>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">Assembly</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 70%"></div>
-                            </div>
-                            <span class="skill-level">Intermediate</span>
+                <div class="timeline-item" data-aos="fade-left">
+                    <div class="timeline-marker">
+                        <i class="fas fa-network-wired"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>Industrial Networks & Communication</h3>
+                        <p class="skill-level-badge advanced">Advanced Level</p>
+                        <p class="timeline-description">
+                            Configuration and troubleshooting of industrial communication protocols and networks. 
+                            Experience with various fieldbus systems, Ethernet-based industrial protocols, and 
+                            device integration for seamless data exchange across automation systems.
+                        </p>
+                        <div class="timeline-tags">
+                            <span>Profibus</span>
+                            <span>Profinet</span>
+                            <span>Modbus TCP/RTU</span>
+                            <span>Ethernet/IP</span>
+                            <span>DeviceNet</span>
+                            <span>OPC UA</span>
+                            <span>Network Diagnostics</span>
                         </div>
                     </div>
                 </div>
@@ -226,26 +185,551 @@
         </div>
     </section>
 
-    <!-- Certifications -->
-    <section class="certifications-section">
+    <!-- Programming & Software Development -->
+    <section class="experience-section">
         <div class="container">
-            <h2 class="section-title">Certifications & Training</h2>
-            <div class="certifications-grid">
-                <div class="cert-card">
-                    <h4>Siemens PLC Programming</h4>
-                    <p>Advanced certification in S7-1200 and S7-1500 programming</p>
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-tag">Software Engineering</span>
+                <h2 class="section-title">Programming & Software Development</h2>
+                <div class="title-underline"></div>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item" data-aos="fade-right">
+                    <div class="timeline-marker">
+                        <i class="fab fa-python"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>Python Programming</h3>
+                        <p class="skill-level-badge advanced">Advanced Level</p>
+                        <p class="timeline-description">
+                            Proficient in Python for data analysis, machine learning applications, automation scripts, 
+                            and scientific computing. Extensive use in research projects, including deep learning model 
+                            development and data processing pipelines.
+                        </p>
+                        <div class="timeline-tags">
+                            <span>NumPy</span>
+                            <span>Pandas</span>
+                            <span>Matplotlib</span>
+                            <span>TensorFlow</span>
+                            <span>PyTorch</span>
+                            <span>OpenCV</span>
+                            <span>Scikit-learn</span>
+                            <span>Jupyter Notebooks</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="cert-card">
-                    <h4>SCADA System Design</h4>
-                    <p>Professional certification in SCADA systems and supervisory control</p>
+
+                <div class="timeline-item" data-aos="fade-left">
+                    <div class="timeline-marker">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>C/C++ Programming</h3>
+                        <p class="skill-level-badge advanced">Advanced Level</p>
+                        <p class="timeline-description">
+                            Strong foundation in C/C++ for embedded systems development, system-level programming, 
+                            and performance-critical applications. Extensive teaching experience in algorithms, 
+                            data structures, and object-oriented programming principles.
+                        </p>
+                        <div class="timeline-tags">
+                            <span>Embedded C</span>
+                            <span>Object-Oriented Design</span>
+                            <span>STL</span>
+                            <span>Memory Management</span>
+                            <span>Algorithms</span>
+                            <span>Data Structures</span>
+                            <span>System Programming</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="cert-card">
-                    <h4>Industrial IoT & Industry 4.0</h4>
-                    <p>Certification in IoT integration and Industry 4.0 technologies</p>
+
+                <div class="timeline-item" data-aos="fade-right">
+                    <div class="timeline-marker">
+                        <i class="fas fa-window-maximize"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>C# & .NET Development</h3>
+                        <p class="skill-level-badge intermediate">Intermediate Level</p>
+                        <p class="timeline-description">
+                            Development of Windows desktop applications using C# and the .NET Framework. Experience 
+                            in creating GUI applications, industrial HMI software, and automation tools with database 
+                            connectivity and real-time data visualization.
+                        </p>
+                        <div class="timeline-tags">
+                            <span>.NET Framework</span>
+                            <span>Windows Forms</span>
+                            <span>WPF</span>
+                            <span>Event-Driven Programming</span>
+                            <span>SQL Integration</span>
+                            <span>GUI Design</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="cert-card">
-                    <h4>Deep Learning Specialization</h4>
-                    <p>Completion of comprehensive deep learning and neural networks course</p>
+
+                <div class="timeline-item" data-aos="fade-left">
+                    <div class="timeline-marker">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>Android Application Development</h3>
+                        <p class="skill-level-badge intermediate">Intermediate Level</p>
+                        <p class="timeline-description">
+                            Mobile application development for Android platform with experience in teaching Android 
+                            development courses. Knowledge of mobile UI/UX design, activity lifecycle, data persistence, 
+                            and integration with backend services.
+                        </p>
+                        <div class="timeline-tags">
+                            <span>Java</span>
+                            <span>Android Studio</span>
+                            <span>Activity & Fragments</span>
+                            <span>XML Layouts</span>
+                            <span>SQLite Database</span>
+                            <span>RESTful APIs</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI & Machine Learning -->
+    <section class="education-section">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-tag">Artificial Intelligence</span>
+                <h2 class="section-title">AI & Deep Learning</h2>
+                <div class="title-underline"></div>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item" data-aos="fade-right">
+                    <div class="timeline-marker">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>Computer Vision & Image Processing</h3>
+                        <p class="skill-level-badge advanced">Advanced Level</p>
+                        <p class="timeline-description">
+                            Extensive research and practical experience in computer vision applications. Developed 
+                            published research on traffic light detection systems using CNN-based approaches. Proficient 
+                            in image preprocessing, feature extraction, and real-time object detection systems.
+                        </p>
+                        <div class="timeline-tags">
+                            <span>OpenCV</span>
+                            <span>Image Preprocessing</span>
+                            <span>Feature Extraction</span>
+                            <span>Object Detection</span>
+                            <span>YOLO Framework</span>
+                            <span>Image Segmentation</span>
+                            <span>Edge Detection</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-aos="fade-left">
+                    <div class="timeline-marker">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>Deep Learning & Neural Networks</h3>
+                        <p class="skill-level-badge advanced">Advanced Level</p>
+                        <p class="timeline-description">
+                            Hands-on experience designing, training, and deploying deep neural networks for various 
+                            applications. Expertise in convolutional neural networks (CNNs) for image classification, 
+                            model optimization, and transfer learning techniques with published research outcomes.
+                        </p>
+                        <div class="timeline-tags">
+                            <span>TensorFlow</span>
+                            <span>Keras</span>
+                            <span>CNN Architecture</span>
+                            <span>YOLOv3/v4</span>
+                            <span>Transfer Learning</span>
+                            <span>Model Training</span>
+                            <span>Hyperparameter Tuning</span>
+                            <span>Kaggle Competitions</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-aos="fade-right">
+                    <div class="timeline-marker">
+                        <i class="fas fa-project-diagram"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>Pattern Recognition & Classification</h3>
+                        <p class="skill-level-badge advanced">Advanced Level</p>
+                        <p class="timeline-description">
+                            Academic and research background in pattern recognition methodologies. Experience with 
+                            various classification algorithms, feature selection techniques, and statistical pattern 
+                            recognition approaches for automated decision-making systems.
+                        </p>
+                        <div class="timeline-tags">
+                            <span>Feature Engineering</span>
+                            <span>Classification Algorithms</span>
+                            <span>SVM</span>
+                            <span>Decision Trees</span>
+                            <span>Random Forest</span>
+                            <span>Clustering Methods</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-aos="fade-left">
+                    <div class="timeline-marker">
+                        <i class="fas fa-network-wired"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>Graph Neural Networks</h3>
+                        <p class="skill-level-badge intermediate">Intermediate Level</p>
+                        <p class="timeline-description">
+                            Current research focus on Graph Neural Networks (GNN) integration in recommender systems. 
+                            Working on a comprehensive survey paper analyzing advancements in GNN architectures and 
+                            their applications in recommendation algorithms.
+                        </p>
+                        <div class="timeline-tags">
+                            <span>Graph Theory</span>
+                            <span>GNN Architectures</span>
+                            <span>Recommender Systems</span>
+                            <span>Node Embedding</span>
+                            <span>Graph Convolution</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Embedded Systems & Electronics -->
+    <section class="experience-section">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-tag">Hardware Design</span>
+                <h2 class="section-title">Embedded Systems & Electronics</h2>
+                <div class="title-underline"></div>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item" data-aos="fade-right">
+                    <div class="timeline-marker">
+                        <i class="fas fa-microchip"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>AVR & PIC Microcontrollers</h3>
+                        <p class="skill-level-badge expert">Expert Level</p>
+                        <p class="timeline-description">
+                            Comprehensive experience in embedded systems design using AVR (ATmega series) and PIC 
+                            microcontrollers. Teaching embedded systems courses with hands-on laboratory implementation. 
+                            Expertise in peripheral programming, interrupt handling, and real-time system development.
+                        </p>
+                        <div class="timeline-tags">
+                            <span>ATmega Series</span>
+                            <span>PIC16/PIC18</span>
+                            <span>AVR Studio</span>
+                            <span>MPLAB IDE</span>
+                            <span>Peripheral Programming</span>
+                            <span>Timer/Counter</span>
+                            <span>ADC/DAC</span>
+                            <span>UART/SPI/I2C</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-aos="fade-left">
+                    <div class="timeline-marker">
+                        <i class="fas fa-memory"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>PCB Design & Hardware Development</h3>
+                        <p class="skill-level-badge advanced">Advanced Level</p>
+                        <p class="timeline-description">
+                            Skilled in complete PCB design workflow from schematic capture to layout optimization and 
+                            manufacturing preparation. Experience with multi-layer board design, component placement, 
+                            signal integrity considerations, and design for manufacturability (DFM).
+                        </p>
+                        <div class="timeline-tags">
+                            <span>Eagle CAD</span>
+                            <span>Altium Designer</span>
+                            <span>Schematic Design</span>
+                            <span>PCB Layout</span>
+                            <span>Gerber Files</span>
+                            <span>Component Libraries</span>
+                            <span>Signal Integrity</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-aos="fade-right">
+                    <div class="timeline-marker">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>Digital & Analog Electronics</h3>
+                        <p class="skill-level-badge expert">Expert Level</p>
+                        <p class="timeline-description">
+                            Strong foundation in both digital and analog circuit design. Teaching experience in 
+                            electronics courses covering digital logic design, combinational and sequential circuits, 
+                            operational amplifiers, transistor circuits, and power electronics fundamentals.
+                        </p>
+                        <div class="timeline-tags">
+                            <span>Digital Logic Design</span>
+                            <span>Boolean Algebra</span>
+                            <span>Sequential Circuits</span>
+                            <span>Op-Amp Circuits</span>
+                            <span>Transistor Amplifiers</span>
+                            <span>Power Supply Design</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-aos="fade-left">
+                    <div class="timeline-marker">
+                        <i class="fas fa-code-branch"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>Assembly Language Programming</h3>
+                        <p class="skill-level-badge intermediate">Intermediate Level</p>
+                        <p class="timeline-description">
+                            Teaching experience in assembly language programming for microcontrollers and processors. 
+                            Understanding of low-level hardware interaction, instruction sets, memory management, 
+                            and optimization techniques for resource-constrained embedded systems.
+                        </p>
+                        <div class="timeline-tags">
+                            <span>AVR Assembly</span>
+                            <span>PIC Assembly</span>
+                            <span>Instruction Sets</span>
+                            <span>Register Operations</span>
+                            <span>Memory Addressing</span>
+                            <span>Code Optimization</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Electrical Systems & Power -->
+    <section class="education-section">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-tag">Power Systems</span>
+                <h2 class="section-title">Electrical Systems & Energy</h2>
+                <div class="title-underline"></div>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item" data-aos="fade-right">
+                    <div class="timeline-marker">
+                        <i class="fas fa-plug"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>Industrial Electrical Wiring & Installation</h3>
+                        <p class="skill-level-badge expert">Expert Level</p>
+                        <p class="timeline-description">
+                            Over 10 years of hands-on experience in industrial electrical installations. Expertise in 
+                            power distribution systems, cable sizing and routing, grounding systems, and compliance 
+                            with electrical safety standards. Field experience in commissioning and maintenance.
+                        </p>
+                        <div class="timeline-tags">
+                            <span>Power Distribution</span>
+                            <span>Cable Management</span>
+                            <span>Conduit Installation</span>
+                            <span>Grounding Systems</span>
+                            <span>Circuit Breakers</span>
+                            <span>Motor Controls</span>
+                            <span>Safety Standards</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-aos="fade-left">
+                    <div class="timeline-marker">
+                        <i class="fas fa-solar-panel"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>Solar Energy & Renewable Systems</h3>
+                        <p class="skill-level-badge advanced">Advanced Level</p>
+                        <p class="timeline-description">
+                            Design and implementation of solar photovoltaic systems including panel sizing, inverter 
+                            selection, battery storage systems, and grid integration. Knowledge of solar system 
+                            optimization, energy yield analysis, and off-grid power solutions.
+                        </p>
+                        <div class="timeline-tags">
+                            <span>PV System Design</span>
+                            <span>Solar Inverters</span>
+                            <span>Battery Storage</span>
+                            <span>MPPT Controllers</span>
+                            <span>Grid Integration</span>
+                            <span>Energy Calculations</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-aos="fade-right">
+                    <div class="timeline-marker">
+                        <i class="fas fa-ruler-combined"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>Electrical Schematic Design (EPLAN)</h3>
+                        <p class="skill-level-badge expert">Expert Level</p>
+                        <p class="timeline-description">
+                            Professional-level proficiency in EPLAN Electric P8 for creating comprehensive electrical 
+                            documentation. Experience producing detailed schematics, panel layouts, terminal diagrams, 
+                            cable schedules, and parts lists for industrial automation projects.
+                        </p>
+                        <div class="timeline-tags">
+                            <span>EPLAN P8</span>
+                            <span>Circuit Diagrams</span>
+                            <span>Panel Layouts</span>
+                            <span>Terminal Plans</span>
+                            <span>Cable Routing</span>
+                            <span>Parts Management</span>
+                            <span>Documentation</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-aos="fade-left">
+                    <div class="timeline-marker">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>Instrumentation & Measurement</h3>
+                        <p class="skill-level-badge advanced">Advanced Level</p>
+                        <p class="timeline-description">
+                            Academic training and practical experience in industrial instrumentation. Understanding of 
+                            measurement principles, sensor technologies, signal conditioning, calibration procedures, 
+                            and integration of field instruments with control systems.
+                        </p>
+                        <div class="timeline-tags">
+                            <span>Sensors & Transducers</span>
+                            <span>4-20mA Signals</span>
+                            <span>Temperature Measurement</span>
+                            <span>Pressure Sensors</span>
+                            <span>Flow Meters</span>
+                            <span>Calibration</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Research & Management -->
+    <section class="experience-section">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-tag">Professional Skills</span>
+                <h2 class="section-title">Research & Management</h2>
+                <div class="title-underline"></div>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item" data-aos="fade-right">
+                    <div class="timeline-marker">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>Research Methodologies & Academic Writing</h3>
+                        <p class="skill-level-badge advanced">Advanced Level</p>
+                        <p class="timeline-description">
+                            Comprehensive training in research methods from master's program. Experience conducting 
+                            qualitative and quantitative research, literature reviews, statistical analysis, and 
+                            academic writing. Published research in peer-reviewed journals with additional work under review.
+                        </p>
+                        <div class="timeline-tags">
+                            <span>Research Design</span>
+                            <span>Literature Review</span>
+                            <span>Data Collection</span>
+                            <span>Statistical Analysis</span>
+                            <span>Academic Writing</span>
+                            <span>EndNote</span>
+                            <span>SPSS</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-aos="fade-left">
+                    <div class="timeline-marker">
+                        <i class="fas fa-tasks"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>Project & Quality Management</h3>
+                        <p class="skill-level-badge advanced">Advanced Level</p>
+                        <p class="timeline-description">
+                            Master's level education in project management, Total Quality Management (TQM), and Six Sigma 
+                            methodologies. Experience applying these principles in industrial automation projects, 
+                            including planning, execution, monitoring, and process improvement initiatives.
+                        </p>
+                        <div class="timeline-tags">
+                            <span>Project Planning</span>
+                            <span>Risk Management</span>
+                            <span>Six Sigma</span>
+                            <span>Total Quality Management</span>
+                            <span>Lean Manufacturing</span>
+                            <span>Process Improvement</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-aos="fade-right">
+                    <div class="timeline-marker">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>Teaching & Communication</h3>
+                        <p class="skill-level-badge expert">Expert Level</p>
+                        <p class="timeline-description">
+                            11+ years of university teaching experience across 15+ technical courses. Developed strong 
+                            presentation skills, ability to explain complex concepts clearly, curriculum development, 
+                            and mentoring students. Effective communication in multilingual environments.
+                        </p>
+                        <div class="timeline-tags">
+                            <span>Curriculum Development</span>
+                            <span>Presentation Skills</span>
+                            <span>Technical Documentation</span>
+                            <span>Student Mentoring</span>
+                            <span>Lab Instruction</span>
+                            <span>Multilingual (English, Arabic, Urdu, Chinese)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-aos="fade-left">
+                    <div class="timeline-marker">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>Team Collaboration & Leadership</h3>
+                        <p class="skill-level-badge advanced">Advanced Level</p>
+                        <p class="timeline-description">
+                            Experience leading automation projects and coordinating with cross-functional teams including 
+                            mechanical engineers, production staff, and management. Proven ability to work collaboratively 
+                            in industrial environments and academic settings.
+                        </p>
+                        <div class="timeline-tags">
+                            <span>Team Leadership</span>
+                            <span>Cross-functional Collaboration</span>
+                            <span>Problem Solving</span>
+                            <span>Technical Support</span>
+                            <span>Stakeholder Communication</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content" data-aos="fade-up">
+                <h2>Ready to Collaborate?</h2>
+                <p>Let's discuss how my skills can help achieve your automation goals</p>
+                <div class="cta-buttons">
+                    <a href="projects.html" class="btn btn-primary">
+                        <span>See My Work</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                    <a href="../index.html#contact" class="btn btn-secondary">
+                        <span>Contact Me</span>
+                        <i class="fas fa-paper-plane"></i>
+                    </a>
                 </div>
             </div>
         </div>
@@ -254,141 +738,40 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2025 Hayl Khadhami. All rights reserved.</p>
-            <p>PhD Researcher | Automation Engineer | Industrial Systems Expert</p>
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h3>Hayl Al-Khadhami</h3>
+                    <p>Automation Engineer | Researcher | Educator</p>
+                </div>
+                <div class="footer-links">
+                    <a href="../index.html">Home</a>
+                    <a href="experience.html">Experience</a>
+                    <a href="skills.html">Skills</a>
+                    <a href="projects.html">Projects</a>
+                    <a href="publications.html">Publications</a>
+                </div>
+                <div class="footer-social">
+                    <a href="https://www.linkedin.com/in/halkhadhami/" target="_blank" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="https://www.facebook.com/haylkhadhami" target="_blank" aria-label="Facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="https://github.com/halkhadhami" target="_blank" aria-label="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Hayl Al-Khadhami. All rights reserved.</p>
+            </div>
         </div>
     </footer>
 
-    <style>
-        .page-header {
-            background: linear-gradient(135deg, #1e3a8a 0%, #0891b2 100%);
-            color: white;
-            padding: 60px 20px;
-            text-align: center;
-        }
-
-        .page-header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .page-header p {
-            font-size: 1.2rem;
-            color: rgba(255, 255, 255, 0.9);
-            margin: 0;
-        }
-
-        .skills-section {
-            background-color: #f9fafb;
-        }
-
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .skill-category {
-            background-color: white;
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-        }
-
-        .skill-category h3 {
-            margin-bottom: 1.5rem;
-            font-size: 1.3rem;
-            color: #1e3a8a;
-        }
-
-        .skills-list {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-
-        .skill-item {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .skill-name {
-            font-weight: 600;
-            color: #1f2937;
-            font-size: 0.95rem;
-        }
-
-        .skill-bar {
-            width: 100%;
-            height: 8px;
-            background-color: #e5e7eb;
-            border-radius: 4px;
-            overflow: hidden;
-        }
-
-        .skill-progress {
-            height: 100%;
-            background: linear-gradient(90deg, #0891b2 0%, #ea580c 100%);
-            border-radius: 4px;
-            transition: width 0.6s ease;
-        }
-
-        .skill-level {
-            font-size: 0.8rem;
-            color: #6b7280;
-            font-weight: 500;
-        }
-
-        .certifications-section {
-            background-color: white;
-        }
-
-        .certifications-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-        }
-
-        .cert-card {
-            background-color: #f9fafb;
-            padding: 2rem;
-            border-radius: 8px;
-            border-top: 4px solid #0891b2;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-        }
-
-        .cert-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .cert-card h4 {
-            color: #1e3a8a;
-            margin-bottom: 0.5rem;
-        }
-
-        .cert-card p {
-            color: #6b7280;
-            margin: 0;
-            font-size: 0.95rem;
-        }
-
-        @media (max-width: 768px) {
-            .page-header h1 {
-                font-size: 2rem;
-            }
-
-            .skills-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .certifications-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
 
     <script src="../js/main.js"></script>
 </body>

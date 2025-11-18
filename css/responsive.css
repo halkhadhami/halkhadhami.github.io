@@ -132,6 +132,83 @@
     }
     
     /* ===== Logo Mobile ===== */
+	
+	/* ===== Better Floating Cards Layout for Mobile ===== */
+@media (max-width: 768px) {
+    .floating-card {
+        padding: 0.5rem 0.8rem;
+        font-size: 0.75rem;
+        white-space: nowrap;
+    }
+    
+    .floating-card i {
+        font-size: 1rem;
+        margin-right: 0.3rem;
+    }
+    
+    /* Spread cards evenly around image */
+    .card-1 {
+        top: 0%;
+        right: 5px;
+        left: auto;
+    }
+    
+    .card-2 {
+        top: 25%;
+        left: 5px;
+        right: auto;
+    }
+    
+    .card-3 {
+        top: 50%;
+        right: 5px;
+        left: auto;
+    }
+    
+    .card-4 {
+        top: 75%;
+        left: 5px;
+        right: auto;
+    }
+    
+    .card-5 {
+        bottom: 5%;
+        right: 5px;
+        left: auto;
+    }
+    
+    .card-6 {
+        bottom: 5%;
+        left: 5px;
+        right: auto;
+    }
+}
+
+/* For very small screens - hide some cards */
+@media (max-width: 480px) {
+    .card-4,
+    .card-5,
+    .card-6 {
+        display: none; /* Hide extra cards on very small screens */
+    }
+    
+    .card-1 {
+        top: 10%;
+        right: 0px;
+    }
+    
+    .card-2 {
+        top: 50%;
+        left: 0px;
+    }
+    
+    .card-3 {
+        bottom: 10%;
+        right: 0px;
+    }
+}
+
+	
     .logo {
         gap: 0.4rem;
     }

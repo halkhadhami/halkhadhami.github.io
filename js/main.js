@@ -110,7 +110,7 @@ if (typingText) {
 }
 
 // ===================================
-// Animated Counter for Stats
+// Animated Counter for Stats - MOBILE FIXED
 // ===================================
 const stats = document.querySelectorAll('.stat-number');
 let hasAnimated = false;
@@ -120,10 +120,13 @@ function animateCounters() {
     
     stats.forEach(stat => {
         const target = parseInt(stat.getAttribute('data-target'));
-        if (!target) return;
+        if (!target) {
+            // If no animation, just show the number
+            return;
+        }
         
-        const duration = 2000; // 2 seconds
-        const increment = target / (duration / 16); // 60fps
+        const duration = 2000;
+        const increment = target / (duration / 16);
         let current = 0;
         
         const updateCounter = () => {
@@ -142,11 +145,13 @@ function animateCounters() {
     hasAnimated = true;
 }
 
-// Trigger counter animation when stats section is visible
+// Initialize counters
 const aboutSection = document.querySelector('.about');
 if (aboutSection && stats.length > 0) {
+    // Lower threshold for mobile
     const observerOptions = {
-        threshold: 0.5
+        threshold: 0.2,  // Changed from 0.5 to 0.2 for mobile
+        rootMargin: '0px 0px -10% 0px'
     };
     
     const observer = new IntersectionObserver((entries) => {
@@ -158,7 +163,27 @@ if (aboutSection && stats.length > 0) {
     }, observerOptions);
     
     observer.observe(aboutSection);
+    
+    // Fallback: Animate after 2 seconds if observer doesn't trigger
+    setTimeout(() => {
+        if (!hasAnimated) {
+            animateCounters();
+        }
+    }, 2000);
 }
+
+// Another fallback: Show numbers immediately if animation fails
+stats.forEach(stat => {
+    const target = parseInt(stat.getAttribute('data-target'));
+    if (target && stat.textContent === '0') {
+        setTimeout(() => {
+            if (stat.textContent === '0') {
+                stat.textContent = target;
+            }
+        }, 3000);
+    }
+});
+
 
 // ===================================
 // Scroll Animations (AOS Alternative)

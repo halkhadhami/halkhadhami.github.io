@@ -16,6 +16,7 @@
     --text-primary: #0f172a;      /* Dark blue-black */
     --text-secondary: #475569;    /* Medium gray */
     --text-muted: #94a3b8;        /* Light gray */
+	--text-muted1: #ffffff;        /* Light */
     
     /* Accent Colors - Keep same */
     --accent-green: #10b981;
@@ -228,7 +229,7 @@ img {
 .logo-subtitle {
     font-size: 1.5rem;
     font-weight: 600;
-    color: var(--primary-color);
+    color: var(--text-muted1);
     letter-spacing: 1.5px;
     text-transform: uppercase;
     font-family: var(--font-mono);
@@ -236,7 +237,7 @@ img {
 }
 
 .logo:hover .logo-subtitle {
-    color: var(--secondary-color);
+    color: var(--primary-color);
     letter-spacing: 2px;
 }
 
@@ -253,8 +254,8 @@ img {
     gap: 0.5rem;
     padding: 0.5rem 1rem;
     /* Lighter text color */
-    color: var(--text-muted);
-    font-weight: 400; /* was 500, now lighter */
+    color: var(--text-muted1);
+    font-weight: 500; /* was 500, now lighter */
     border-radius: var(--radius-sm);
     transition: var(--transition-normal);
     position: relative;
@@ -1549,7 +1550,6 @@ section {
 
 /* ===================================
    Projects Page Styles
-    
    =================================== */
 .project-filters {
     background: var(--bg-primary);
@@ -2378,9 +2378,4 @@ section {
     transform: scale(1.05);
 }
 
-/* Adjust logo container */
-.logo {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
+

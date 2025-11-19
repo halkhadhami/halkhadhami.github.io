@@ -1,15 +1,3 @@
-// ===================================
-// Loading Screen
-// ===================================
-window.addEventListener('load', () => {
-    const loadingScreen = document.getElementById('loadingScreen');
-    // Ensure minimum loading time for smooth transition
-    setTimeout(() => {
-        if (loadingScreen) {
-            loadingScreen.classList.add('hidden');
-        }
-    }, 500); // Reduced from 1500ms to 1000ms
-});
 
 // ===================================
 // Navbar Scroll Effect

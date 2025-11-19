@@ -29,10 +29,15 @@
     <!-- Navigation -->
     <nav class="navbar" id="navbar">
         <div class="nav-container">
-            <a href="index.html" class="logo">
-                <img src="images/loader.gif" alt="HK Logo" class="logo-image">
-                <span class="logo-subtitle">hayl khadhami</span>
-            </a>
+			<a href="index.html" class="logo">
+				<div class="logo-icon">
+					<!-- Put your GOOD GIF here, no width/height attributes -->
+					<img src="images/loader.gif" alt="HK logo">
+				</div>
+				<span class="logo-text">Hayl Khadhami</span>
+			</a>
+
+
             <div class="nav-menu" id="navMenu">
                 <a href="index.html" class="nav-link active">
                     <i class="fas fa-home"></i>
@@ -376,30 +381,44 @@
                         </blockquote>
                     </div>
                 </div>
-                <div class="contact-form-wrapper" data-aos="fade-left">
-                    <form class="contact-form" id="contactForm">
-                        <div class="form-group">
-                            <label for="name">Your Name</label>
-                            <input type="text" id="name" name="name" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Your Email</label>
-                            <input type="email" id="email" name="email" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="subject">Subject</label>
-                            <input type="text" id="subject" name="subject" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="message">Message</label>
-                            <textarea id="message" name="message" rows="5" required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-full">
-                            <span>Send Message</span>
-                            <i class="fas fa-paper-plane"></i>
-                        </button>
-                    </form>
-                </div>
+				<div class="contact-form-wrapper" data-aos="fade-left">
+				  <form
+					class="contact-form"
+					id="contactForm"
+					action="https://formspree.io/f/manvedzb"
+					method="POST"
+				  >
+					<div class="form-group">
+					  <label for="name">Your Name</label>
+					  <input type="text" id="name" name="name" required>
+					</div>
+
+					<div class="form-group">
+					  <label for="email">Your Email</label>
+					  <!-- IMPORTANT: _replyto, NOT mailto -->
+					  <input type="email" id="email" name="_replyto" required>
+					</div>
+
+					<div class="form-group">
+					  <label for="subject">Subject</label>
+					  <input type="text" id="subject" name="subject" required>
+					</div>
+
+					<div class="form-group">
+					  <label for="message">Message</label>
+					  <textarea id="message" name="message" rows="5" required></textarea>
+					</div>
+
+					<input type="hidden" name="_subject" value="New message from portfolio site">
+
+					<!-- NO href, NO mailto, just a normal submit button -->
+					<button type="submit" class="btn btn-primary btn-full">
+					  <span>Send Message</span>
+					  <i class="fas fa-paper-plane"></i>
+					</button>
+				  </form>
+				</div>
+
             </div>
         </div>
     </section>
@@ -432,7 +451,7 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 Hayl Al-Khadhami. All rights reserved.</p>
+                <p>&copy; 2026 Hayl Al-Khadhami. All rights reserved.</p>
             </div>
         </div>
     </footer>

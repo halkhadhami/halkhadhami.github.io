@@ -228,31 +228,31 @@ if (backToTopBtn) {
 // ===================================
 // Contact Form Handling
 // ===================================
-const contactForm = document.getElementById('contactForm');
+//const contactForm = document.getElementById('contactForm');
 
-if (contactForm) {
-    contactForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        
-        // Get form values
-        const name = document.getElementById('name').value;
-        const email = document.getElementById('email').value;
-        const subject = document.getElementById('subject').value;
-        const message = document.getElementById('message').value;
-        
-        // Create mailto link
-        const mailtoLink = `mailto:hayl.khadhami@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`)}`;
-        
-        // Open email client
-        window.location.href = mailtoLink;
-        
-        // Show success message (optional)
-        alert('Thank you for your message! Your email client will open to send the message.');
-        
-        // Reset form
-        contactForm.reset();
-    });
-}
+//	if (contactForm) {
+//	contactForm.addEventListener('submit', (e) => {
+//		e.preventDefault();
+//		
+//		// Get form values
+//		const name = document.getElementById('name').value;
+//		const email = document.getElementById('email').value;
+//		const subject = document.getElementById('subject').value;
+//		const message = document.getElementById('message').value;
+//		
+//		// Create mailto link
+//		const mailtoLink = `mailto:hayl.khadhami@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`)}`;
+//		
+//		// Open email client
+//		window.location.href = mailtoLink;
+//		
+//		// Show success message (optional)
+//		alert('Thank you for your message! Your email client will open to send the message.');
+//		
+//		// Reset form
+//		contactForm.reset();
+//	});
+//	}
 
 // ===================================
 // Smooth Scroll for Anchor Links

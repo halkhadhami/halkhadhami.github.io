@@ -22,7 +22,7 @@
     --text-primary: #0f172a;       /* main text */
     --text-secondary: #475569;     /* secondary text */
     --text-muted: #94a3b8;         /* subtle text */
-    --text-muted1: #ffffff;        /* light text on dark nav */
+    --text-muted1: #de6f00;        /* light text on dark nav */
 
     /* Accent colors */
     --accent-green: #22c55e;       /* keep for success tags if needed */

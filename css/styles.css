@@ -1508,7 +1508,7 @@ section {
 
 .timeline-image img {
     width: 100%;
-    height: 320px;
+    height: 380px;
     object-fit: cover;          /* crop nicely on desktop */
     display: block;
     transition: transform 0.5s ease, opacity 0.5s ease;
@@ -1550,7 +1550,7 @@ section {
 
 /* Hover effect (desktop) */
 .timeline-item:hover .timeline-image img {
-    transform: scale(1.05);
+    transform: scale(1.08);
 }
 
 .timeline-item:hover .timeline-image-overlay {
@@ -1560,7 +1560,7 @@ section {
 /* Mobile tweaks */
 @media (max-width: 768px) {
     .timeline-image img {
-        height: 180px;
+        height: 200px;
         object-fit: cover;
     }
 

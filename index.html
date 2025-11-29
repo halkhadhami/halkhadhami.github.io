@@ -73,7 +73,7 @@
     </nav>
 
     <!-- Hero Section -->
-    <section class="hero" >
+    <section class="hero" id="hero">
         <div class="hero-background">
             <div class="circuit-pattern"></div>
             <div class="grid-overlay"></div>
@@ -170,7 +170,7 @@
     </section>
 
     <!-- About Section -->
-    <section class="about">
+    <section class="about" id="about">
         <div class="container">
             <div class="section-header" data-aos="fade-up">
                 <span class="section-tag">About Me</span>
@@ -247,89 +247,121 @@
     </section>
 
     <!-- Expertise Section -->
-    <section class="expertise" >
-        <div class="container">
-            <div class="section-header" data-aos="fade-up">
-                <span class="section-tag">What I Do</span>
-                <h2 class="section-title">Areas of Expertise</h2>
-                <div class="title-underline"></div>
-            </div>
-            <div class="expertise-grid">
-                <div class="expertise-card" data-aos="fade-up" data-aos-delay="100">
-                    <div class="card-icon">
-                        <i class="fas fa-cogs"></i>
-                    </div>
-                    <h3>Industrial Automation</h3>
-                    <p>Design, programming, and commissioning of PLC, HMI, and SCADA systems for industrial machinery and control panels.</p>
-                    <ul class="card-tags">
-                        <li>Siemens TIA Portal</li>
-                        <li>Allen-Bradley</li>
-                        <li>Control Panels</li>
-                    </ul>
-                </div>
-                <div class="expertise-card" data-aos="fade-up" data-aos-delay="200">
-                    <div class="card-icon">
-                        <i class="fas fa-brain"></i>
-                    </div>
-                    <h3>AI & Deep Learning</h3>
-                    <p>Computer vision applications, CNN-based object detection, and graph neural networks for intelligent systems.</p>
-                    <ul class="card-tags">
-                        <li>YOLOv3</li>
-                        <li>TensorFlow</li>
-                        <li>Pattern Recognition</li>
-                    </ul>
-                </div>
-                <div class="expertise-card" data-aos="fade-up" data-aos-delay="300">
-                    <div class="card-icon">
-                        <i class="fas fa-microchip"></i>
-                    </div>
-                    <h3>Embedded Systems</h3>
-                    <p>Development of embedded solutions using AVR and PIC microcontrollers, PCB design, and hardware integration.</p>
-                    <ul class="card-tags">
-                        <li>AVR/PIC</li>
-                        <li>PCB Design</li>
-                        <li>IoT Devices</li>
-                    </ul>
-                </div>
-                <div class="expertise-card" data-aos="fade-up" data-aos-delay="400">
-                    <div class="card-icon">
-                        <i class="fas fa-bolt"></i>
-                    </div>
-                    <h3>Electrical Systems</h3>
-                    <p>Power distribution design, control panel wiring, solar energy systems, and electrical maintenance for industrial facilities.</p>
-                    <ul class="card-tags">
-                        <li>Power Systems</li>
-                        <li>Solar Energy</li>
-                        <li>EPLAN</li>
-                    </ul>
-                </div>
-                <div class="expertise-card" data-aos="fade-up" data-aos-delay="500">
-                    <div class="card-icon">
-                        <i class="fas fa-chalkboard-teacher"></i>
-                    </div>
-                    <h3>Academic Teaching</h3>
-                    <p>Teaching university-level courses in programming, electronics, embedded systems, and computer architecture.</p>
-                    <ul class="card-tags">
-                        <li>C++/C#</li>
-                        <li>Image Processing</li>
-                        <li>Android Dev</li>
-                    </ul>
-                </div>
-                <div class="expertise-card" data-aos="fade-up" data-aos-delay="600">
-                    <div class="card-icon">
-                        <i class="fas fa-search"></i>
-                    </div>
-                    <h3>Research & Development</h3>
-                    <p>Published research in traffic light detection systems and ongoing work in graph neural networks for recommender systems.</p>
-                    <ul class="card-tags">
-                        <li>Computer Vision</li>
-                        <li>GNN</li>
-                        <li>Publications</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
+	<section class="experience-section" id="expertise">
+		<div class="container">
+			<div class="section-header" data-aos="fade-up">
+				<span class="section-tag">What I Do</span>
+				<h2 class="section-title">Areas of Expertise</h2>
+				<div class="title-underline"></div>
+			</div>
+			
+			<div class="timeline">
+				
+				<div class="timeline-item" data-aos="fade-right">
+					<div class="timeline-marker">
+						<i class="fas fa-cogs"></i>
+					</div>
+					<div class="timeline-content">
+						<h3>Industrial Automation</h3>
+						<p class="timeline-description">
+							Design, programming, and commissioning of **PLC, HMI, and SCADA systems** for industrial machinery and control panels.
+						</p>
+						<ul class="timeline-achievements">
+							<li><i class="fas fa-check-circle"></i> Siemens TIA Portal</li>
+							<li><i class="fas fa-check-circle"></i> Allen-Bradley</li>
+							<li><i class="fas fa-check-circle"></i> Control Panels</li>
+						</ul>
+					</div>
+				</div>
+				
+				<div class="timeline-item" data-aos="fade-left">
+					<div class="timeline-marker">
+						<i class="fas fa-brain"></i>
+					</div>
+					<div class="timeline-content">
+						<h3>AI & Deep Learning</h3>
+						<p class="timeline-description">
+							Focus on **Computer Vision applications**, CNN-based object detection, and graph neural networks for intelligent systems.
+						</p>
+						<ul class="timeline-achievements">
+							<li><i class="fas fa-check-circle"></i> YOLOv3, TensorFlow</li>
+							<li><i class="fas fa-check-circle"></i> CNN Architectures</li>
+							<li><i class="fas fa-check-circle"></i> Pattern Recognition</li>
+						</ul>
+					</div>
+				</div>
+				
+				<div class="timeline-item" data-aos="fade-right">
+					<div class="timeline-marker">
+						<i class="fas fa-microchip"></i>
+					</div>
+					<div class="timeline-content">
+						<h3>Embedded Systems</h3>
+						<p class="timeline-description">
+							Development of embedded solutions using **AVR and PIC microcontrollers**, PCB design, and hardware integration for IoT devices.
+						</p>
+						<ul class="timeline-achievements">
+							<li><i class="fas fa-check-circle"></i> AVR/PIC Programming</li>
+							<li><i class="fas fa-check-circle"></i> PCB Design & Prototyping</li>
+							<li><i class="fas fa-check-circle"></i> IoT Devices</li>
+						</ul>
+					</div>
+				</div>
+				
+				<div class="timeline-item" data-aos="fade-left">
+					<div class="timeline-marker">
+						<i class="fas fa-bolt"></i>
+					</div>
+					<div class="timeline-content">
+						<h3>Electrical Systems</h3>
+						<p class="timeline-description">
+							Expertise in **Power distribution design**, control panel wiring, solar energy systems, and electrical maintenance.
+						</p>
+						<ul class="timeline-achievements">
+							<li><i class="fas fa-check-circle"></i> Power Systems Analysis</li>
+							<li><i class="fas fa-check-circle"></i> Solar Energy Integration</li>
+							<li><i class="fas fa-check-circle"></i> EPLAN Documentation</li>
+						</ul>
+					</div>
+				</div>
+				
+				<div class="timeline-item" data-aos="fade-right">
+					<div class="timeline-marker">
+						<i class="fas fa-chalkboard-teacher"></i>
+					</div>
+					<div class="timeline-content">
+						<h3>Academic Teaching</h3>
+						<p class="timeline-description">
+							Teaching university-level courses in **programming, electronics, embedded systems**, and computer architecture.
+						</p>
+						<ul class="timeline-achievements">
+							<li><i class="fas fa-check-circle"></i> C++/C# and Android Development</li>
+							<li><i class="fas fa-check-circle"></i> Embedded Systems Education</li>
+							<li><i class="fas fa-check-circle"></i> Image Processing Courses</li>
+						</ul>
+					</div>
+				</div>
+				
+				<div class="timeline-item" data-aos="fade-left">
+					<div class="timeline-marker">
+						<i class="fas fa-search"></i>
+					</div>
+					<div class="timeline-content">
+						<h3>Research & Development</h3>
+						<p class="timeline-description">
+							Published research in **traffic light detection systems** and ongoing work in graph neural networks and related academic fields.
+						</p>
+						<ul class="timeline-achievements">
+							<li><i class="fas fa-check-circle"></i> Computer Vision Publications</li>
+							<li><i class="fas fa-check-circle"></i> Graph Neural Networks (GNN)</li>
+							<li><i class="fas fa-check-circle"></i> Academic Writing & Review</li>
+						</ul>
+					</div>
+				</div>
+				
+			</div>
+			</div>
+	</section>
 
     <!-- Contact Section -->
     <section class="contact" id="contact">

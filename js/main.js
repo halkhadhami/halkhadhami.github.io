@@ -254,6 +254,53 @@ if (backToTopBtn) {
 //	});
 //	}
 
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.querySelector('form[action*="formspree"]');
+    
+    if (form) {
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Show loading state
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Sending...';
+            submitBtn.disabled = true;
+            
+            try {
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    body: new FormData(form),
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok) {
+                    // Show success message
+                    form.innerHTML = `
+                        <div class="form-success">
+                            <h3>Thank you!</h3>
+                            <p>Your message has been sent successfully. I'll get back to you soon.</p>
+                        </div>
+                    `;
+                } else {
+                    // Show error message
+                    throw new Error(result.error || 'Something went wrong');
+                }
+            } catch (error) {
+                // Show error message
+                alert('Error: ' + error.message + '. Please try again or contact me directly at hayl.khadhami@gmail.com');
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }
+        });
+    }
+});
+
+
 // ===================================
 // Smooth Scroll for Anchor Links
 // ===================================

@@ -8,7 +8,7 @@ window.addEventListener('load', () => {
         if (loadingScreen) {
             loadingScreen.classList.add('hidden');
         }
-    }, 500); // Reduced from 1500ms to 1000ms
+    }, 200); // Reduced from 1500ms to 1000ms
 });
 
 // ===================================

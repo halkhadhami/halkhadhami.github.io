@@ -243,50 +243,57 @@ body {
 }
 
 .loader {
-  text-align: center
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-lg);
+}
+
+.loader-rings {
+  position: relative;
+  width: 60px;
+  height: 60px;
 }
 
 .loader-ring {
-  width: 60px;
-  height: 60px;
   border-radius: 50%;
   border: 3px solid var(--border);
   border-top-color: var(--accent);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+
+.loader-ring:nth-child(1) {
+  width: 60px;
+  height: 60px;
+  margin-top: -30px;
+  margin-left: -30px;
   animation: spin 1s linear infinite;
-  margin: 0 auto var(--space-md)
 }
 
 .loader-ring:nth-child(2) {
   width: 45px;
   height: 45px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  animation-direction: reverse;
-  animation-duration: .8s
+  margin-top: -22.5px;
+  margin-left: -22.5px;
+  animation: spin .8s linear infinite reverse;
 }
 
 .loader-ring:nth-child(3) {
   width: 30px;
   height: 30px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  animation-duration: .6s
-}
-
-.loader {
-  position: relative
+  margin-top: -15px;
+  margin-left: -15px;
+  animation: spin .6s linear infinite;
 }
 
 .loader-text {
-  margin-top: var(--space-lg);
   font-size: .875rem;
   color: var(--text-secondary);
   letter-spacing: 2px;
-  text-transform: uppercase
+  text-transform: uppercase;
 }
 
 @keyframes spin {

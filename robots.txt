@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://hayl.khadhami.com/sitemap.xml

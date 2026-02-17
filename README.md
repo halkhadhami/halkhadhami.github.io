@@ -1,99 +1,82 @@
-# Hayl Khadhami - Professional Portfolio Website
+# Hayl Al-Khadhami — Portfolio
 
-A modern, responsive, and fully static personal portfolio website showcasing professional experience, research, projects, and publications.
+🌐 [hayl.khadhami.com](https://hayl.khadhami.com)
 
-## 🌟 Features
+## About
 
-- **Fully Static** - Pure HTML, CSS, and JavaScript (no backend required)
-- **Responsive Design** - Works perfectly on desktop, tablet, and mobile devices
-- **Modern UI** - Professional design with smooth animations and transitions
-- **Multiple Pages** - Home, Experience, Skills, Projects, Publications
-- **Project Filtering** - Filter projects by category
-- **SEO Optimized** - Meta tags and semantic HTML for better search engine visibility
-- **Fast Loading** - Lightweight and optimized for performance
-- **GitHub Pages Ready** - Deploy directly to GitHub Pages with no additional setup
+Personal portfolio website for **Hayl Saeed Hayder Al-Khadhami** — Automation Engineer, AI Researcher, and University Lecturer. Built as a single-page application with a premium glassmorphism design.
 
-## 📁 Project Structure
+## Features
+
+- 🌓 **Dual Theme** — Dark (navy + emerald) / Light with smooth toggle
+- 🌍 **Bilingual** — English / Arabic with full RTL support
+- 🎨 **Glassmorphism Design** — Frosted-glass cards, gradient accents, particle canvas
+- ⚡ **Interactive** — Animated counters, skill bars, typing effect, project filtering, image lightbox
+- 📱 **Fully Responsive** — Mobile-first with breakpoints at 480px, 768px, 1024px
+- 🔍 **SEO Optimized** — Open Graph, Twitter Cards, JSON-LD Person schema, sitemap.xml
+- ♿ **Accessible** — Semantic HTML, ARIA labels, keyboard navigation (WCAG 2.1 AA)
+- 🖨️ **Print-Friendly** — Clean print styles for resume/CV output
+- 🖱️ **Custom Cursor** — Premium cursor trail (desktop only)
+
+## Sections
+
+| Section | Content |
+|---------|---------|
+| Hero | Animated intro with particle canvas and typing effect |
+| About | Bio, stats, education summary |
+| Experience | Education timeline + work history + awards |
+| Skills | 4-category skill bars with percentage animations |
+| Projects | 10 projects with filter, images, lightbox |
+| Publications | Research papers with links |
+| Contact | Formspree contact form + info cards |
+
+## Tech Stack
+
+- **HTML5** — Semantic, accessible markup
+- **CSS3** — Custom properties, `backdrop-filter`, logical properties, `clamp()`
+- **Vanilla JavaScript** — No frameworks, no dependencies
+- **Google Fonts** — Inter (Latin), Cairo (Arabic), JetBrains Mono (code)
+- **Font Awesome 6** — Icons
+- **Formspree** — Contact form backend
+
+## Project Structure
 
 ```
-hayl_portfolio_static/
-├── index.html                 # Main homepage
-├── README.md                  # This file
+├── index.html          # Single-page application
 ├── css/
-│   ├── styles.css            # Main stylesheet
-│   └── responsive.css        # Mobile responsive styles
+│   └── styles.css      # Design system + responsive + print
 ├── js/
-│   └── main.js              # JavaScript functionality
-├── pages/
-│   ├── experience.html       # Experience and awards
-│   ├── skills.html           # Technical skills
-│   ├── projects.html         # Portfolio projects
-│   └── publications.html     # Research publications
-└── assets/
-    ├── images/              # Project images
-    └── icons/               # Icon assets
+│   └── main.js         # i18n, theme, particles, animations
+├── images/             # Profile + project images
+├── sitemap.xml         # SEO sitemap
+├── robots.txt          # Crawler rules
+├── CNAME               # Custom domain
+└── README.md
 ```
 
+## Local Development
 
-
-
-### Access Your Website
-
-Your site will be available at:
-```
-https://halkhadhami.github.io/
+```bash
+npx -y serve .
+# Open http://localhost:3000
 ```
 
-## 📱 Responsive Design
+## Deployment
 
-The website is fully responsive and optimized for:
-- **Desktop** (1200px and above)
-- **Tablet** (768px - 1199px)
-- **Mobile** (480px - 767px)
-- **Small Mobile** (below 480px)
+Hosted on **GitHub Pages** with custom domain `hayl.khadhami.com`.
 
-## ♿ Accessibility
+```bash
+git add .
+git commit -m "Portfolio v2: SPA redesign with dual theme, bilingual, glassmorphism"
+git push origin main
+```
 
-- Semantic HTML structure
-- Proper heading hierarchy
-- Alt text for images
-- Keyboard navigation support
-- Focus indicators for interactive elements
-- Color contrast compliance
+## Contact
 
-## ⚡ Performance
+- 📧 [hayl.khadhami@gmail.com](mailto:hayl.khadhami@gmail.com)
+- 💼 [LinkedIn](https://www.linkedin.com/in/halkhadhami/)
+- 🐙 [GitHub](https://github.com/halkhadhami)
 
-- Optimized CSS and JavaScript
-- Minimal external dependencies
-- Fast page load times
-- Optimized images
-- Efficient animations
+---
 
-## 🔍 SEO
-
-- Meta descriptions
-- Semantic HTML
-- Structured data
-- Mobile-friendly design
-- Fast loading times
-
-## 🛠️ Browser Support
-
-- Chrome (latest)
-- Firefox (latest)
-- Safari (latest)
-- Edge (latest)
-- Mobile browsers (iOS Safari, Chrome Mobile)
-
-## 📞 Contact & Links
-
-- **WhatsApp**: https://wa.me/+8615229032051
-- **Email**: hayl.khadhami@gmail.com
-- **GitHub**: https://github.com/halkhadhami
-- **Facebook**: https://www.facebook.com/haylkhadhami
-
-
-**Created**: November 2025
-**Type**: Static Website (HTML/CSS/JavaScript)
-**Hosting**: GitHub Pages (Free)
-**Last Updated**: November 2025
+© 2026 Hayl Al-Khadhami. All rights reserved.

@@ -351,22 +351,36 @@ function initNavbar() {
         });
     }
 
-    // Active section tracking
+    // Active section tracking (scroll-based for reliability)
     const sections = document.querySelectorAll('section[id]');
     const navLinks = document.querySelectorAll('.nav-link[data-section]');
 
-    const observerNav = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const id = entry.target.id;
-                navLinks.forEach(l => {
-                    l.classList.toggle('active', l.getAttribute('data-section') === id);
-                });
+    function updateActiveNav() {
+        const scrollY = window.scrollY + 120;
+        let currentSection = '';
+
+        sections.forEach(section => {
+            const top = section.offsetTop;
+            const height = section.offsetHeight;
+            if (scrollY >= top && scrollY < top + height) {
+                currentSection = section.id;
             }
         });
-    }, { threshold: 0.2, rootMargin: '-80px 0px -50% 0px' });
 
-    sections.forEach(s => observerNav.observe(s));
+        // If scrolled near bottom, activate last section
+        if (window.innerHeight + window.scrollY >= document.body.scrollHeight - 50) {
+            currentSection = sections[sections.length - 1].id;
+        }
+
+        if (currentSection) {
+            navLinks.forEach(l => {
+                l.classList.toggle('active', l.getAttribute('data-section') === currentSection);
+            });
+        }
+    }
+
+    window.addEventListener('scroll', updateActiveNav, { passive: true });
+    updateActiveNav();
 }
 
 // ===== SMOOTH SCROLL =====

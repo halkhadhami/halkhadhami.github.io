@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>S3 Missing PDF Dashboard</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: #f5f7f9;
+            padding: 20px;
+            color: #333;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        h1 {
+            margin-top: 0;
+            color: #243447;
+        }
+        .stats {
+            background: #e8f4f8;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            font-weight: bold;
+        }
+        .toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .toolbar button {
+            border: none;
+            border-radius: 6px;
+            padding: 10px 14px;
+            cursor: pointer;
+            font-weight: 600;
+            background: #2d7ff9;
+            color: white;
+        }
+        .paper-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 14px 10px;
+            border-bottom: 1px solid #eee;
+            transition: background 0.2s;
+        }
+        .paper-row:hover {
+            background: #fafafa;
+        }
+        .paper-row.downloaded {
+            background: #e8f8f5;
+            opacity: 0.72;
+        }
+        .idx {
+            width: 36px;
+            font-weight: 700;
+            color: #7f8c8d;
+            padding-top: 3px;
+        }
+        .info {
+            flex: 1 1 auto;
+            min-width: 0;
+        }
+        .title {
+            font-weight: 700;
+            color: #243447;
+            margin-bottom: 4px;
+            font-size: 1.02em;
+        }
+        .meta {
+            font-size: 0.88em;
+            color: #61717f;
+        }
+        .note {
+            margin-top: 6px;
+            font-size: 0.84em;
+            color: #9b6b00;
+        }
+        .badge {
+            color: #e67e22;
+            font-weight: 700;
+        }
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: flex-end;
+            max-width: 360px;
+        }
+        .btn {
+            padding: 8px 12px;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 0.88em;
+            text-align: center;
+            border: none;
+            cursor: pointer;
+            color: white;
+        }
+        .btn-pub { background-color: #f39c12; }
+        .btn-search { background-color: #34495e; }
+        .btn-meta { background-color: #6c5ce7; }
+        .btn-copy { background-color: #95a5a6; }
+        .copied { background-color: #27ae60 !important; }
+        .check-btn {
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #bdc3c7;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 3px;
+            flex: 0 0 auto;
+        }
+        .check-btn:checked {
+            background-color: #27ae60;
+            border-color: #27ae60;
+            position: relative;
+        }
+        .check-btn:checked::after {
+            content: '\2713';
+            color: white;
+            position: absolute;
+            top: -2px;
+            left: 3px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>S3 Missing PDF Dashboard</h1>
+    <div class="stats">
+        Remaining S3 rows without PDFs: 27 unique DOI items.
+        Save downloaded files into <code>D:\PM-ECB\References-papers</code>.
+    </div>
+    <p><i>Instructions:</i> Use the publisher DOI page first. If that fails, try Google Scholar or inspect OpenAlex metadata for repository clues. Check the box after saving the PDF. Progress is stored locally in your browser.</p>
+    <div class="toolbar">
+        <button onclick="openBatch('publisher', 10)">Open Next 10 Publisher Tabs</button>
+        <button onclick="openBatch('scholar', 10)">Open Next 10 Scholar Tabs</button>
+        <button onclick="resetProgress()">Reset Checks</button>
+    </div>
+    
+    <div class="paper-row" id="row-1" data-doi="10.1063/1.3679698">
+        <input type="checkbox" class="check-btn" onchange="toggleRow(1)" id="check-1">
+        <div class="idx">1.</div>
+        <div class="info">
+            <div class="title">Design of permanent magnet eddy current brake for a small scaled electromagnetic launch model</div>
+            <div class="meta"><span class="badge">[AIP]</span> | Year: 2012 | DOI: 10.1063/1.3679698 | S3: PMECB_CANON_013</div>
+            
+        </div>
+        <div class="actions">
+            <button class="btn btn-copy" onclick="copyName("10.1063_1.3679698-2012-Design of permanent magnet eddy current brake for a small scaled electromagnetic launch model.pdf", this)">Copy Target Filename</button>
+            <a href="https://doi.org/10.1063/1.3679698" target="_blank" class="btn btn-pub">Publisher (DOI)</a>
+            <a href="https://scholar.google.com/scholar?q=&amp;quot;Design+of+permanent+magnet+eddy+current+brake+for+a+small+scaled+electromagnetic+launch+model&amp;quot;+&amp;quot;10.1063/1.3679698&amp;quot;" target="_blank" class="btn btn-search">Google Scholar</a>
+            <a href="https://api.openalex.org/works/https%3A%2F%2Fdoi.org%2F10.1063%2F1.3679698" target="_blank" class="btn btn-meta">OpenAlex</a>
+        </div>
+    </div>
+
+    <div class="paper-row" id="row-2" data-doi="10.1063/1.4862523">
+        <input type="checkbox" class="check-btn" onchange="toggleRow(2)" id="check-2">
+        <div class="idx">2.</div>
+        <div class="info">
+            <div class="title">Torque analysis and measurements of a permanent magnet type Eddy current brake with a Halbach magnet array based on analytical magnetic field calculations</div>
+            <div class="meta"><span class="badge">[AIP]</span> | Year: 2014 | DOI: 10.1063/1.4862523 | S3: PMECB_CANON_014, PMECB_CANON_186</div>
+            <div class="note">One PDF covers multiple S3 rows: PMECB_CANON_014, PMECB_CANON_186</div>
+        </div>
+        <div class="actions">
+            <button class="btn btn-copy" onclick="copyName("10.1063_1.4862523-2014-Torque analysis and measurements of a permanent magnet type Eddy current brake with a Halbach magnet array based on analytical magnetic field calculations.pdf", this)">Copy Target Filename</button>
+            <a href="https://doi.org/10.1063/1.4862523" target="_blank" class="btn btn-pub">Publisher (DOI)</a>
+            <a href="https://scholar.google.com/scholar?q=&amp;quot;Torque+analysis+and+measurements+of+a+permanent+magnet+type+Eddy+current+brake+with+a+Halbach+magnet+array+based+on+analytical+magnetic+field+calculations&amp;quot;+&amp;quot;10.1063/1.4862523&amp;quot;" target="_blank" class="btn btn-search">Google Scholar</a>
+            <a href="https://api.openalex.org/works/https%3A%2F%2Fdoi.org%2F10.1063%2F1.4862523" target="_blank" class="btn btn-meta">OpenAlex</a>
+        </div>
+    </div>
+
+    <div class="paper-row" id="row-3" data-doi="10.1201/b19362-19">
+        <input type="checkbox" class="check-btn" onchange="toggleRow(3)" id="check-3">
+        <div class="idx">3.</div>
+        <div class="info">
+            <div class="title">Study of eddy current brake based on motion of permanent magnet in the nonmagnetic metal tube</div>
+            <div class="meta"><span class="badge">[Other]</span> | Year: 2016 | DOI: 10.1201/b19362-19 | S3: PMECB_CANON_107</div>
+            
+        </div>
+        <div class="actions">
+            <button class="btn btn-copy" onclick="copyName("10.1201_b19362-19-2016-Study of eddy current brake based on motion of permanent magnet in the nonmagnetic metal tube.pdf", this)">Copy Target Filename</button>
+            <a href="https://doi.org/10.1201/b19362-19" target="_blank" class="btn btn-pub">Publisher (DOI)</a>
+            <a href="https://scholar.google.com/scholar?q=&amp;quot;Study+of+eddy+current+brake+based+on+motion+of+permanent+magnet+in+the+nonmagnetic+metal+tube&amp;quot;+&amp;quot;10.1201/b19362-19&amp;quot;" target="_blank" class="btn btn-search">Google Scholar</a>
+            <a href="https://api.openalex.org/works/https%3A%2F%2Fdoi.org%2F10.1201%2Fb19362-19" target="_blank" class="btn btn-meta">OpenAlex</a>
+        </div>
+    </div>
+
+    <div class="paper-row" id="row-4" data-doi="10.16731/j.cnki.1671-3133.2017.06.006">
+        <input type="checkbox" class="check-btn" onchange="toggleRow(4)" id="check-4">
+        <div class="idx">4.</div>
+        <div class="info">
+            <div class="title">Permanent magnet eddy current brake performance simulation analysis of the trolley traveling mechanism of a crane</div>
+            <div class="meta"><span class="badge">[Other]</span> | Year: 2017 | DOI: 10.16731/j.cnki.1671-3133.2017.06.006 | S3: PMECB_CANON_179</div>
+            
+        </div>
+        <div class="actions">
+            <button class="btn btn-copy" onclick="copyName("10.16731_j.cnki.1671-3133.2017.06.006-2017-Permanent magnet eddy current brake performance simulation analysis of the trolley traveling mechanism of a crane.pdf", this)">Copy Target Filename</button>
+            <a href="https://doi.org/10.16731/j.cnki.1671-3133.2017.06.006" target="_blank" class="btn btn-pub">Publisher (DOI)</a>
+            <a href="https://scholar.google.com/scholar?q=&amp;quot;Permanent+magnet+eddy+current+brake+performance+simulation+analysis+of+the+trolley+traveling+mechanism+of+a+crane&amp;quot;+&amp;quot;10.16731/j.cnki.1671-3133.2017.06.006&amp;quot;" target="_blank" class="btn btn-search">Google Scholar</a>
+            <a href="https://api.openalex.org/works/https%3A%2F%2Fdoi.org%2F10.16731%2Fj.cnki.1671-3133.2017.06.006" target="_blank" class="btn btn-meta">OpenAlex</a>
+        </div>
+    </div>
+
+    <div class="paper-row" id="row-5" data-doi="10.11936/bjutxb2017040038">
+        <input type="checkbox" class="check-btn" onchange="toggleRow(5)" id="check-5">
+        <div class="idx">5.</div>
+        <div class="info">
+            <div class="title">Braking characteristics and experiment of a permanent magnet eddy-current retarder</div>
+            <div class="meta"><span class="badge">[Other]</span> | Year: 2018 | DOI: 10.11936/bjutxb2017040038 | S3: PMECB_CANON_106</div>
+            
+        </div>
+        <div class="actions">
+            <button class="btn btn-copy" onclick="copyName("10.11936_bjutxb2017040038-2018-Braking characteristics and experiment of a permanent magnet eddy-current retarder.pdf", this)">Copy Target Filename</button>
+            <a href="https://doi.org/10.11936/bjutxb2017040038" target="_blank" class="btn btn-pub">Publisher (DOI)</a>
+            <a href="https://scholar.google.com/scholar?q=&amp;quot;Braking+characteristics+and+experiment+of+a+permanent+magnet+eddy-current+retarder&amp;quot;+&amp;quot;10.11936/bjutxb2017040038&amp;quot;" target="_blank" class="btn btn-search">Google Scholar</a>
+            <a href="https://api.openalex.org/works/https%3A%2F%2Fdoi.org%2F10.11936%2Fbjutxb2017040038" target="_blank" class="btn btn-meta">OpenAlex</a>
+        </div>
+    </div>
+
+    <div class="paper-row" id="row-6" data-doi="10.24247/ijmperdaug20193">
+        <input type="checkbox" class="check-btn" onchange="toggleRow(6)" id="check-6">
+        <div class="idx">6.</div>
+        <div class="info">
+            <div class="title">An analysis of permanent magnet eddy current braking system</div>
+            <div class="meta"><span class="badge">[Other]</span> | Year: 2019 | DOI: 10.24247/ijmperdaug20193 | S3: PMECB_CANON_120</div>
+            
+        </div>
+        <div class="actions">
+            <button class="btn btn-copy" onclick="copyName("10.24247_ijmperdaug20193-2019-An analysis of permanent magnet eddy current braking system.pdf", this)">Copy Target Filename</button>
+            <a href="https://doi.org/10.24247/ijmperdaug20193" target="_blank" class="btn btn-pub">Publisher (DOI)</a>
+            <a href="https://scholar.google.com/scholar?q=&amp;quot;An+analysis+of+permanent+magnet+eddy+current+braking+system&amp;quot;+&amp;quot;10.24247/ijmperdaug20193&amp;quot;" target="_blank" class="btn btn-search">Google Scholar</a>
+            <a href="https://api.openalex.org/works/https%3A%2F%2Fdoi.org%2F10.24247%2Fijmperdaug20193" target="_blank" class="btn btn-meta">OpenAlex</a>
+        </div>
+    </div>
+
+    <div class="paper-row" id="row-7" data-doi="10.13334/j.0258-8013.pcsee.191195">
+        <input type="checkbox" class="check-btn" onchange="toggleRow(7)" id="check-7">
+        <div class="idx">7.</div>
+        <div class="info">
+            <div class="title">Analyzing and Designing a New Kind of Eddy Current Braking Device Used in High Speed Maglev in Vacuum Pipeline</div>
+            <div class="meta"><span class="badge">[Other]</span> | Year: 2020 | DOI: 10.13334/j.0258-8013.pcsee.191195 | S3: PMECB_CANON_112</div>
+            
+        </div>
+        <div class="actions">
+            <button class="btn btn-copy" onclick="copyName("10.13334_j.0258-8013.pcsee.191195-2020-Analyzing and Designing a New Kind of Eddy Current Braking Device Used in High Speed Maglev in Vacuum Pipeline.pdf", this)">Copy Target Filename</button>
+            <a href="https://doi.org/10.13334/j.0258-8013.pcsee.191195" target="_blank" class="btn btn-pub">Publisher (DOI)</a>
+            <a href="https://scholar.google.com/scholar?q=&amp;quot;Analyzing+and+Designing+a+New+Kind+of+Eddy+Current+Braking+Device+Used+in+High+Speed+Maglev+in+Vacuum+Pipeline&amp;quot;+&amp;quot;10.13334/j.0258-8013.pcsee.191195&amp;quot;" target="_blank" class="btn btn-search">Google Scholar</a>
+            <a href="https://api.openalex.org/works/https%3A%2F%2Fdoi.org%2F10.13334%2Fj.0258-8013.pcsee.191195" target="_blank" class="btn btn-meta">OpenAlex</a>
+        </div>
+    </div>
+
+    <div class="paper-row" id="row-8" data-doi="10.13334/j.0258-8013.pcsee.200428">
+        <input type="checkbox" class="check-btn" onchange="toggleRow(8)" id="check-8">
+        <div class="idx">8.</div>
+        <div class="info">
+            <div class="title">Multi-physics simulation analysis of axial permanent magnet eddy current brake</div>
+            <div class="meta"><span class="badge">[Other]</span> | Year: 2020 | DOI: 10.13334/j.0258-8013.pcsee.200428 | S3: PMECB_CANON_113</div>
+            
+        </div>
+        <div class="actions">
+            <button class="btn btn-copy" onclick="copyName("10.13334_j.0258-8013.pcsee.200428-2020-Multi-physics simulation analysis of axial permanent magnet eddy current brake.pdf", this)">Copy Target Filename</button>
+            <a href="https://doi.org/10.13334/j.0258-8013.pcsee.200428" target="_blank" class="btn btn-pub">Publisher (DOI)</a>
+            <a href="https://scholar.google.com/scholar?q=&amp;quot;Multi-physics+simulation+analysis+of+axial+permanent+magnet+eddy+current+brake&amp;quot;+&amp;quot;10.13334/j.0258-8013.pcsee.200428&amp;quot;" target="_blank" class="btn btn-search">Google Scholar</a>
+            <a href="https://api.openalex.org/works/https%3A%2F%2Fdoi.org%2F10.13334%2Fj.0258-8013.pcsee.200428" target="_blank" class="btn btn-meta">OpenAlex</a>
+        </div>
+    </div>
+
+    <div class="paper-row" id="row-9" data-doi="10.3233/jae-201523">
+        <input type="checkbox" class="check-btn" onchange="toggleRow(9)" id="check-9">
+        <div class="idx">9.</div>
+        <div class="info">
+            <div class="title">Modeling and optimization of tubular linear permanent magnet eddy current brake with Halbach array</div>
+            <div class="meta"><span class="badge">[IOS]</span> | Year: 2021 | DOI: 10.3233/jae-201523 | S3: PMECB_CANON_125</div>
+            
+        </div>
+        <div class="actions">
+            <button class="btn btn-copy" onclick="copyName("10.3233_jae-201523-2021-Modeling and optimization of tubular linear permanent magnet eddy current brake with Halbach array.pdf", this)">Copy Target Filename</button>
+            <a href="https://doi.org/10.3233/jae-201523" target="_blank" class="btn btn-pub">Publisher (DOI)</a>
+            <a href="https://scholar.google.com/scholar?q=&amp;quot;Modeling+and+optimization+of+tubular+linear+permanent+magnet+eddy+current+brake+with+Halbach+array&amp;quot;+&amp;quot;10.3233/jae-201523&amp;quot;" target="_blank" class="btn btn-search">Google Scholar</a>
+            <a href="https://api.openalex.org/works/https%3A%2F%2Fdoi.org%2F10.3233%2Fjae-201523" target="_blank" class="btn btn-meta">OpenAlex</a>
+        </div>
+    </div>
+
+    <div class="paper-row" id="row-10" data-doi="10.3233/jae-210029">
+        <input type="checkbox" class="check-btn" onchange="toggleRow(10)" id="check-10">
+        <div class="idx">10.</div>
+        <div class="info">
+            <div class="title">A novel H-type linear permanent magnet eddy current brake</div>
+            <div class="meta"><span class="badge">[IOS]</span> | Year: 2022 | DOI: 10.3233/jae-210029 | S3: PMECB_CANON_126</div>
+            
+        </div>
+        <div class="actions">
+            <button class="btn btn-copy" onclick="copyName("10.3233_jae-210029-2022-A novel H-type linear permanent magnet eddy current brake.pdf", this)">Copy Target Filename</button>
+            <a href="https://doi.org/10.3233/jae-210029" target="_blank" class="btn btn-pub">Publisher (DOI)</a>
+            <a href="https://scholar.google.com/scholar?q=&amp;quot;A+novel+H-type+linear+permanent+magnet+eddy+current+brake&amp;quot;+&amp;quot;10.3233/jae-210029&amp;quot;" target="_blank" class="btn btn-search">Google Scholar</a>
+            <a href="https://api.openalex.org/works/https%3A%2F%2Fdoi.org%2F10.3233%2Fjae-210029" target="_blank" class="btn btn-meta">OpenAlex</a>
+        </div>
+    </div>
+
+    <div class="paper-row" id="row-11" data-doi="10.3233/jae-210190">
+        <input type="checkbox" class="check-btn" onchange="toggleRow(11)" id="check-11">
+        <div class="idx">11.</div>
+        <div class="info">
+            <div class="title">Analytical modeling of permanent magnet linear eddy current brake using magnetic equivalent circuit method</div>
+            <div class="meta"><span class="badge">[IOS]</span> | Year: 2022 | DOI: 10.3233/jae-210190 | S3: PMECB_CANON_127</div>
+            
+        </div>
+        <div class="actions">
+            <button class="btn btn-copy" onclick="copyName("10.3233_jae-210190-2022-Analytical modeling of permanent magnet linear eddy current brake using magnetic equivalent circuit method.pdf", this)">Copy Target Filename</button>
+            <a href="https://doi.org/10.3233/jae-210190" target="_blank" class="btn btn-pub">Publisher (DOI)</a>
+            <a href="https://scholar.google.com/scholar?q=&amp;quot;Analytical+modeling+of+permanent+magnet+linear+eddy+current+brake+using+magnetic+equivalent+circuit+method&amp;quot;+&amp;quot;10.3233/jae-210190&amp;quot;" target="_blank" class="btn btn-search">Google Scholar</a>
+            <a href="https://api.openalex.org/works/https%3A%2F%2Fdoi.org%2F10.3233%2Fjae-210190" target="_blank" class="btn btn-meta">OpenAlex</a>
+        </div>
+    </div>
+
+    <div class="paper-row" id="row-12" data-doi="10.3233/jae-220070">
+        <input type="checkbox" class="check-btn" onchange="toggleRow(12)" id="check-12">
+        <div class="idx">12.</div>
+        <div class="info">
+            <div class="title">Design and test validation of a novel permanent magnet eddy current brake</div>
+            <div class="meta"><span class="badge">[IOS]</span> | Year: 2022 | DOI: 10.3233/jae-220070 | S3: PMECB_CANON_128</div>
+            
+        </div>
+        <div class="actions">
+            <button class="btn btn-copy" onclick="copyName("10.3233_jae-220070-2022-Design and test validation of a novel permanent magnet eddy current brake.pdf", this)">Copy Target Filename</button>
+            <a href="https://doi.org/10.3233/jae-220070" target="_blank" class="btn btn-pub">Publisher (DOI)</a>
+            <a href="https://scholar.google.com/scholar?q=&amp;quot;Design+and+test+validation+of+a+novel+permanent+magnet+eddy+current+brake&amp;quot;+&amp;quot;10.3233/jae-220070&amp;quot;" target="_blank" class="btn btn-search">Google Scholar</a>
+            <a href="https://api.openalex.org/works/https%3A%2F%2Fdoi.org%2F10.3233%2Fjae-220070" target="_blank" class="btn btn-meta">OpenAlex</a>
+        </div>
+    </div>
+
+    <div class="paper-row" id="row-13" data-doi="10.1016/j.jmmm.2022.170114">
+        <input type="checkbox" class="check-btn" onchange="toggleRow(13)" id="check-13">
+        <div class="idx">13.</div>
+        <div class="info">
+            <div class="title">Magnetomechanical degradation of sintered NdFeB induced by impact in eddy current recoil brake</div>
+            <div class="meta"><span class="badge">[Elsevier]</span> | Year: 2022 | DOI: 10.1016/j.jmmm.2022.170114 | S3: PMECB_CANON_007</div>
+            
+        </div>
+        <div class="actions">
+            <button class="btn btn-copy" onclick="copyName("10.1016_j.jmmm.2022.170114-2022-Magnetomechanical degradation of sintered NdFeB induced by impact in eddy current recoil brake.pdf", this)">Copy Target Filename</button>
+            <a href="https://doi.org/10.1016/j.jmmm.2022.170114" target="_blank" class="btn btn-pub">Publisher (DOI)</a>
+            <a href="https://scholar.google.com/scholar?q=&amp;quot;Magnetomechanical+degradation+of+sintered+NdFeB+induced+by+impact+in+eddy+current+recoil+brake&amp;quot;+&amp;quot;10.1016/j.jmmm.2022.170114&amp;quot;" target="_blank" class="btn btn-search">Google Scholar</a>
+            <a href="https://api.openalex.org/works/https%3A%2F%2Fdoi.org%2F10.1016%2Fj.jmmm.2022.170114" target="_blank" class="btn btn-meta">OpenAlex</a>
+        </div>
+    </div>
+
+    <div class="paper-row" id="row-14" data-doi="10.3390/act11100295">
+        <input type="checkbox" class="check-btn" onchange="toggleRow(14)" id="check-14">
+        <div class="idx">14.</div>
+        <div class="info">
+            <div class="title">Simulation of the braking effects of permanent magnet eddy current brake and its effects on levitation characteristics of HTS maglev vehicles</div>
+            <div class="meta"><span class="badge">[MDPI]</span> | Year: 2022 | DOI: 10.3390/act11100295 | S3: PMECB_CANON_136</div>
+            
+        </div>
+        <div class="actions">
+            <button class="btn btn-copy" onclick="copyName("10.3390_act11100295-2022-Simulation of the braking effects of permanent magnet eddy current brake and its effects on levitation characteristics of HTS maglev vehicles.pdf", this)">Copy Target Filename</button>
+            <a href="https://doi.org/10.3390/act11100295" target="_blank" class="btn btn-pub">Publisher (DOI)</a>
+            <a href="https://scholar.google.com/scholar?q=&amp;quot;Simulation+of+the+braking+effects+of+permanent+magnet+eddy+current+brake+and+its+effects+on+levitation+characteristics+of+HTS+maglev+vehicles&amp;quot;+&amp;quot;10.3390/act11100295&amp;quot;" target="_blank" class="btn btn-search">Google Scholar</a>
+            <a href="https://api.openalex.org/works/https%3A%2F%2Fdoi.org%2F10.3390%2Fact11100295" target="_blank" class="btn btn-meta">OpenAlex</a>
+        </div>
+    </div>
+
+    <div class="paper-row" id="row-15" data-doi="10.3233/jae-220138">
+        <input type="checkbox" class="check-btn" onchange="toggleRow(15)" id="check-15">
+        <div class="idx">15.</div>
+        <div class="info">
+            <div class="title">Braking force characteristics and multi-objective optimization of eddy current brake under intensive impact load</div>
+            <div class="meta"><span class="badge">[IOS]</span> | Year: 2023 | DOI: 10.3233/jae-220138 | S3: PMECB_CANON_129</div>
+            
+        </div>
+        <div class="actions">
+            <button class="btn btn-copy" onclick="copyName("10.3233_jae-220138-2023-Braking force characteristics and multi-objective optimization of eddy current brake under intensive impact load.pdf", this)">Copy Target Filename</button>
+            <a href="https://doi.org/10.3233/jae-220138" target="_blank" class="btn btn-pub">Publisher (DOI)</a>
+            <a href="https://scholar.google.com/scholar?q=&amp;quot;Braking+force+characteristics+and+multi-objective+optimization+of+eddy+current+brake+under+intensive+impact+load&amp;quot;+&amp;quot;10.3233/jae-220138&amp;quot;" target="_blank" class="btn btn-search">Google Scholar</a>
+            <a href="https://api.openalex.org/works/https%3A%2F%2Fdoi.org%2F10.3233%2Fjae-220138" target="_blank" class="btn btn-meta">OpenAlex</a>
+        </div>
+    </div>
+
+    <div class="paper-row" id="row-16" data-doi="10.12115/j.issn.1004-499x(2023)02-007">
+        <input type="checkbox" class="check-btn" onchange="toggleRow(16)" id="check-16">
+        <div class="idx">16.</div>
+        <div class="info">
+            <div class="title">Experimental Study and Numerical Simulation of Demagnetization Behavior of Sintered NdFeB Used in Eddy Current Brake</div>
+            <div class="meta"><span class="badge">[Other]</span> | Year: 2023 | DOI: 10.12115/j.issn.1004-499x(2023)02-007 | S3: PMECB_CANON_108</div>
+            
+        </div>
+        <div class="actions">
+            <button class="btn btn-copy" onclick="copyName("10.12115_j.issn.1004-499x(2023)02-007-2023-Experimental Study and Numerical Simulation of Demagnetization Behavior of Sintered NdFeB Used in Eddy Current Brake.pdf", this)">Copy Target Filename</button>
+            <a href="https://doi.org/10.12115/j.issn.1004-499x(2023)02-007" target="_blank" class="btn btn-pub">Publisher (DOI)</a>
+            <a href="https://scholar.google.com/scholar?q=&amp;quot;Experimental+Study+and+Numerical+Simulation+of+Demagnetization+Behavior+of+Sintered+NdFeB+Used+in+Eddy+Current+Brake&amp;quot;+&amp;quot;10.12115/j.issn.1004-499x(2023)02-007&amp;quot;" target="_blank" class="btn btn-search">Google Scholar</a>
+            <a href="https://api.openalex.org/works/https%3A%2F%2Fdoi.org%2F10.12115%2Fj.issn.1004-499x(2023)02-007" target="_blank" class="btn btn-meta">OpenAlex</a>
+        </div>
+    </div>
+
+    <div class="paper-row" id="row-17" data-doi="10.3233/jae-230157">
+        <input type="checkbox" class="check-btn" onchange="toggleRow(17)" id="check-17">
+        <div class="idx">17.</div>
+        <div class="info">
+            <div class="title">A fast modeling method for permanent magnet cylindrical eddy current brakes considering end effects</div>
+            <div class="meta"><span class="badge">[IOS]</span> | Year: 2024 | DOI: 10.3233/jae-230157 | S3: PMECB_CANON_132</div>
+            
+        </div>
+        <div class="actions">
+            <button class="btn btn-copy" onclick="copyName("10.3233_jae-230157-2024-A fast modeling method for permanent magnet cylindrical eddy current brakes considering end effects.pdf", this)">Copy Target Filename</button>
+            <a href="https://doi.org/10.3233/jae-230157" target="_blank" class="btn btn-pub">Publisher (DOI)</a>
+            <a href="https://scholar.google.com/scholar?q=&amp;quot;A+fast+modeling+method+for+permanent+magnet+cylindrical+eddy+current+brakes+considering+end+effects&amp;quot;+&amp;quot;10.3233/jae-230157&amp;quot;" target="_blank" class="btn btn-search">Google Scholar</a>
+            <a href="https://api.openalex.org/works/https%3A%2F%2Fdoi.org%2F10.3233%2Fjae-230157" target="_blank" class="btn btn-meta">OpenAlex</a>
+        </div>
+    </div>
+
+    <div class="paper-row" id="row-18" data-doi="10.3233/jae-220292">
+        <input type="checkbox" class="check-btn" onchange="toggleRow(18)" id="check-18">
+        <div class="idx">18.</div>
+        <div class="info">
+            <div class="title">A low-cost approach to determine the optimum conductor plate thickness of linear permanent magnet eddy current brakes</div>
+            <div class="meta"><span class="badge">[IOS]</span> | Year: 2024 | DOI: 10.3233/jae-220292 | S3: PMECB_CANON_131</div>
+            
+        </div>
+        <div class="actions">
+            <button class="btn btn-copy" onclick="copyName("10.3233_jae-220292-2024-A low-cost approach to determine the optimum conductor plate thickness of linear permanent magnet eddy current brakes.pdf", this)">Copy Target Filename</button>
+            <a href="https://doi.org/10.3233/jae-220292" target="_blank" class="btn btn-pub">Publisher (DOI)</a>
+            <a href="https://scholar.google.com/scholar?q=&amp;quot;A+low-cost+approach+to+determine+the+optimum+conductor+plate+thickness+of+linear+permanent+magnet+eddy+current+brakes&amp;quot;+&amp;quot;10.3233/jae-220292&amp;quot;" target="_blank" class="btn btn-search">Google Scholar</a>
+            <a href="https://api.openalex.org/works/https%3A%2F%2Fdoi.org%2F10.3233%2Fjae-220292" target="_blank" class="btn btn-meta">OpenAlex</a>
+        </div>
+    </div>
+
+    <div class="paper-row" id="row-19" data-doi="10.3233/jae-220194">
+        <input type="checkbox" class="check-btn" onchange="toggleRow(19)" id="check-19">
+        <div class="idx">19.</div>
+        <div class="info">
+            <div class="title">Analysis method of permanent magnet eddy current brake under impact load</div>
+            <div class="meta"><span class="badge">[IOS]</span> | Year: 2024 | DOI: 10.3233/jae-220194 | S3: PMECB_CANON_130</div>
+            
+        </div>
+        <div class="actions">
+            <button class="btn btn-copy" onclick="copyName("10.3233_jae-220194-2024-Analysis method of permanent magnet eddy current brake under impact load.pdf", this)">Copy Target Filename</button>
+            <a href="https://doi.org/10.3233/jae-220194" target="_blank" class="btn btn-pub">Publisher (DOI)</a>
+            <a href="https://scholar.google.com/scholar?q=&amp;quot;Analysis+method+of+permanent+magnet+eddy+current+brake+under+impact+load&amp;quot;+&amp;quot;10.3233/jae-220194&amp;quot;" target="_blank" class="btn btn-search">Google Scholar</a>
+            <a href="https://api.openalex.org/works/https%3A%2F%2Fdoi.org%2F10.3233%2Fjae-220194" target="_blank" class="btn btn-meta">OpenAlex</a>
+        </div>
+    </div>
+
+    <div class="paper-row" id="row-20" data-doi="10.12115/j.issn.1004-499x(2024)02-010">
+        <input type="checkbox" class="check-btn" onchange="toggleRow(20)" id="check-20">
+        <div class="idx">20.</div>
+        <div class="info">
+            <div class="title">Analysis of Electromagnetic Field and Resistance Characteristics of Hybrid Excitation Eddy Current Braking Machine</div>
+            <div class="meta"><span class="badge">[Other]</span> | Year: 2024 | DOI: 10.12115/j.issn.1004-499x(2024)02-010 | S3: PMECB_CANON_109</div>
+            
+        </div>
+        <div class="actions">
+            <button class="btn btn-copy" onclick="copyName("10.12115_j.issn.1004-499x(2024)02-010-2024-Analysis of Electromagnetic Field and Resistance Characteristics of Hybrid Excitation Eddy Current Braking Machine.pdf", this)">Copy Target Filename</button>
+            <a href="https://doi.org/10.12115/j.issn.1004-499x(2024)02-010" target="_blank" class="btn btn-pub">Publisher (DOI)</a>
+            <a href="https://scholar.google.com/scholar?q=&amp;quot;Analysis+of+Electromagnetic+Field+and+Resistance+Characteristics+of+Hybrid+Excitation+Eddy+Current+Braking+Machine&amp;quot;+&amp;quot;10.12115/j.issn.1004-499x(2024)02-010&amp;quot;" target="_blank" class="btn btn-search">Google Scholar</a>
+            <a href="https://api.openalex.org/works/https%3A%2F%2Fdoi.org%2F10.12115%2Fj.issn.1004-499x(2024)02-010" target="_blank" class="btn btn-meta">OpenAlex</a>
+        </div>
+    </div>
+
+    <div class="paper-row" id="row-21" data-doi="10.1117/12.3015957">
+        <input type="checkbox" class="check-btn" onchange="toggleRow(21)" id="check-21">
+        <div class="idx">21.</div>
+        <div class="info">
+            <div class="title">Braking strategy based on permanent magnet linear eddy current braking</div>
+            <div class="meta"><span class="badge">[Other]</span> | Year: 2024 | DOI: 10.1117/12.3015957 | S3: PMECB_CANON_103</div>
+            
+        </div>
+        <div class="actions">
+            <button class="btn btn-copy" onclick="copyName("10.1117_12.3015957-2024-Braking strategy based on permanent magnet linear eddy current braking.pdf", this)">Copy Target Filename</button>
+            <a href="https://doi.org/10.1117/12.3015957" target="_blank" class="btn btn-pub">Publisher (DOI)</a>
+            <a href="https://scholar.google.com/scholar?q=&amp;quot;Braking+strategy+based+on+permanent+magnet+linear+eddy+current+braking&amp;quot;+&amp;quot;10.1117/12.3015957&amp;quot;" target="_blank" class="btn btn-search">Google Scholar</a>
+            <a href="https://api.openalex.org/works/https%3A%2F%2Fdoi.org%2F10.1117%2F12.3015957" target="_blank" class="btn btn-meta">OpenAlex</a>
+        </div>
+    </div>
+
+    <div class="paper-row" id="row-22" data-doi="10.3233/jae-230292">
+        <input type="checkbox" class="check-btn" onchange="toggleRow(22)" id="check-22">
+        <div class="idx">22.</div>
+        <div class="info">
+            <div class="title">Influence of key design parameters on the critical speed of eddy current brake</div>
+            <div class="meta"><span class="badge">[IOS]</span> | Year: 2024 | DOI: 10.3233/jae-230292 | S3: PMECB_CANON_133</div>
+            
+        </div>
+        <div class="actions">
+            <button class="btn btn-copy" onclick="copyName("10.3233_jae-230292-2024-Influence of key design parameters on the critical speed of eddy current brake.pdf", this)">Copy Target Filename</button>
+            <a href="https://doi.org/10.3233/jae-230292" target="_blank" class="btn btn-pub">Publisher (DOI)</a>
+            <a href="https://scholar.google.com/scholar?q=&amp;quot;Influence+of+key+design+parameters+on+the+critical+speed+of+eddy+current+brake&amp;quot;+&amp;quot;10.3233/jae-230292&amp;quot;" target="_blank" class="btn btn-search">Google Scholar</a>
+            <a href="https://api.openalex.org/works/https%3A%2F%2Fdoi.org%2F10.3233%2Fjae-230292" target="_blank" class="btn btn-meta">OpenAlex</a>
+        </div>
+    </div>
+
+    <div class="paper-row" id="row-23" data-doi="10.1115/icone31-134170">
+        <input type="checkbox" class="check-btn" onchange="toggleRow(23)" id="check-23">
+        <div class="idx">23.</div>
+        <div class="info">
+            <div class="title">Study on Analytical Model of Permanent Magnet Eddy Current Retarder for High Temperature Gas-Cooled Reactor</div>
+            <div class="meta"><span class="badge">[ASME]</span> | Year: 2024 | DOI: 10.1115/icone31-134170 | S3: PMECB_CANON_102</div>
+            
+        </div>
+        <div class="actions">
+            <button class="btn btn-copy" onclick="copyName("10.1115_icone31-134170-2024-Study on Analytical Model of Permanent Magnet Eddy Current Retarder for High Temperature Gas-Cooled Reactor.pdf", this)">Copy Target Filename</button>
+            <a href="https://doi.org/10.1115/icone31-134170" target="_blank" class="btn btn-pub">Publisher (DOI)</a>
+            <a href="https://scholar.google.com/scholar?q=&amp;quot;Study+on+Analytical+Model+of+Permanent+Magnet+Eddy+Current+Retarder+for+High+Temperature+Gas-Cooled+Reactor&amp;quot;+&amp;quot;10.1115/icone31-134170&amp;quot;" target="_blank" class="btn btn-search">Google Scholar</a>
+            <a href="https://api.openalex.org/works/https%3A%2F%2Fdoi.org%2F10.1115%2Ficone31-134170" target="_blank" class="btn btn-meta">OpenAlex</a>
+        </div>
+    </div>
+
+    <div class="paper-row" id="row-24" data-doi="10.1016/j.jmmm.2024.172123">
+        <input type="checkbox" class="check-btn" onchange="toggleRow(24)" id="check-24">
+        <div class="idx">24.</div>
+        <div class="info">
+            <div class="title">Thermal-magnetic coupling inhomogeneous temperature field analysis of cylindrical eddy current brakes</div>
+            <div class="meta"><span class="badge">[Elsevier]</span> | Year: 2024 | DOI: 10.1016/j.jmmm.2024.172123 | S3: PMECB_CANON_008</div>
+            
+        </div>
+        <div class="actions">
+            <button class="btn btn-copy" onclick="copyName("10.1016_j.jmmm.2024.172123-2024-Thermal-magnetic coupling inhomogeneous temperature field analysis of cylindrical eddy current brakes.pdf", this)">Copy Target Filename</button>
+            <a href="https://doi.org/10.1016/j.jmmm.2024.172123" target="_blank" class="btn btn-pub">Publisher (DOI)</a>
+            <a href="https://scholar.google.com/scholar?q=&amp;quot;Thermal-magnetic+coupling+inhomogeneous+temperature+field+analysis+of+cylindrical+eddy+current+brakes&amp;quot;+&amp;quot;10.1016/j.jmmm.2024.172123&amp;quot;" target="_blank" class="btn btn-search">Google Scholar</a>
+            <a href="https://api.openalex.org/works/https%3A%2F%2Fdoi.org%2F10.1016%2Fj.jmmm.2024.172123" target="_blank" class="btn btn-meta">OpenAlex</a>
+        </div>
+    </div>
+
+    <div class="paper-row" id="row-25" data-doi="10.3233/saem250003">
+        <input type="checkbox" class="check-btn" onchange="toggleRow(25)" id="check-25">
+        <div class="idx">25.</div>
+        <div class="info">
+            <div class="title">A Magnetic Circuit Model of H-Type Linear Permanent Magnet Eddy Current Brakes</div>
+            <div class="meta"><span class="badge">[IOS]</span> | Year: 2025 | DOI: 10.3233/saem250003 | S3: PMECB_CANON_134</div>
+            
+        </div>
+        <div class="actions">
+            <button class="btn btn-copy" onclick="copyName("10.3233_saem250003-2025-A Magnetic Circuit Model of H-Type Linear Permanent Magnet Eddy Current Brakes.pdf", this)">Copy Target Filename</button>
+            <a href="https://doi.org/10.3233/saem250003" target="_blank" class="btn btn-pub">Publisher (DOI)</a>
+            <a href="https://scholar.google.com/scholar?q=&amp;quot;A+Magnetic+Circuit+Model+of+H-Type+Linear+Permanent+Magnet+Eddy+Current+Brakes&amp;quot;+&amp;quot;10.3233/saem250003&amp;quot;" target="_blank" class="btn btn-search">Google Scholar</a>
+            <a href="https://api.openalex.org/works/https%3A%2F%2Fdoi.org%2F10.3233%2Fsaem250003" target="_blank" class="btn btn-meta">OpenAlex</a>
+        </div>
+    </div>
+
+    <div class="paper-row" id="row-26" data-doi="10.1016/j.jmmm.2025.172935">
+        <input type="checkbox" class="check-btn" onchange="toggleRow(26)" id="check-26">
+        <div class="idx">26.</div>
+        <div class="info">
+            <div class="title">Research on demagnetization characteristics of eddy current brake under impact load</div>
+            <div class="meta"><span class="badge">[Elsevier]</span> | Year: 2025 | DOI: 10.1016/j.jmmm.2025.172935 | S3: PMECB_CANON_009</div>
+            
+        </div>
+        <div class="actions">
+            <button class="btn btn-copy" onclick="copyName("10.1016_j.jmmm.2025.172935-2025-Research on demagnetization characteristics of eddy current brake under impact load.pdf", this)">Copy Target Filename</button>
+            <a href="https://doi.org/10.1016/j.jmmm.2025.172935" target="_blank" class="btn btn-pub">Publisher (DOI)</a>
+            <a href="https://scholar.google.com/scholar?q=&amp;quot;Research+on+demagnetization+characteristics+of+eddy+current+brake+under+impact+load&amp;quot;+&amp;quot;10.1016/j.jmmm.2025.172935&amp;quot;" target="_blank" class="btn btn-search">Google Scholar</a>
+            <a href="https://api.openalex.org/works/https%3A%2F%2Fdoi.org%2F10.1016%2Fj.jmmm.2025.172935" target="_blank" class="btn btn-meta">OpenAlex</a>
+        </div>
+    </div>
+
+    <div class="paper-row" id="row-27" data-doi="10.1177/09544062251361355">
+        <input type="checkbox" class="check-btn" onchange="toggleRow(27)" id="check-27">
+        <div class="idx">27.</div>
+        <div class="info">
+            <div class="title">Simulation and experiment of hybrid permanent magnet-friction braking strategy for overwinding protection</div>
+            <div class="meta"><span class="badge">[SAGE]</span> | Year: 2025 | DOI: 10.1177/09544062251361355 | S3: PMECB_CANON_104</div>
+            
+        </div>
+        <div class="actions">
+            <button class="btn btn-copy" onclick="copyName("10.1177_09544062251361355-2025-Simulation and experiment of hybrid permanent magnet-friction braking strategy for overwinding protection.pdf", this)">Copy Target Filename</button>
+            <a href="https://doi.org/10.1177/09544062251361355" target="_blank" class="btn btn-pub">Publisher (DOI)</a>
+            <a href="https://scholar.google.com/scholar?q=&amp;quot;Simulation+and+experiment+of+hybrid+permanent+magnet-friction+braking+strategy+for+overwinding+protection&amp;quot;+&amp;quot;10.1177/09544062251361355&amp;quot;" target="_blank" class="btn btn-search">Google Scholar</a>
+            <a href="https://api.openalex.org/works/https%3A%2F%2Fdoi.org%2F10.1177%2F09544062251361355" target="_blank" class="btn btn-meta">OpenAlex</a>
+        </div>
+    </div>
+
+</div>
+<script>
+    const STORAGE_KEY = 'pmecb_missing_pdf_dashboard_v1';
+    const rows = [...document.querySelectorAll('.paper-row')];
+
+    function loadState() {
+        const state = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+        rows.forEach((row, index) => {
+            const idx = index + 1;
+            const checked = !!state[row.dataset.doi];
+            const checkbox = document.getElementById('check-' + idx);
+            checkbox.checked = checked;
+            row.classList.toggle('downloaded', checked);
+        });
+    }
+
+    function persistRow(idx, checked) {
+        const state = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+        const row = document.getElementById('row-' + idx);
+        state[row.dataset.doi] = checked;
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    }
+
+    function toggleRow(idx) {
+        const row = document.getElementById('row-' + idx);
+        const checkbox = document.getElementById('check-' + idx);
+        row.classList.toggle('downloaded', checkbox.checked);
+        persistRow(idx, checkbox.checked);
+    }
+
+    function copyName(text, btn) {
+        navigator.clipboard.writeText(text).then(() => {
+            const oldText = btn.innerText;
+            btn.innerText = 'Copied!';
+            btn.classList.add('copied');
+            setTimeout(() => {
+                btn.innerText = oldText;
+                btn.classList.remove('copied');
+            }, 1500);
+        });
+    }
+
+    function getUncheckedRows() {
+        return rows.filter((row, index) => !document.getElementById('check-' + (index + 1)).checked);
+    }
+
+    function openBatch(kind, count) {
+        const unchecked = getUncheckedRows().slice(0, count);
+        unchecked.forEach((row) => {
+            const selector = kind === 'scholar' ? '.btn-search' : '.btn-pub';
+            const link = row.querySelector(selector);
+            if (link) {
+                window.open(link.href, '_blank');
+            }
+        });
+    }
+
+    function resetProgress() {
+        localStorage.removeItem(STORAGE_KEY);
+        loadState();
+    }
+
+    loadState();
+</script>
+</body>
+</html>

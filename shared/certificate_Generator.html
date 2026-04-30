@@ -1,0 +1,1356 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificate Generator</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Alex+Brush&family=Amiri:wght@400;700&family=Aref+Ruqaa:wght@400;700&family=Cairo:wght@400;600;700;800&family=Cinzel:wght@600;700;800&family=Great+Vibes&family=Montserrat:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&family=Reem+Kufi:wght@400;600;700&display=swap');
+
+        :root {
+            --navy: #1e3a5f;
+            --gold: #d4af37;
+            --gold-light: #e8c96b;
+            --gold-dark: #b8960c;
+            --bg: #f1f5f9;
+            --card: #ffffff;
+            --text: #1e293b;
+            --muted: #64748b;
+            --border: #e2e8f0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            height: 100vh;
+            overflow: hidden;
+            /* Lock main window scroll */
+        }
+
+        /* ========== APP LAYOUT ========== */
+        .app {
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        /* ========== SIDEBAR FORM ========== */
+        .sidebar {
+            width: 380px;
+            min-width: 380px;
+            height: 100vh;
+            background: var(--card);
+            border-right: 1px solid var(--border);
+            padding: 32px 28px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .sidebar-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+
+        .sidebar-header .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--navy);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold);
+            font-weight: 800;
+            font-size: 18px;
+        }
+
+        .sidebar-header h1 {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--navy);
+        }
+
+        .sidebar-header p {
+            font-size: 12px;
+            color: var(--muted);
+            margin-top: 2px;
+        }
+
+        .form-section {
+            border-top: 1px solid var(--border);
+            padding-top: 20px;
+        }
+
+        .form-section h3 {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--navy);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 16px;
+        }
+
+        .field {
+            margin-bottom: 16px;
+        }
+
+        .field label {
+            display: block;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--muted);
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .field input,
+        .field select,
+        .field textarea {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1.5px solid var(--border);
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 14px;
+            color: var(--text);
+            background: #f8fafc;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .field input:focus,
+        .field select:focus,
+        .field textarea:focus {
+            outline: none;
+            border-color: var(--navy);
+            box-shadow: 0 0 0 3px rgba(30, 58, 95, 0.08);
+        }
+
+        .field-row {
+            display: flex;
+            gap: 12px;
+        }
+
+        .field-row .field {
+            flex: 1;
+        }
+
+        /* --- Seal text inputs added below Signer 2 --- */
+        .seal-inputs-wrapper {
+            border-top: 1px solid var(--border);
+            padding-top: 20px;
+        }
+
+        .lang-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .lang-tab {
+            flex: 1;
+            padding: 10px;
+            border: 2px solid var(--border);
+            background: transparent;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: var(--muted);
+        }
+
+        .lang-tab.active {
+            background: var(--navy);
+            color: #fff;
+            border-color: var(--navy);
+        }
+
+        .btn-download {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, var(--gold-dark), var(--gold), var(--gold-light));
+            color: var(--navy);
+            border: none;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+        }
+
+        .btn-download:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+        }
+
+        .btn-download:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* ========== PREVIEW AREA ========== */
+        .preview-area {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            overflow: hidden;
+            /* Hide scrollbars, let JS zoom handle it */
+            background: #e2e8f0;
+            position: relative;
+        }
+
+        .preview-scaler {
+            transform-origin: center center;
+            /* Scale from middle */
+            transition: transform 0.1s ease-out;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            /* Offset half the exact dimensions of the certificate to center it perfectly before scaling */
+            margin-left: -561px;
+            /* -1122 / 2 */
+            margin-top: -396.5px;
+            /* -793 / 2 */
+        }
+
+        /* ========== CERTIFICATE ========== */
+        .cert {
+            position: relative;
+            width: 1122px;
+            height: 793px;
+            background: #ffffff;
+            box-shadow: 0 20px 60px -15px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Guilloché security pattern layer */
+        .guilloche-layer {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            opacity: 1;
+            pointer-events: none;
+        }
+
+        /* Geometric Shapes */
+        .geo {
+            position: absolute;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        /* ========== DECORATIVE BORDER CANVAS ========== */
+        .border-canvas,
+        .frame-2,
+        .frame-3 {
+            position: absolute;
+            pointer-events: none;
+        }
+
+        .border-canvas {
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 26;
+        }
+
+        .frame-2 {
+            inset: 45px;
+            border: 1.5px solid #8b0000;
+            z-index: 27;
+        }
+
+        .frame-3 {
+            inset: 50px;
+            border: 1px solid var(--gold);
+            z-index: 27;
+        }
+
+        .frame-1 {
+            inset: 18px;
+            /* Offset from paper edge */
+            border: 18px ridge #cbd5e1;
+            /* Classic heavy silver modeled frame */
+            border-radius: 2px;
+        }
+
+        .frame-2 {
+            inset: 41px;
+            /* 18 offset + 18 ridge border + 5px gap */
+            border: 1.5px solid #8b0000;
+            /* Dark Red inner accent */
+        }
+
+        .frame-3 {
+            inset: 46.5px;
+            /* 41 offset + 1.5 red border + 4px gap */
+            border: 1px solid var(--gold);
+            /* Final thin gold boundary */
+        }
+
+        .g-tl1 {
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-top: 80px solid var(--gold);
+            border-right: 80px solid transparent;
+        }
+
+        .g-tl2 {
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-top: 140px solid var(--navy);
+            border-right: 140px solid transparent;
+        }
+
+        .g-tl3 {
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-top: 160px solid var(--gold);
+            border-right: 160px solid transparent;
+            z-index: 1;
+        }
+
+        .g-br1 {
+            bottom: 0;
+            right: 0;
+            width: 0;
+            height: 0;
+            border-bottom: 80px solid var(--gold);
+            border-left: 80px solid transparent;
+        }
+
+        .g-br2 {
+            bottom: 0;
+            right: 0;
+            width: 0;
+            height: 0;
+            border-bottom: 160px solid var(--navy);
+            border-left: 160px solid transparent;
+        }
+
+        .g-br3 {
+            bottom: 0;
+            right: 0;
+            width: 0;
+            height: 0;
+            border-bottom: 180px solid var(--gold);
+            border-left: 180px solid transparent;
+            z-index: 1;
+        }
+
+        /* Small floating triangles */
+        .g-f1 {
+            bottom: 200px;
+            left: 30px;
+            width: 0;
+            height: 0;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-bottom: 30px solid var(--navy);
+            z-index: 3;
+        }
+
+        .g-f2 {
+            top: 140px;
+            right: 30px;
+            width: 0;
+            height: 0;
+            border-left: 11px solid transparent;
+            border-right: 11px solid transparent;
+            border-top: 22px solid var(--gold);
+            z-index: 3;
+        }
+
+        .g-f3 {
+            bottom: 50px;
+            left: 160px;
+            width: 0;
+            height: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-bottom: 16px solid var(--gold-light);
+            z-index: 3;
+        }
+
+        .g-f4 {
+            top: 50px;
+            right: 160px;
+            width: 0;
+            height: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-bottom: 16px solid var(--navy);
+            z-index: 3;
+            opacity: 0.4;
+        }
+
+        /* RTL mirrored shapes (Removed to keep shapes in their original LTR corners, preventing overlap with Arabic signatures) */
+
+        .cert.rtl .g-f1 {
+            left: auto;
+            right: 30px;
+        }
+
+        .cert.rtl .g-f2 {
+            right: auto;
+            left: 30px;
+        }
+
+        /* Content Box */
+        .cert-content {
+            position: relative;
+            z-index: 10;
+            width: 86%;
+            height: 86%;
+            border: 1px solid rgba(30, 58, 95, 0.12);
+            padding: 40px 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        /* Anti-Forgery Overlay Layers */
+        .guilloche-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            /* Lowest */
+            pointer-events: none;
+        }
+
+        .noise-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 25;
+            /* High enough to cover text and shapes slightly */
+            pointer-events: none;
+            mix-blend-mode: multiply;
+            opacity: 0.18;
+            /* Semi-transparent grain */
+        }
+
+        /* Seals (Positioned dynamically by JS to perfectly match background) */
+        .seal-element {
+            position: absolute;
+            transform: translate(-50%, -46.15%);
+            /* Centers optical circle perfectly on its left/top coordinate */
+            width: 140px;
+            height: 155px;
+            z-index: 20;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .seal-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .seal-content {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transform: translateY(-9px);
+        }
+
+        .s-l1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 13px;
+            font-weight: 800;
+            color: #1e3a5f;
+            letter-spacing: 2px;
+            line-height: 1.1;
+        }
+
+        .s-y {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            font-weight: 800;
+            color: #d4af37;
+            margin: 3px 0 2px 0;
+            line-height: 1;
+        }
+
+        .s-l3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 8px;
+            font-weight: 700;
+            color: #1e3a5f;
+            letter-spacing: 3px;
+            line-height: 1;
+        }
+
+        /* Typography */
+        .c-header {
+            margin-top: 10px;
+            margin-bottom: 28px;
+        }
+
+        .c-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 52px;
+            font-weight: 800;
+            color: var(--navy);
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            line-height: 1.1;
+        }
+
+        .cert.rtl .c-title {
+            font-family: 'Amiri', serif;
+            font-size: 60px;
+            letter-spacing: 0;
+        }
+
+        .c-subtitle {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 6px;
+            margin-top: 8px;
+        }
+
+        .cert.rtl .c-subtitle {
+            font-family: 'Cairo', sans-serif;
+            font-size: 20px;
+            letter-spacing: 1px;
+        }
+
+        .c-presented {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 16px;
+        }
+
+        .cert.rtl .c-presented {
+            font-family: 'Cairo', sans-serif;
+            font-size: 15px;
+            letter-spacing: 0;
+        }
+
+        .c-name {
+            font-family: 'Alex Brush', cursive;
+            font-size: 72px;
+            color: var(--gold);
+            line-height: 1;
+            padding-bottom: 8px;
+            border-bottom: 2px solid rgba(212, 175, 55, 0.25);
+            min-width: 500px;
+            display: inline-block;
+        }
+
+        .cert.rtl .c-name {
+            font-family: 'Amiri', serif;
+            font-style: italic;
+            font-size: 60px;
+            font-weight: 700;
+        }
+
+        .c-desc {
+            margin-top: 24px;
+            font-size: 14px;
+            line-height: 1.8;
+            color: var(--text);
+            max-width: 650px;
+        }
+
+        .c-desc strong {
+            color: var(--navy);
+        }
+
+        .cert.rtl .c-desc {
+            font-family: 'Cairo', sans-serif;
+            font-size: 16px;
+            direction: rtl;
+        }
+
+        .c-course {
+            font-family: 'Playfair Display', serif;
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--navy);
+            margin-top: 16px;
+        }
+
+        .cert.rtl .c-course {
+            font-family: 'Amiri', serif;
+            font-size: 34px;
+        }
+
+        /* Footer */
+        .c-footer {
+            position: absolute;
+            bottom: 35px;
+            width: 100%;
+            padding: 0 70px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        /* (Removed row-reverse hack because dir="rtl" handles this natively) */
+
+        .qr-container {
+            position: absolute;
+            bottom: -35px;
+            /* Anchors exactly to the bottom inner corner of cert-content */
+            left: -35px;
+            /* Anchors exactly to the left inner corner of cert-content */
+            width: 100px;
+            height: 100px;
+            background: #fff;
+            padding: 4px;
+            border-radius: 4px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            z-index: 30;
+        }
+
+        .cert.rtl .qr-container {
+            left: auto;
+            right: -35px;
+            /* Put QR Code on the visually Right side exact corner */
+        }
+
+        .c-details {
+            text-align: left;
+            font-size: 11px;
+            color: var(--muted);
+            line-height: 1.7;
+            padding-left: 60px;
+            /* Space for the QR Code */
+        }
+
+        .c-details strong {
+            color: var(--navy);
+        }
+
+        .cert.rtl .c-details {
+            text-align: right;
+            font-family: 'Cairo', sans-serif;
+            font-size: 13px;
+            padding-left: 0;
+            padding-right: 60px;
+            /* Space for the QR Code on the right */
+        }
+
+        .c-sig {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 220px;
+        }
+
+        .c-sig-name {
+            font-family: 'Alex Brush', cursive;
+            font-size: 32px;
+            color: var(--navy);
+            margin-bottom: 12px;
+        }
+
+        .cert.rtl .c-sig-name {
+            font-family: 'Amiri', serif;
+            font-style: italic;
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .c-sig-line {
+            width: 100%;
+            height: 1px;
+            background: var(--muted);
+            margin-bottom: 10px;
+        }
+
+        .c-sig-title {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--navy);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .cert.rtl .c-sig-title {
+            font-family: 'Cairo', sans-serif;
+            font-size: 12px;
+            letter-spacing: 0;
+            text-transform: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="app">
+
+        <!-- ========== SIDEBAR FORM ========== -->
+        <div class="sidebar" data-html2canvas-ignore="true">
+
+            <div class="sidebar-header">
+                <div class="logo-icon">KA</div>
+                <div>
+                    <h1>Certificate Generator</h1>
+                    <p>Khadhami Academy</p>
+                </div>
+            </div>
+
+            <!-- Language -->
+            <div class="lang-tabs">
+                <button class="lang-tab active" onclick="setLang('en')">English</button>
+                <button class="lang-tab" onclick="setLang('ar')">العربية</button>
+            </div>
+
+            <div id="dynamic-fields-container"></div>
+
+            <!-- Security Features -->
+            <div class="form-section"
+                style="padding: 15px; margin-bottom: 20px; background: whitesmoke; border-radius: 6px; border-left: 4px solid #1e3a5f;">
+                <h3
+                    style="font-size: 14px; color: var(--navy); margin-top: 0; margin-bottom: 12px; border-bottom: 1px solid #ccc; padding-bottom: 4px; text-transform: uppercase;">
+                    Security Features</h3>
+                <div class="field">
+                    <label style="display:block; margin-bottom:4px; font-weight:600; font-size:12px;">QR Code
+                        Verification Link</label>
+                    <input type="text" id="f-qr-link" value="https://khadhami.com/verify?id=KA-2026-9A8B7C6D5"
+                        oninput="updateQR()" placeholder="Enter URL to generate QR">
+                </div>
+            </div>
+
+            <!-- Download -->
+            <button class="btn-download" id="downloadBtn" onclick="downloadCert()">
+                ⬇ Download High-Res PNG
+            </button>
+        </div> <!-- close .sidebar -->
+
+        <!-- ========== PREVIEW AREA ========== -->
+        <div class="preview-area">
+            <div class="preview-scaler">
+                <div class="cert" id="certificate" dir="ltr">
+
+
+                    <!-- Guilloché security pattern (Background) -->
+                    <canvas class="guilloche-layer" id="guillocheCanvas" width="1122" height="793"></canvas>
+
+                    <!-- Anti-Forgery Noise Overlay (Foreground Foreground) -->
+                    <canvas class="noise-layer" id="noiseCanvas" width="1122" height="793"></canvas>
+
+                    <!-- Scallop Fan Border Canvas (html2canvas-safe) -->
+                    <canvas id="borderCanvas" class="border-canvas"></canvas>
+                    <div class="frame-2"></div>
+                    <div class="frame-3"></div>
+
+                    <!-- Geometric background shapes (Native CSS borders for reliable html2canvas export) -->
+                    <div class="geo g-tl3"></div>
+                    <div class="geo g-tl2"></div>
+                    <div class="geo g-tl1"></div>
+
+                    <div class="geo g-br3"></div>
+                    <div class="geo g-br2"></div>
+                    <div class="geo g-br1"></div>
+
+                    <div class="geo g-f1"></div>
+                    <div class="geo g-f2"></div>
+                    <div class="geo g-f3"></div>
+                    <div class="geo g-f4"></div>
+
+                    <!-- Seal - Left (Text split from SVG Graphic for perfect html2canvas compatibility) -->
+                    <div class="seal-element seal-left">
+                        <img class="seal-bg"
+                            src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEzMCIgdmlld0JveD0iMCAwIDEyMCAxMzAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnbGRMIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2YwZDA2MCIgLz48c3RvcCBvZmZzZXQ9IjUwJSIgc3RvcC1jb2xvcj0iI2Q0YWYzNyIgLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNiODk2MGMiIC8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHBvbHlnb24gcG9pbnRzPSI2MCwzIDY1LjUsMTMgNzUsNyA3OCwxNi41IDg4LDE0IDg3LjUsMjQgOTYsMjYgOTIsMzUgOTksNDAgOTMsNDcgOTgsNTQgOTAsNTggOTMsNjYgODUsNjcgODMsNzYgNzUsNzMgNzEsODAgNjUsNzUgNjAsODIgNTUsNzUgNDksODAgNDUsNzMgMzcsNzYgMzUsNjcgMjcsNjYgMzAsNTggMjIsNTQgMjcsNDcgMjEsNDAgMjgsMzUgMjQsMjYgMzIuNSwyNCAzMiwxNCA0MiwxNi41IDQ1LDcgNTQuNSwxMyA2MCwzIiBmaWxsPSJ1cmwoI2dsZEwpIiAvPjxjaXJjbGUgY3g9IjYwIiBjeT0iNjAiIHI9IjQwIiBmaWxsPSIjZmZmIiAvPjxjaXJjbGUgY3g9IjYwIiBjeT0iNjAiIHI9IjM2IiBmaWxsPSJub25lIiBzdHJva2U9IiNkNGFmMzciIHN0cm9rZS13aWR0aD0iMi41IiAvPjxjaXJjbGUgY3g9IjYwIiBjeT0iNjAiIHI9IjMyIiBmaWxsPSJub25lIiBzdHJva2U9IiNkNGFmMzciIHN0cm9rZS13aWR0aD0iMC44IiBzdHJva2UtZGFzaGFycmF5PSIyLDEuNSIgLz48cGF0aCBkPSJNNDQgOTUgTDQ0IDEyMiBMNjAgMTEzIEw3NiAxMjIgTDc2IDk1IiBmaWxsPSJ1cmwoI2dsZEwpIiBzdHJva2U9IiNiODk2MGMiIHN0cm9rZS13aWR0aD0iMC41IiAvPjwvc3ZnPg=="
+                            alt="" />
+                        <div class="seal-content">
+                            <span class="s-l1">BEST</span>
+                            <span class="s-y">2026</span>
+                            <span class="s-l3">AWARD</span>
+                        </div>
+                    </div>
+
+                    <!-- Seal - Right (Text split from SVG Graphic for perfect html2canvas compatibility) -->
+                    <div class="seal-element seal-right">
+                        <img class="seal-bg"
+                            src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEzMCIgdmlld0JveD0iMCAwIDEyMCAxMzAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnbGRSIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2YwZDA2MCIgLz48c3RvcCBvZmZzZXQ9IjUwJSIgc3RvcC1jb2xvcj0iI2Q0YWYzNyIgLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNiODk2MGMiIC8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHBvbHlnb24gcG9pbnRzPSI2MCwzIDY1LjUsMTMgNzUsNyA3OCwxNi41IDg4LDE0IDg3LjUsMjQgOTYsMjYgOTIsMzUgOTksNDAgOTMsNDcgOTgsNTQgOTAsNTggOTMsNjYgODUsNjcgODMsNzYgNzUsNzMgNzEsODAgNjUsNzUgNjAsODIgNTUsNzUgNDksODAgNDUsNzMgMzcsNzYgMzUsNjcgMjcsNjYgMzAsNTggMjIsNTQgMjcsNDcgMjEsNDAgMjgsMzUgMjQsMjYgMzIuNSwyNCAzMiwxNCA0MiwxNi41IDQ1LDcgNTQuNSwxMyA2MCwzIiBmaWxsPSJ1cmwoI2dsZFIpIiAvPjxjaXJjbGUgY3g9IjYwIiBjeT0iNjAiIHI9IjQwIiBmaWxsPSIjZmZmIiAvPjxjaXJjbGUgY3g9IjYwIiBjeT0iNjAiIHI9IjM2IiBmaWxsPSJub25lIiBzdHJva2U9IiNkNGFmMzciIHN0cm9rZS13aWR0aD0iMi41IiAvPjxjaXJjbGUgY3g9IjYwIiBjeT0iNjAiIHI9IjMyIiBmaWxsPSJub25lIiBzdHJva2U9IiNkNGFmMzciIHN0cm9rZS13aWR0aD0iMC44IiBzdHJva2UtZGFzaGFycmF5PSIyLDEuNSIgLz48cGF0aCBkPSJNNDQgOTUgTDQ0IDEyMiBMNjAgMTEzIEw3NiAxMjIgTDc2IDk1IiBmaWxsPSJ1cmwoI2dsZFIpIiBzdHJva2U9IiNiODk2MGMiIHN0cm9rZS13aWR0aD0iMC41IiAvPjwvc3ZnPg=="
+                            alt="" />
+                        <div class="seal-content">
+                            <span class="s-l1">BEST</span>
+                            <span class="s-y">2026</span>
+                            <span class="s-l3">AWARD</span>
+                        </div>
+                    </div>
+
+                    <!-- Content -->
+                    <div class="cert-content">
+
+                        <!-- Header -->
+                        <div class="c-header">
+                            <h1 class="c-title" id="cert-title">Certificate</h1>
+                            <div class="c-subtitle" id="cert-subtitle">Of Completion</div>
+                        </div>
+
+                        <div class="c-presented" id="cert-presented">This certificate is proudly presented to</div>
+
+                        <h2 class="c-name" id="cert-name">Hayl Khadhami</h2>
+
+                        <div class="c-desc" id="cert-desc">
+                            For successfully fulfilling all requirements and completing the rigorous curriculum of
+                            Khadhami Academy. This individual has demonstrated exceptional skill and passing all
+                            examinations with an outstanding final grade of <strong id="cert-grade">98%
+                                (Honors)</strong>.
+                        </div>
+
+                        <div class="c-course" id="cert-course">Advanced Android Architecture</div>
+
+                        <!-- Footer -->
+                        <div class="c-footer">
+                            <div class="qr-container" id="qr-code"></div>
+                            <div class="c-details" id="cert-details">
+                                <div><strong class="cert-date-label">DATE:</strong> <span class="cert-date-val">October
+                                        24, 2026</span></div>
+                                <div><strong class="cert-id-label">ID:</strong> <span
+                                        class="cert-serial-val">KA-2026-9A8B7C6D5</span></div>
+                            </div>
+                            <div class="c-sig">
+                                <div class="c-sig-name" id="cert-sig1">H. Khadhami</div>
+                                <div class="c-sig-line"></div>
+                                <div class="c-sig-title" id="cert-sig1-title">Lead Instructor</div>
+                            </div>
+                            <div class="c-sig">
+                                <div class="c-sig-name" id="cert-sig2">Khadhami Academy</div>
+                                <div class="c-sig-line"></div>
+                                <div class="c-sig-title" id="cert-sig2-title">Director of Education</div>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- close .cert -->
+            </div>
+
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+            <script>
+                let currentLang = 'en';
+
+                // Arabic text templates
+                const elementsConfig = [
+                    { key: 'title', label: 'Main Title', selector: '#cert-title', isTextarea: false, defEn: 'Certificate', defAr: 'شَهَادَةُ', fEn: "'Playfair Display', serif", fAr: "'Amiri', serif", sz: 52, col: '#1e3a5f' },
+                    { key: 'subtitle', label: 'Subtitle', selector: '#cert-subtitle', isTextarea: false, defEn: 'Of Completion', defAr: 'إِتْمَامٍ وَتَخَرُّجٍ', fEn: "'Montserrat', sans-serif", fAr: "'Cairo', sans-serif", sz: 16, col: '#d4af37' },
+                    { key: 'presented', label: 'Presented To text', selector: '#cert-presented', isTextarea: false, defEn: 'This certificate is proudly presented to', defAr: 'تُقَدَّمُ هَذِهِ الشَّهَادَةُ بِكُلِّ فَخْرٍ وَٱعْتِزَازٍ إِلَى', fEn: "'Montserrat', sans-serif", fAr: "'Cairo', sans-serif", sz: 13, col: '#1e3a5f' },
+                    { key: 'name', label: 'Recipient Name', selector: '#cert-name', isTextarea: false, defEn: 'Hayl Khadhami', defAr: 'هايل الخضمي', fEn: "'Alex Brush', cursive", fAr: "'Amiri', serif", sz: 100, col: '#d4af37' },
+                    { key: 'desc', label: 'Description', selector: '#cert-desc', isTextarea: true, defEn: 'For successfully fulfilling all requirements and completing the rigorous curriculum of Khadhami Academy with an outstanding final grade of 98% (Honors).', defAr: 'لِاجْتِيَازِهِ بِبَرَاعَةٍ كَافَّةَ الْمُتَطَلَّبَاتِ وَٱلِاخْتِبَارَاتِ فِي أَكَادِيمِيَّةِ الخَضْمِي بِتَقْدِيرٍ نِهَائِيٍّ مُمْتَاز (مَرْتَبَةِ الشَّرَفِ).', fEn: "'Montserrat', sans-serif", fAr: "'Cairo', sans-serif", sz: 14, col: '#1e293b' },
+                    { key: 'course', label: 'Course Name', selector: '#cert-course', isTextarea: false, defEn: 'Advanced Android Architecture', defAr: 'هندسة أندرويد المتقدمة', fEn: "'Playfair Display', serif", fAr: "'Amiri', serif", sz: 38, col: '#1e3a5f' },
+
+                    { key: 'dateLabel', label: 'Date Label', selector: '.cert-date-label', isTextarea: false, defEn: 'DATE:', defAr: 'التَّارِيخُ:', fEn: "'Montserrat', sans-serif", fAr: "'Cairo', sans-serif", sz: 11, col: '#64748b' },
+                    { key: 'dateVal', label: 'Date Value', selector: '.cert-date-val', isTextarea: false, defEn: 'October 24, 2026', defAr: '٢٤ أكتوبر ٢٠٢٦', fEn: "'Montserrat', sans-serif", fAr: "'Cairo', sans-serif", sz: 11, col: '#64748b' },
+
+                    { key: 'idLabel', label: 'ID Label', selector: '.cert-id-label', isTextarea: false, defEn: 'ID:', defAr: 'الرَّقْمُ:', fEn: "'Montserrat', sans-serif", fAr: "'Cairo', sans-serif", sz: 11, col: '#64748b' },
+                    { key: 'idVal', label: 'ID Value', selector: '.cert-serial-val', isTextarea: false, defEn: 'KA-2026-9A8B7C6D5', defAr: 'KA-٢٠٢٦-٩A٨B٧C٦D٥', fEn: "'Montserrat', sans-serif", fAr: "'Cairo', sans-serif", sz: 11, col: '#64748b' },
+
+                    { key: 'sig1', label: 'Signer 1 Name', selector: '#cert-sig1', isTextarea: false, defEn: 'H. Khadhami', defAr: 'هـ. الخضمي', fEn: "'Alex Brush', cursive", fAr: "'Amiri', serif", sz: 32, col: '#1e3a5f' },
+                    { key: 'sig1Title', label: 'Signer 1 Title', selector: '#cert-sig1-title', isTextarea: false, defEn: 'Lead Instructor', defAr: 'كبير المدربين', fEn: "'Montserrat', sans-serif", fAr: "'Cairo', sans-serif", sz: 11, col: '#1e3a5f' },
+
+                    { key: 'sig2', label: 'Signer 2 Name', selector: '#cert-sig2', isTextarea: false, defEn: 'Khadhami Academy', defAr: 'أكاديمية الخضمي', fEn: "'Alex Brush', cursive", fAr: "'Amiri', serif", sz: 32, col: '#1e3a5f' },
+                    { key: 'sig2Title', label: 'Signer 2 Title', selector: '#cert-sig2-title', isTextarea: false, defEn: 'Director of Education', defAr: 'مدير التعليم', fEn: "'Montserrat', sans-serif", fAr: "'Cairo', sans-serif", sz: 11, col: '#1e3a5f' },
+
+                    { key: 'sealTop', label: 'Seal Top Text', selector: '.s-l1', isTextarea: false, defEn: 'BEST', defAr: 'أفضل', fEn: "'Montserrat', sans-serif", fAr: "'Cairo', sans-serif", sz: 13, col: '#1e3a5f' },
+                    { key: 'sealYear', label: 'Seal Year Text', selector: '.s-y', isTextarea: false, defEn: '2026', defAr: '٢٠٢٦', fEn: "'Playfair Display', serif", fAr: "'Amiri', serif", sz: 24, col: '#d4af37' },
+                    { key: 'sealBot', label: 'Seal Bottom Text', selector: '.s-l3', isTextarea: false, defEn: 'AWARD', defAr: 'إنجاز', fEn: "'Montserrat', sans-serif", fAr: "'Cairo', sans-serif", sz: 8, col: '#1e3a5f' },
+                ];
+
+                function setLang(lang) {
+                    currentLang = lang;
+                    document.querySelectorAll('.lang-tab').forEach(b => b.classList.remove('active'));
+                    document.querySelectorAll('.lang-tab')[lang === 'en' ? 0 : 1].classList.add('active');
+
+                    const cert = document.getElementById('certificate');
+                    if (lang === 'ar') {
+                        cert.classList.add('rtl');
+                        cert.dir = 'rtl';
+                    } else {
+                        cert.classList.remove('rtl');
+                        cert.dir = 'ltr';
+                    }
+
+                    renderDynamicFields();
+                    updatePreview();
+                }
+
+                function renderDynamicFields() {
+                    const container = document.getElementById('dynamic-fields-container');
+                    container.innerHTML = '';
+
+                    const isAr = currentLang === 'ar';
+
+                    elementsConfig.forEach(conf => {
+                        let textVal = isAr ? conf.defAr : conf.defEn;
+                        let fontVal = isAr ? conf.fAr : conf.fEn;
+
+                        let fontOptions = '';
+                        if (isAr) {
+                            fontOptions = `
+                                <option value="'Cairo', sans-serif" ${fontVal === "'Cairo', sans-serif" ? 'selected' : ''}>Cairo</option>
+                                <option value="'Amiri', serif" ${fontVal === "'Amiri', serif" ? 'selected' : ''}>Amiri</option>
+                                <option value="'Reem Kufi', sans-serif" ${fontVal === "'Reem Kufi', sans-serif" ? 'selected' : ''}>Reem Kufi</option>
+                            `;
+                        } else {
+                            fontOptions = `
+                                <option value="'Montserrat', sans-serif" ${fontVal === "'Montserrat', sans-serif" ? 'selected' : ''}>Montserrat</option>
+                                <option value="'Playfair Display', serif" ${fontVal === "'Playfair Display', serif" ? 'selected' : ''}>Playfair Display</option>
+                                <option value="'Cinzel', serif" ${fontVal === "'Cinzel', serif" ? 'selected' : ''}>Cinzel</option>
+                                <option value="'Alex Brush', cursive" ${fontVal === "'Alex Brush', cursive" ? 'selected' : ''}>Alex Brush</option>
+                            `;
+                        }
+
+                        const inputHtml = conf.isTextarea ?
+                            `<textarea id="in-text-${conf.key}" oninput="updatePreview()" style="width:100%; padding:8px; border:1px solid #cbd5e1; border-radius:4px; font-family:inherit; resize:vertical; min-height:60px;">${textVal}</textarea>` :
+                            `<input type="text" id="in-text-${conf.key}" value="${textVal}" oninput="updatePreview()">`;
+
+                        const html = `
+                        <div class="form-section" style="padding: 15px; margin-bottom: 20px; background: whitesmoke; border-radius: 6px;">
+                            <h3 style="font-size: 14px; color: var(--navy); margin-top: 0; margin-bottom: 12px; border-bottom: 1px solid #ccc; padding-bottom: 4px; text-transform: uppercase;">${conf.label}</h3>
+                            <div class="field">
+                                <label style="display:block; margin-bottom:4px; font-weight:600; font-size:12px;">Text Content</label>
+                                ${inputHtml}
+                            </div>
+                            <div class="field" style="margin-top:10px;">
+                                <label style="display:block; margin-bottom:4px; font-weight:600; font-size:12px;">Font Family</label>
+                                <select id="in-font-${conf.key}" onchange="updatePreview()">
+                                    ${fontOptions}
+                                </select>
+                            </div>
+                            <div class="field-row" style="margin-top:10px;">
+                                <div class="field">
+                                    <label style="display:block; margin-bottom:4px; font-weight:600; font-size:12px;">Size (px)</label>
+                                    <input type="number" id="in-size-${conf.key}" value="${conf.sz}" min="5" max="150" oninput="updatePreview()">
+                                </div>
+                                <div class="field">
+                                    <label style="display:block; margin-bottom:4px; font-weight:600; font-size:12px;">Color</label>
+                                    <input type="color" id="in-color-${conf.key}" value="${conf.col}" oninput="updatePreview()" style="height:42px; padding:2px; width:100%;">
+                                </div>
+                            </div>
+                        </div>
+                        `;
+                        container.innerHTML += html;
+                    });
+                }
+
+                function updatePreview() {
+                    elementsConfig.forEach(conf => {
+                        const textEl = document.getElementById('in-text-' + conf.key);
+                        const fontEl = document.getElementById('in-font-' + conf.key);
+                        const sizeEl = document.getElementById('in-size-' + conf.key);
+                        const colorEl = document.getElementById('in-color-' + conf.key);
+
+                        if (!textEl || !fontEl || !sizeEl || !colorEl) return;
+
+                        const textVal = textEl.value;
+                        const fontVal = fontEl.value;
+                        const sizeVal = sizeEl.value;
+                        const colorVal = colorEl.value;
+
+                        const targets = document.querySelectorAll(conf.selector);
+                        targets.forEach(el => {
+                            if (conf.isTextarea) {
+                                // Allow basic HTML like <strong>
+                                el.innerHTML = textVal;
+                            } else {
+                                el.textContent = textVal;
+                            }
+                            el.style.fontFamily = fontVal;
+                            el.style.fontSize = sizeVal + 'px';
+                            el.style.color = colorVal;
+                        });
+                    });
+                }
+
+                function downloadCert() {
+                    const btn = document.getElementById('downloadBtn');
+                    btn.disabled = true;
+                    btn.textContent = currentLang === 'ar' ? 'جاري الإنشاء...' : 'Generating...';
+
+                    html2canvas(document.getElementById('certificate'), {
+                        scale: 3,
+                        useCORS: true,
+                        backgroundColor: '#ffffff',
+                        logging: false,
+                        allowTaint: true
+                    }).then(canvas => {
+                        const a = document.createElement('a');
+                        const name = document.getElementById('f-name').value.replace(/\s+/g, '_') || 'Certificate';
+                        a.download = `Khadhami_Certificate_${name}.png`;
+                        a.href = canvas.toDataURL('image/png', 1.0);
+                        a.click();
+                        btn.disabled = false;
+                        btn.textContent = '⬇ Download High-Res PNG';
+                    }).catch(() => {
+                        btn.textContent = 'Error — Try Again';
+                        setTimeout(() => { btn.disabled = false; btn.textContent = '⬇ Download High-Res PNG'; }, 2000);
+                    });
+                }
+
+                // Auto-scale preview to fit
+                function scalePreview() {
+                    const area = document.querySelector('.preview-area');
+                    const scaler = document.querySelector('.preview-scaler');
+                    const aW = area.clientWidth - 80;
+                    const aH = area.clientHeight - 80;
+                    const ratio = Math.min(aW / 1122, aH / 793, 1);
+                    scaler.style.transform = `scale(${ratio})`;
+                }
+
+                // ========== GUILLOCHÉ PATTERN GENERATOR ==========
+                function drawGuilloche() {
+                    const canvas = document.getElementById('guillocheCanvas');
+                    if (!canvas) return;
+                    const ctx = canvas.getContext('2d');
+                    const W = 1122, H = 793;
+                    canvas.width = W;
+                    canvas.height = H;
+                    ctx.clearRect(0, 0, W, H);
+
+                    // Draw a single spirograph rosette
+                    function drawRosette(cx, cy, R, r, d, color, lineW, steps) {
+                        ctx.beginPath();
+                        ctx.strokeStyle = color;
+                        ctx.lineWidth = lineW;
+                        for (let t = 0; t < Math.PI * 2 * steps; t += 0.01) {
+                            const x = cx + (R - r) * Math.cos(t) + d * Math.cos(((R - r) / r) * t);
+                            const y = cy + (R - r) * Math.sin(t) + d * Math.sin(((R - r) / r) * t);
+                            if (t === 0) ctx.moveTo(x, y);
+                            else ctx.lineTo(x, y);
+                        }
+                        ctx.stroke();
+                    }
+
+                    // Draw wavy horizontal guilloche lines
+                    function drawWaveLines(yStart, yEnd, count, color, lineW, amp, freq) {
+                        ctx.strokeStyle = color;
+                        ctx.lineWidth = lineW;
+                        const spacing = (yEnd - yStart) / count;
+                        for (let i = 0; i < count; i++) {
+                            const baseY = yStart + i * spacing;
+                            ctx.beginPath();
+                            for (let x = 0; x < W; x += 1) {
+                                const y = baseY + Math.sin(x * freq + i * 0.5) * amp + Math.sin(x * freq * 1.7 + i) * (amp * 0.4);
+                                if (x === 0) ctx.moveTo(x, y);
+                                else ctx.lineTo(x, y);
+                            }
+                            ctx.stroke();
+                        }
+                    }
+
+                    // Draw diamond lattice pattern
+                    function drawLattice(color, lineW, spacing) {
+                        ctx.strokeStyle = color;
+                        ctx.lineWidth = lineW;
+                        for (let x = -H; x < W + H; x += spacing) {
+                            ctx.beginPath();
+                            ctx.moveTo(x, 0);
+                            ctx.lineTo(x + H, H);
+                            ctx.stroke();
+                            ctx.beginPath();
+                            ctx.moveTo(x + H, 0);
+                            ctx.lineTo(x, H);
+                            ctx.stroke();
+                        }
+                    }
+
+                    // ---- DENSE BANKNOTE-STYLE LAYERS ----
+
+                    // Layer 1: Very dense diamond lattice covering entire surface
+                    drawLattice('rgba(70, 130, 180, 0.18)', 0.5, 10);
+                    drawLattice('rgba(150, 120, 200, 0.10)', 0.3, 15);
+
+                    // Layer 2: Full-coverage horizontal wave bands (entire certificate height)
+                    drawWaveLines(0, H, 80, 'rgba(70, 130, 180, 0.22)', 0.6, 12, 0.03);
+                    drawWaveLines(0, H, 60, 'rgba(160, 140, 210, 0.16)', 0.5, 15, 0.02);
+                    drawWaveLines(0, H, 50, 'rgba(180, 200, 100, 0.12)', 0.4, 10, 0.04);
+
+                    // Layer 3: Central large rosette cluster (like the reference)
+                    drawRosette(W / 2, H / 2, 280, 47, 140, 'rgba(180, 160, 220, 0.20)', 0.7, 47);
+                    drawRosette(W / 2, H / 2, 250, 53, 125, 'rgba(100, 180, 210, 0.18)', 0.6, 53);
+                    drawRosette(W / 2, H / 2, 220, 41, 110, 'rgba(200, 200, 80, 0.14)', 0.5, 41);
+                    drawRosette(W / 2, H / 2, 190, 37, 95, 'rgba(220, 160, 180, 0.14)', 0.5, 37);
+                    drawRosette(W / 2, H / 2, 160, 29, 80, 'rgba(100, 200, 180, 0.12)', 0.4, 29);
+                    drawRosette(W / 2, H / 2, 130, 23, 65, 'rgba(180, 160, 220, 0.10)', 0.4, 23);
+
+                    // Layer 4: Corner rosette clusters (all 4 corners)
+                    // Center corresponds exactly to top:40px/right:40px on .cert-content
+                    const corners = [[188, 172], [W - 188, 172], [188, H - 172], [W - 188, H - 172]];
+                    corners.forEach(([cx, cy]) => {
+                        drawRosette(cx, cy, 160, 31, 80, 'rgba(100, 160, 220, 0.20)', 0.6, 31);
+                        drawRosette(cx, cy, 130, 29, 65, 'rgba(200, 200, 80, 0.14)', 0.45, 29);
+                        drawRosette(cx, cy, 100, 23, 50, 'rgba(220, 160, 180, 0.12)', 0.4, 23);
+                    });
+
+                    // Layer 5: Explicit Side Rosettes matching seal positions
+                    const sealX = 185;
+                    const sealY = 185;
+
+                    drawRosette(sealX, sealY, 170, 37, 85, 'rgba(180, 160, 220, 0.18)', 0.55, 37);
+                    drawRosette(W - sealX, sealY, 170, 37, 85, 'rgba(180, 160, 220, 0.18)', 0.55, 37);
+                    drawRosette(sealX, sealY, 130, 29, 65, 'rgba(100, 180, 210, 0.14)', 0.45, 29);
+                    drawRosette(W - sealX, sealY, 130, 29, 65, 'rgba(100, 180, 210, 0.14)', 0.45, 29);
+
+                    // PERFECT MATH ALIGNMENT: Force HTML seals to exactly these canvas pixels
+                    const sealLeft = document.querySelector('.seal-left');
+                    const sealRight = document.querySelector('.seal-right');
+                    if (sealLeft && sealRight) {
+                        sealLeft.style.left = `${sealX}px`;
+                        sealLeft.style.top = `${sealY}px`;
+                        sealRight.style.left = `${W - sealX}px`;
+                        sealRight.style.top = `${sealY}px`;
+                    }
+
+                    // Top/Bottom edge fillers
+                    drawRosette(W / 2, 0, 160, 41, 80, 'rgba(100, 180, 210, 0.12)', 0.4, 41);
+                    drawRosette(W / 2, H, 160, 41, 80, 'rgba(100, 180, 210, 0.12)', 0.4, 41);
+                }
+
+                // ========== ANTI-FORGERY NOISE GENERATOR ==========
+                function drawNoise() {
+                    const canvas = document.getElementById('noiseCanvas');
+                    if (!canvas) return;
+                    const ctx = canvas.getContext('2d');
+                    const w = canvas.width;
+                    const h = canvas.height;
+                    const imgData = ctx.createImageData(w, h);
+                    const data = imgData.data;
+
+                    for (let i = 0; i < data.length; i += 4) {
+                        // High frequency monochrome noise
+                        const val = Math.random() * 255;
+                        data[i] = val;     // red
+                        data[i + 1] = val;   // green
+                        data[i + 2] = val;   // blue
+                        data[i + 3] = 45;    // alpha (opacity of the noise pixel)
+                    }
+                    ctx.putImageData(imgData, 0, 0);
+                }
+
+                // ========== QR CODE GENERATOR ==========
+                function updateQR() {
+                    const qrEl = document.getElementById('qr-code');
+                    const link = document.getElementById('f-qr-link').value || 'https://khadhami.com/verify';
+                    qrEl.innerHTML = '';
+                    if (typeof QRCode !== 'undefined') {
+                        new QRCode(qrEl, {
+                            text: link,
+                            width: 92, // Fits inside the 100px container padding
+                            height: 92,
+                            colorDark: "#1e3a5f",
+                            colorLight: "#ffffff",
+                            correctLevel: QRCode.CorrectLevel.L
+                        });
+                    }
+                }
+
+                window.addEventListener('resize', scalePreview);
+
+                // ========== SCALLOP BORDER GENERATOR ==========
+                function drawScallopBorder() {
+                    const bcv = document.getElementById('borderCanvas');
+                    if (!bcv) return;
+                    const W = 1122, H = 793;
+                    bcv.width = W * 2;  // 2x for crisp rendering
+                    bcv.height = H * 2;
+                    const ctx = bcv.getContext('2d');
+                    ctx.scale(2, 2);
+
+                    const BW = 40;    // border band width
+                    const R = 20;    // arch radius (2*R = arch diameter = arch step)
+                    const NLINES = 20; // radiating lines per fan
+                    const COL = 'rgba(30, 58, 95, 0.90)';
+                    const PI = Math.PI;
+
+                    function fan(cx, cy, radius, aStart, aEnd) {
+                        ctx.save();
+                        ctx.beginPath();
+                        ctx.moveTo(cx, cy);
+                        ctx.arc(cx, cy, radius, aStart, aEnd);
+                        ctx.closePath();
+                        ctx.clip();
+
+                        // Base fill
+                        ctx.fillStyle = COL;
+                        ctx.beginPath();
+                        ctx.moveTo(cx, cy);
+                        ctx.arc(cx, cy, radius, aStart, aEnd);
+                        ctx.closePath();
+                        ctx.fill();
+
+                        // Radiating light lines
+                        ctx.strokeStyle = 'rgba(255,255,255,0.50)';
+                        ctx.lineWidth = 0.55;
+                        for (let i = 0; i <= NLINES; i++) {
+                            const a = aStart + (aEnd - aStart) * (i / NLINES);
+                            ctx.beginPath();
+                            ctx.moveTo(cx, cy);
+                            ctx.lineTo(cx + radius * Math.cos(a), cy + radius * Math.sin(a));
+                            ctx.stroke();
+                        }
+
+                        // Concentric arc hatching
+                        ctx.strokeStyle = 'rgba(255,255,255,0.22)';
+                        ctx.lineWidth = 0.55;
+                        for (let r = R * 0.35; r <= radius; r += R * 0.2) {
+                            ctx.beginPath();
+                            ctx.arc(cx, cy, r, aStart, aEnd);
+                            ctx.stroke();
+                        }
+                        ctx.restore();
+                    }
+
+                    // --- Top edge (fans open downward, centre on y=0) ---
+                    const hN = Math.ceil(W / (R * 2));
+                    const hS = W / hN;
+                    for (let i = 0; i < hN; i++) fan(hS * (i + 0.5), 0, R * 2, 0, PI);
+
+                    // --- Bottom edge (fans open upward, centre on y=H) ---
+                    for (let i = 0; i < hN; i++) fan(hS * (i + 0.5), H, R * 2, PI, 2 * PI);
+
+                    // --- Left edge (fans open rightward, centre on x=0) ---
+                    const vN = Math.ceil(H / (R * 2));
+                    const vS = H / vN;
+                    for (let i = 0; i < vN; i++) fan(0, vS * (i + 0.5), R * 2, -PI / 2, PI / 2);
+
+                    // --- Right edge (fans open leftward, centre on x=W) ---
+                    for (let i = 0; i < vN; i++) fan(W, vS * (i + 0.5), R * 2, PI / 2, 3 * PI / 2);
+
+                    // Outer + inner rule lines
+                    ctx.strokeStyle = COL;
+                    ctx.lineWidth = 1.2;
+                    // Thin outer edge
+                    ctx.strokeRect(0.6, 0.6, W - 1.2, H - 1.2);
+                    // Thin inner boundary just inside scallops
+                    const inset = R * 2 + 2;
+                    ctx.strokeRect(inset, inset, W - inset * 2, H - inset * 2);
+                }
+
+                window.onload = () => {
+                    drawGuilloche();
+                    drawNoise();
+                    drawScallopBorder();
+                    updateQR();
+                    setLang('en');
+                    setTimeout(() => {
+                        scalePreview();
+                    }, 50);
+                };
+
+                // ========== IMAGE EXPORT ==========
+                async function downloadCert() {
+                    const btn = document.getElementById('downloadBtn');
+                    const certEl = document.getElementById('certificate');
+
+                    if (!certEl || typeof html2canvas === 'undefined') {
+                        btn.innerHTML = 'Error — Try Again';
+                        return;
+                    }
+
+                    // Original text to restore
+                    const originalText = btn.innerHTML;
+                    btn.innerHTML = '⏳ Generating...';
+                    btn.disabled = true;
+
+                    try {
+                        // The certificate is scaled down for viewing via .preview-scaler
+                        // html2canvas severely distorts text tracking (squished) and breaks CSS clip-paths if the source is animating.
+                        // We must temporarily force the live DOM back to a STATIC 1:1 scale before rendering.
+                        const scaler = document.querySelector('.preview-scaler');
+                        const originalTransform = scaler.style.transform;
+                        const originalTransition = scaler.style.transition; // Save transition
+
+                        scaler.style.transition = 'none'; // Disable animation BEFORE scaling
+                        scaler.style.transform = 'scale(1)';
+
+                        // Force the browser to flush synchronous layout at 1:1 scale
+                        await new Promise(r => requestAnimationFrame(r));
+                        await new Promise(r => setTimeout(r, 60));
+
+                        const canvas = await html2canvas(certEl, {
+                            scale: 2, // Export at 2x High resolution
+                            useCORS: true,
+                            backgroundColor: '#ffffff',
+                            logging: false
+                        });
+
+                        scaler.style.transform = originalTransform; // Restore visual scale instantly
+
+                        // Restore transition after the next frame so it doesn't animate the restoration
+                        requestAnimationFrame(() => {
+                            scaler.style.transition = originalTransition;
+                        });
+
+                        // Convert and download
+                        const link = document.createElement('a');
+                        link.download = 'Khadhami_Academy_Certificate.png';
+                        link.href = canvas.toDataURL('image/png');
+                        link.click();
+
+                        btn.innerHTML = '✅ Download Complete';
+                    } catch (err) {
+                        console.error('Error generating certificate:', err);
+                        btn.innerHTML = '❌ Error — Try Again';
+                    } finally {
+                        setTimeout(() => {
+                            btn.innerHTML = originalText;
+                            btn.disabled = false;
+                        }, 3000);
+                    }
+                }
+            </script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</body>
+
+
+</html>
+

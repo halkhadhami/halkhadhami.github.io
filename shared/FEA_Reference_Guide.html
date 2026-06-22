@@ -1,0 +1,2113 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>المرجع الاستراتيجي الشامل في تحليل العناصر المحدودة (FEA) — V&V</title>
+<meta name="author" content="Khadhami Hayl">
+<meta name="description" content="وثيقة مرجعية معتمدة لإعداد النمذجة والمحاكاة الهندسية المتقدمة - V&V and FEA Reference">
+<meta name="keywords" content="FEA, V&V, Verification, Validation, Mesh, Engineering, Abaqus, ANSYS, COMSOL, Nastran">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Noto+Kufi+Arabic:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css">
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/contrib/auto-render.min.js"></script>
+
+<style>
+/* ===================== A4 CORE LAYOUT ===================== */
+@page {
+    size: A4;
+    margin: 0;
+}
+
+:root {
+    /* Engineering palette - refined */
+    --navy: #1E3A8A;
+    --navy-deep: #0F172A;
+    --navy-mid: #1E40AF;
+    --navy-light: #3B82F6;
+    --navy-soft: #DBEAFE;
+    --red: #DC2626;
+    --red-soft: #FEE2E2;
+    --amber: #D97706;
+    --amber-soft: #FEF3C7;
+    --green: #047857;
+    --green-soft: #D1FAE5;
+    --steel: #334155;
+    --steel-light: #64748B;
+    --steel-ultralight: #94A3B8;
+    --bg: #FFFFFF;
+    --bg-soft: #F8FAFC;
+    --bg-paper: #FFFFFF;
+    --text: #0F172A;
+    --text-muted: #475569;
+    --border: #CBD5E1;
+    --border-light: #E2E8F0;
+    --border-soft: #F1F5F9;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Noto Naskh Arabic', 'Amiri', serif;
+    font-size: 10.5pt;
+    line-height: 1.8;
+    direction: rtl;
+    text-align: right;
+    -webkit-font-smoothing: antialiased;
+}
+
+@media screen {
+    html {
+        background: #1a1a1a;
+        display: flex;
+        justify-content: center;
+    }
+    body {
+        background: var(--bg);
+        width: 210mm;
+        box-shadow: 0 0 40px rgba(0,0,0,0.5);
+        margin: 20px auto;
+    }
+}
+
+/* ===================== COVER PAGE ===================== */
+.cover {
+    width: 210mm;
+    height: 297mm;
+    background: linear-gradient(160deg, #0F172A 0%, #1E3A8A 55%, #1E40AF 100%);
+    color: #FFFFFF;
+    position: relative;
+    overflow: hidden;
+    break-after: page;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 28mm 22mm 22mm 22mm;
+}
+
+.cover::after {
+    content: '';
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    width: 260px;
+    height: 260px;
+    border: 1.5px solid rgba(220, 38, 38, 0.2);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.cover::before {
+    content: '';
+    position: absolute;
+    bottom: 80px;
+    right: -50px;
+    width: 350px;
+    height: 350px;
+    border: 1px solid rgba(96, 165, 250, 0.12);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.cover-top { position: relative; z-index: 2; }
+
+.cover-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(220, 38, 38, 0.15);
+    border: 1.5px solid #DC2626;
+    color: #FCA5A5;
+    padding: 7px 16px;
+    border-radius: 3px;
+    font-family: 'Noto Kufi Arabic', sans-serif;
+    font-size: 9.5pt;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.cover-badge::before {
+    content: '';
+    width: 7px; height: 7px;
+    background: #DC2626;
+    border-radius: 50%;
+}
+
+.cover-logo {
+    margin-top: 16mm;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    color: rgba(255,255,255,0.65);
+    font-family: 'Inter', sans-serif;
+    font-size: 8.5pt;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+}
+
+.cover-logo svg { width: 34px; height: 34px; }
+
+.cover-center {
+    position: relative;
+    z-index: 2;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.cover-title {
+    font-family: 'Noto Kufi Arabic', sans-serif;
+    font-weight: 900;
+    font-size: 36pt;
+    line-height: 1.2;
+    margin-bottom: 12px;
+    color: #FFFFFF;
+}
+
+.cover-title .accent {
+    color: #60A5FA;
+    display: block;
+    font-size: 24pt;
+    font-weight: 700;
+    margin-top: 6px;
+}
+
+.cover-divider {
+    width: 72px;
+    height: 4px;
+    background: #DC2626;
+    margin: 22px 0;
+}
+
+.cover-subtitle {
+    font-family: 'Noto Naskh Arabic', serif;
+    font-size: 13pt;
+    line-height: 1.75;
+    color: #CBD5E1;
+    max-width: 85%;
+    font-weight: 400;
+}
+
+.cover-tags {
+    margin-top: 22px;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.cover-tag {
+    font-family: 'Inter', sans-serif;
+    font-size: 8pt;
+    color: #93C5FD;
+    border: 1px solid rgba(147, 197, 253, 0.4);
+    padding: 4px 10px;
+    border-radius: 2px;
+    letter-spacing: 1px;
+}
+
+.cover-bottom {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding-top: 18mm;
+    border-top: 1px solid rgba(255,255,255,0.15);
+}
+
+.cover-meta {
+    font-family: 'Noto Kufi Arabic', sans-serif;
+    color: #94A3B8;
+    font-size: 9pt;
+    line-height: 1.6;
+}
+
+.cover-meta strong {
+    color: #FFFFFF;
+    font-size: 11pt;
+    display: block;
+    margin-bottom: 2px;
+}
+
+.cover-version {
+    text-align: left;
+    font-family: 'Inter', sans-serif;
+    color: #94A3B8;
+    font-size: 9pt;
+}
+
+.cover-version .v-num {
+    font-size: 22pt;
+    color: #DC2626;
+    font-weight: 900;
+    line-height: 1;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.cover-tech-strip {
+    position: absolute;
+    bottom: 0; right: 0;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(90deg, #DC2626 0%, #DC2626 25%, #D97706 25%, #D97706 50%, #047857 50%, #047857 75%, #1E3A8A 75%);
+    z-index: 3;
+}
+
+/* ===================== TOC PAGE ===================== */
+.toc-page {
+    width: 210mm;
+    min-height: 297mm;
+    background: var(--bg);
+    padding: 20mm 18mm 16mm 18mm;
+    break-after: page;
+}
+
+.toc-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-bottom: 3px solid var(--navy);
+    padding-bottom: 10px;
+    margin-bottom: 22px;
+}
+
+.toc-header h2 {
+    font-family: 'Noto Kufi Arabic', sans-serif;
+    font-size: 22pt;
+    font-weight: 800;
+    color: var(--navy);
+    margin: 0;
+}
+
+.toc-header .label {
+    font-family: 'Inter', sans-serif;
+    font-size: 9pt;
+    color: var(--text-muted);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+.toc-intro {
+    background: linear-gradient(135deg, var(--navy-deep) 0%, var(--navy) 100%);
+    color: #FFFFFF;
+    padding: 16px 20px;
+    border-radius: 5px;
+    margin-bottom: 26px;
+    font-size: 10.5pt;
+    line-height: 1.75;
+    border-right: 4px solid var(--red);
+}
+
+.toc-intro strong { color: #FCA5A5; font-weight: 700; }
+
+.toc-list { list-style: none; padding: 0; margin: 0; }
+
+.toc-list li {
+    display: flex;
+    align-items: baseline;
+    padding: 8px 0;
+    border-bottom: 1px dashed var(--border-light);
+    font-family: 'Noto Kufi Arabic', sans-serif;
+    font-size: 10.5pt;
+    color: var(--text);
+}
+
+.toc-num {
+    background: var(--navy);
+    color: #FFFFFF;
+    width: 26px; height: 26px;
+    border-radius: 3px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 9.5pt;
+    margin-left: 12px;
+    flex-shrink: 0;
+}
+
+.toc-title { flex: 1; font-weight: 500; }
+
+.toc-page-num {
+    color: var(--text-muted);
+    font-family: 'Inter', sans-serif;
+    font-size: 10pt;
+    font-weight: 600;
+    margin-right: 10px;
+}
+
+/* ===================== MAIN CONTENT ===================== */
+.main-content {
+    padding: 20mm 18mm 16mm 18mm;
+}
+
+/* Page header bar */
+.page-bar {
+    position: absolute;
+    top: 8mm;
+    right: 18mm;
+    left: 18mm;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Inter', sans-serif;
+    font-size: 8pt;
+    color: var(--steel-ultralight);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--border-soft);
+    padding-bottom: 4px;
+}
+
+/* Chapter header */
+.chapter-header {
+    break-after: avoid;
+    break-inside: avoid;
+    margin-top: 0;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--navy);
+    position: relative;
+}
+
+.chapter-header::before {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    right: 0;
+    width: 72px;
+    height: 4px;
+    background: var(--red);
+}
+
+.chapter-meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 6px;
+}
+
+.chapter-num {
+    background: var(--navy);
+    color: #FFFFFF;
+    font-family: 'Inter', sans-serif;
+    font-weight: 800;
+    font-size: 13pt;
+    padding: 5px 12px;
+    border-radius: 3px;
+}
+
+.chapter-tag {
+    font-family: 'Noto Kufi Arabic', sans-serif;
+    color: var(--text-muted);
+    font-size: 8.5pt;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.chapter-title {
+    font-family: 'Noto Kufi Arabic', sans-serif;
+    font-size: 19pt;
+    font-weight: 800;
+    color: var(--navy-deep);
+    margin: 0;
+    line-height: 1.3;
+}
+
+/* Sub-section */
+.subsection {
+    margin-top: 18px;
+    margin-bottom: 8px;
+    break-after: avoid;
+}
+
+.subsection h3 {
+    font-family: 'Noto Kufi Arabic', sans-serif;
+    font-size: 13pt;
+    font-weight: 700;
+    color: var(--navy);
+    margin: 0 0 5px 0;
+    padding-right: 12px;
+    border-right: 3px solid var(--red);
+    line-height: 1.4;
+}
+
+.subsection h4 {
+    font-family: 'Noto Kufi Arabic', sans-serif;
+    font-size: 11.5pt;
+    font-weight: 600;
+    color: var(--steel);
+    margin: 12px 0 5px 0;
+}
+
+/* Body */
+p {
+    margin: 0 0 10px 0;
+    text-align: justify;
+    text-justify: inter-word;
+    line-height: 1.85;
+}
+
+p.lead {
+    font-size: 11.5pt;
+    color: var(--navy-deep);
+    font-weight: 500;
+    line-height: 1.75;
+    margin-bottom: 12px;
+}
+
+ul, ol { margin: 6px 0 10px 0; padding-right: 22px; }
+li { margin-bottom: 5px; line-height: 1.75; }
+
+strong { color: var(--navy-deep); font-weight: 700; }
+em { color: var(--steel); font-style: italic; }
+
+.en {
+    font-family: 'Inter', sans-serif;
+    direction: ltr;
+    display: inline-block;
+    font-size: 0.92em;
+    color: var(--navy);
+    font-weight: 500;
+}
+
+/* Math display */
+.math-display {
+    background: var(--bg-soft);
+    border: 1px solid var(--border-light);
+    border-right: 4px solid var(--navy);
+    padding: 14px 18px;
+    margin: 12px 0;
+    border-radius: 4px;
+    text-align: center;
+    direction: ltr;
+    break-inside: avoid;
+    overflow-x: auto;
+    font-size: 11pt;
+}
+
+.math-display .katex-display { margin: 0; }
+.math-inline { direction: ltr; display: inline-block; }
+
+/* Equation number */
+.eq-num {
+    color: var(--steel-light);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9pt;
+    direction: ltr;
+}
+
+/* Tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+    font-size: 9.5pt;
+    break-inside: avoid;
+    background: var(--bg-paper);
+    table-layout: fixed;
+    border: 1px solid var(--border);
+}
+
+thead {
+    background: var(--navy);
+    color: #FFFFFF;
+}
+
+th {
+    padding: 9px 11px;
+    text-align: right;
+    font-family: 'Noto Kufi Arabic', sans-serif;
+    font-weight: 700;
+    font-size: 9.5pt;
+    border-left: 1px solid rgba(255,255,255,0.15);
+    border-bottom: 2px solid var(--red);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+th:last-child { border-left: none; }
+
+td {
+    padding: 8px 11px;
+    border-bottom: 1px solid var(--border-light);
+    border-left: 1px solid var(--border-light);
+    vertical-align: top;
+    line-height: 1.6;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+td:last-child { border-left: none; }
+
+tbody tr:nth-child(even) { background: var(--bg-soft); }
+
+td.center, th.center { text-align: center; }
+td.code {
+    font-family: 'JetBrains Mono', monospace;
+    direction: ltr;
+    text-align: center;
+    font-size: 9.5pt;
+    color: var(--navy);
+    font-weight: 600;
+}
+
+table.compact td, table.compact th { padding: 6px 9px; font-size: 9pt; }
+
+/* Quality gate table */
+table.gate-table { font-size: 9pt; }
+
+table.gate-table td.num {
+    background: var(--navy);
+    color: #FFFFFF;
+    text-align: center;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    width: 32px;
+}
+
+table.gate-table td.check {
+    text-align: center;
+    width: 50px;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--text-muted);
+}
+
+table.gate-table tr.group-start td {
+    border-top: 2px solid var(--navy);
+    background: var(--navy-soft);
+    font-family: 'Noto Kufi Arabic', sans-serif;
+    font-weight: 700;
+    color: var(--navy);
+    padding: 5px 11px;
+    font-size: 8.5pt;
+}
+
+/* Callout boxes */
+.callout {
+    border-radius: 4px;
+    padding: 12px 16px 12px 14px;
+    margin: 12px 0;
+    break-inside: avoid;
+    position: relative;
+    font-size: 10pt;
+    line-height: 1.7;
+}
+
+.callout::before {
+    content: '';
+    position: absolute;
+    right: 0; top: 0; bottom: 0;
+    width: 4px;
+    border-radius: 4px 0 0 4px;
+}
+
+.callout-title {
+    font-family: 'Noto Kufi Arabic', sans-serif;
+    font-weight: 700;
+    font-size: 10.5pt;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.callout-title .icon {
+    width: 18px; height: 18px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 3px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 900;
+    font-size: 11pt;
+    flex-shrink: 0;
+}
+
+.callout-body { margin: 0; line-height: 1.75; }
+.callout-body p { margin: 0 0 6px 0; }
+.callout-body p:last-child { margin: 0; }
+
+.callout.gold {
+    background: linear-gradient(90deg, #FEF3C7 0%, #FFFBEB 100%);
+    border: 1px solid var(--amber);
+}
+.callout.gold::before { background: var(--amber); }
+.callout.gold .callout-title { color: #92400E; }
+.callout.gold .callout-title .icon { background: var(--amber); color: #FFFFFF; }
+
+.callout.warning {
+    background: linear-gradient(90deg, #FEE2E2 0%, #FEF2F2 100%);
+    border: 1px solid var(--red);
+}
+.callout.warning::before { background: var(--red); }
+.callout.warning .callout-title { color: #991B1B; }
+.callout.warning .callout-title .icon { background: var(--red); color: #FFFFFF; }
+
+.callout.info {
+    background: linear-gradient(90deg, #DBEAFE 0%, #EFF6FF 100%);
+    border: 1px solid var(--navy);
+}
+.callout.info::before { background: var(--navy); }
+.callout.info .callout-title { color: var(--navy-deep); }
+.callout.info .callout-title .icon { background: var(--navy); color: #FFFFFF; }
+
+.callout.success {
+    background: linear-gradient(90deg, #D1FAE5 0%, #ECFDF5 100%);
+    border: 1px solid var(--green);
+}
+.callout.success::before { background: var(--green); }
+.callout.success .callout-title { color: #065F46; }
+.callout.success .callout-title .icon { background: var(--green); color: #FFFFFF; }
+
+/* Quick decision boxes */
+.decision-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin: 10px 0;
+    break-inside: avoid;
+}
+
+.decision-box {
+    padding: 10px 14px;
+    border-radius: 4px;
+    border: 1px solid var(--border-light);
+    background: var(--bg-soft);
+}
+
+.decision-box .q {
+    font-family: 'Noto Kufi Arabic', sans-serif;
+    font-weight: 700;
+    color: var(--navy);
+    font-size: 10pt;
+    margin-bottom: 4px;
+}
+
+.decision-box .a {
+    font-size: 9.5pt;
+    color: var(--text);
+    line-height: 1.6;
+}
+
+.decision-box.q { background: linear-gradient(90deg, #FEF3C7 0%, #FFFBEB 100%); border-color: var(--amber); }
+.decision-box.a { background: linear-gradient(90deg, #D1FAE5 0%, #ECFDF5 100%); border-color: var(--green); }
+
+/* Equation card */
+.eq-card {
+    background: var(--navy-deep);
+    color: #FFFFFF;
+    padding: 14px 18px;
+    border-radius: 6px;
+    margin: 12px 0;
+    break-inside: avoid;
+    border-right: 4px solid var(--red);
+}
+
+.eq-card-title {
+    font-family: 'Noto Kufi Arabic', sans-serif;
+    font-weight: 700;
+    color: #FCA5A5;
+    font-size: 9.5pt;
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+}
+
+.eq-card .katex-display { margin: 6px 0; color: #FFFFFF; }
+.eq-card .katex { color: #FFFFFF; }
+
+/* Numbered list (plan-style) */
+.plan-list {
+    counter-reset: pl-counter;
+    list-style: none;
+    padding: 0;
+    margin: 12px 0;
+}
+
+.plan-list li {
+    counter-increment: pl-counter;
+    background: var(--bg-paper);
+    border: 1px solid var(--border-light);
+    border-right: 3px solid var(--navy);
+    padding: 10px 14px 10px 12px;
+    margin-bottom: 6px;
+    border-radius: 3px;
+    position: relative;
+    padding-right: 50px;
+    break-inside: avoid;
+    font-size: 10pt;
+    line-height: 1.7;
+}
+
+.plan-list li::before {
+    content: counter(pl-counter, decimal-leading-zero);
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--navy);
+    color: #FFFFFF;
+    padding: 4px 8px;
+    border-radius: 3px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 800;
+    font-size: 9.5pt;
+    min-width: 30px;
+    text-align: center;
+}
+
+/* Report template numbered list */
+.report-template {
+    counter-reset: rt-counter;
+    list-style: none;
+    padding: 0;
+}
+
+.report-template li {
+    counter-increment: rt-counter;
+    background: var(--bg-paper);
+    border: 1px solid var(--border-light);
+    border-right: 4px solid var(--navy);
+    padding: 10px 14px 10px 12px;
+    margin-bottom: 8px;
+    border-radius: 3px;
+    position: relative;
+    padding-right: 54px;
+    break-inside: avoid;
+}
+
+.report-template li::before {
+    content: counter(rt-counter, decimal);
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--navy);
+    color: #FFFFFF;
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Inter', sans-serif;
+    font-weight: 800;
+    font-size: 11pt;
+}
+
+.report-template li strong {
+    display: block;
+    color: var(--navy);
+    font-family: 'Noto Kufi Arabic', sans-serif;
+    font-size: 11pt;
+    margin-bottom: 3px;
+}
+
+/* References */
+.references-list {
+    list-style: none;
+    padding: 0;
+    counter-reset: ref-counter;
+}
+
+.references-list li {
+    counter-increment: ref-counter;
+    padding: 10px 12px 10px 0;
+    margin-bottom: 8px;
+    border-bottom: 1px solid var(--border-light);
+    padding-right: 46px;
+    position: relative;
+    break-inside: avoid;
+}
+
+.references-list li::before {
+    content: "[" counter(ref-counter) "]";
+    position: absolute;
+    right: 0;
+    top: 10px;
+    color: var(--navy);
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 9.5pt;
+}
+
+.references-list li strong {
+    display: block;
+    color: var(--navy-deep);
+    font-family: 'Noto Kufi Arabic', sans-serif;
+    font-size: 10.5pt;
+    margin-bottom: 3px;
+}
+
+.references-list li .source {
+    display: block;
+    color: var(--text-muted);
+    font-family: 'Inter', sans-serif;
+    font-size: 8.5pt;
+    margin-bottom: 3px;
+    direction: ltr;
+    text-align: left;
+}
+
+/* Element type cards */
+.element-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin: 12px 0;
+    break-inside: avoid;
+}
+
+.element-card {
+    border: 1px solid var(--border-light);
+    border-right: 3px solid var(--navy);
+    padding: 10px 12px;
+    border-radius: 3px;
+    background: var(--bg-soft);
+    break-inside: avoid;
+}
+
+.element-card .type {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    color: var(--navy);
+    font-size: 10pt;
+    margin-bottom: 3px;
+}
+
+.element-card .desc {
+    font-size: 9pt;
+    color: var(--text-muted);
+    line-height: 1.55;
+}
+
+/* Ending page */
+.ending {
+    width: 210mm;
+    height: 297mm;
+    background: linear-gradient(160deg, #0F172A 0%, #1E3A8A 100%);
+    color: #FFFFFF;
+    break-before: page;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 36mm;
+    position: relative;
+}
+
+.ending::before {
+    content: '';
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    width: 220px;
+    height: 220px;
+    border: 1.5px solid rgba(220, 38, 38, 0.18);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.ending-logo { margin-bottom: 26mm; position: relative; z-index: 2; }
+.ending-logo svg { width: 54px; height: 54px; }
+
+.ending-title {
+    font-family: 'Noto Kufi Arabic', sans-serif;
+    font-size: 24pt;
+    font-weight: 800;
+    color: #FFFFFF;
+    margin-bottom: 16px;
+    position: relative;
+    z-index: 2;
+    line-height: 1.3;
+}
+
+.ending-divider {
+    width: 72px;
+    height: 4px;
+    background: #DC2626;
+    margin: 18px 0 26px 0;
+    position: relative;
+    z-index: 2;
+}
+
+.ending-text {
+    font-family: 'Noto Naskh Arabic', serif;
+    font-size: 11.5pt;
+    color: #CBD5E1;
+    line-height: 1.85;
+    max-width: 72%;
+    position: relative;
+    z-index: 2;
+}
+
+.ending-author {
+    margin-top: 26px;
+    font-size: 13pt;
+    color: #FFFFFF;
+    font-weight: 600;
+    font-family: 'Noto Kufi Arabic', sans-serif;
+    position: relative;
+    z-index: 2;
+}
+
+.ending-meta {
+    position: absolute;
+    bottom: 26mm;
+    left: 0; right: 0;
+    text-align: center;
+    color: #94A3B8;
+    font-family: 'Inter', sans-serif;
+    font-size: 8.5pt;
+    letter-spacing: 3px;
+    z-index: 2;
+}
+
+/* Prevent orphan headings */
+h3, h4 { break-after: avoid; }
+table, .callout, .math-display, .eq-card, .element-grid, .report-template li, .references-list li, .plan-list li, .decision-row { break-inside: avoid; }
+
+</style>
+</head>
+<body>
+
+<!-- ============ COVER ============ -->
+<div class="cover">
+    <div class="cover-top">
+        <div class="cover-badge">وثيقة مرجعية معتمدة · V&V · FEA</div>
+        <div class="cover-logo">
+            <svg viewBox="0 0 36 36" fill="none">
+                <rect x="2" y="2" width="32" height="32" stroke="#60A5FA" stroke-width="1.5" rx="2"/>
+                <line x1="2" y1="13" x2="34" y2="13" stroke="#60A5FA" stroke-width="0.8"/>
+                <line x1="2" y1="24" x2="34" y2="24" stroke="#60A5FA" stroke-width="0.8"/>
+                <line x1="13" y1="2" x2="13" y2="34" stroke="#60A5FA" stroke-width="0.8"/>
+                <line x1="24" y1="2" x2="24" y2="34" stroke="#60A5FA" stroke-width="0.8"/>
+                <circle cx="18" cy="18" r="4" fill="#DC2626"/>
+            </svg>
+            <span>FEA · Verification &amp; Validation</span>
+        </div>
+    </div>
+    
+    <div class="cover-center">
+        <h1 class="cover-title">
+            المرجع الاستراتيجي الشامل
+            <span class="accent">في تحليل العناصر المحدودة (FEA)</span>
+        </h1>
+        <div class="cover-divider"></div>
+        <p class="cover-subtitle">
+            وثيقة مرجعية معتمدة لإعداد النمذجة والمحاكاة الهندسية المتقدمة — تغطي اختيار العناصر، جودة المش، أنواع المعالجات، وصولاً إلى بروتوكول التحقق والتصديق (V&V). صيغت هذه الوثيقة لتكون قابلة للتطبيق المباشر عبر بيئات التحليل المختلفة مثل: Abaqus و ANSYS و COMSOL و Nastran.
+        </p>
+        <div class="cover-tags">
+            <span class="cover-tag">A4 FORMAT</span>
+            <span class="cover-tag">V&V PROTOCOL</span>
+            <span class="cover-tag">ENGINEERING STANDARD</span>
+            <span class="cover-tag">SOFTWARE-AGNOSTIC</span>
+        </div>
+    </div>
+    
+    <div class="cover-bottom">
+        <div class="cover-meta">
+            <strong>إعداد: المهندس Khadhami Hayl</strong>
+            تنسيق هندسي احترافي<br>
+            وثيقة مستقلة عن بيئة البرنامج
+        </div>
+        <div class="cover-version">
+            <span class="v-num">V&amp;V</span>
+            الطبعة الأولى<br>
+            2026
+        </div>
+    </div>
+    
+    <div class="cover-tech-strip"></div>
+</div>
+
+<!-- ============ TOC PAGE ============ -->
+<div class="toc-page">
+    <div class="toc-header">
+        <h2>فهرس المحتويات</h2>
+        <span class="label">Table of Contents</span>
+    </div>
+    
+    <div class="toc-intro">
+        يقدم هذا المرجع إطاراً هندسياً متكاملاً لبناء نماذج تحليل العناصر المحدودة واعتماد نتائجها بثقة. يركز الدليل على العلاقة بين الفيزياء، الصياغة الرياضية، جودة المش، وتفسير النتائج؛ بحيث لا تُعامل المحاكاة كصورة نهائية، بل كدليل هندسي قابل للمراجعة والتحقق. <strong>تقوم فلسفة العمل على أن دقة الحل العددي وحدها لا تكفي</strong> — يجب أن يكون النموذج ممثلاً للواقع، وأن تكون الحدود والأحمال والمواد متسقة مع المسألة، وأن تمر النتائج عبر بوابات تحقق واضحة.
+    </div>
+    
+    <ul class="toc-list">
+        <li><span class="toc-num">—</span><span class="toc-title">الملخص التنفيذي والفلسفة الحاكمة</span><span class="toc-page-num">03</span></li>
+        <li><span class="toc-num">1</span><span class="toc-title">الفصل الأول: الإطار الفلسفي والمنهجي</span><span class="toc-page-num">04</span></li>
+        <li><span class="toc-num">1.1</span><span class="toc-title">الفلسفة الحاكمة والركائز المعرفية الأربعة</span><span class="toc-page-num">04</span></li>
+        <li><span class="toc-num">1.2</span><span class="toc-title">مكتبة العناصر واختيار النوع المناسب</span><span class="toc-page-num">05</span></li>
+        <li><span class="toc-num">1.3</span><span class="toc-title">الإطار الرياضي الحاكم</span><span class="toc-page-num">07</span></li>
+        <li><span class="toc-num">1.4</span><span class="toc-title">متى نستخدم العناصر ومتى نتجنبها</span><span class="toc-page-num">08</span></li>
+        <li><span class="toc-num">1.5</span><span class="toc-title">ظواهر القفل العددي وأنواعه</span><span class="toc-page-num">09</span></li>
+        <li><span class="toc-num">1.6</span><span class="toc-title">التفرد العددي ومبدأ سانت فينانت</span><span class="toc-page-num">11</span></li>
+        <li><span class="toc-num">1.7</span><span class="toc-title">التبسيط، الأحمال، والقيود الحدودية</span><span class="toc-page-num">12</span></li>
+        <li><span class="toc-num">1.8</span><span class="toc-title">نماذج التماس والاتصالات والقيود الداخلية</span><span class="toc-page-num">13</span></li>
+        <li><span class="toc-num">1.9</span><span class="toc-title">جودة المش ودراسة التقارب</span><span class="toc-page-num">14</span></li>
+        <li><span class="toc-num">1.10</span><span class="toc-title">اللاخطية: متى تصبح ضرورية وحتمية؟</span><span class="toc-page-num">15</span></li>
+        <li><span class="toc-num">1.11</span><span class="toc-title">التحقق والتصديق (V&V): بوابة الجودة</span><span class="toc-page-num">16</span></li>
+        <li><span class="toc-num">1.12</span><span class="toc-title">اختيار الحل (Solver) ومعايير التقارب</span><span class="toc-page-num">17</span></li>
+        <li><span class="toc-num">1.13</span><span class="toc-title">بوابة الجودة: 21 سؤالاً قبل الاعتماد</span><span class="toc-page-num">18</span></li>
+        <li><span class="toc-num">1.14</span><span class="toc-title">قالب تقرير اعتماد FEA المؤسسي</span><span class="toc-page-num">20</span></li>
+        <li><span class="toc-num">1.15</span><span class="toc-title">بطاقات معادلات وقرارات سريعة</span><span class="toc-page-num">21</span></li>
+        <li><span class="toc-num">1.16</span><span class="toc-title">مراجع معتمدة للتحقق الفني</span><span class="toc-page-num">22</span></li>
+    </ul>
+</div>
+
+<!-- ============ MAIN CONTENT ============ -->
+<div class="main-content">
+
+<!-- ===== EXECUTIVE SUMMARY ===== -->
+<div class="chapter-header">
+    <div class="chapter-meta">
+        <span class="chapter-num">★</span>
+        <span class="chapter-tag">Executive Summary</span>
+    </div>
+    <h2 class="chapter-title">الملخص التنفيذي: الفلسفة الحاكمة والتحسينات الجوهرية</h2>
+</div>
+
+<p class="lead">تم تحويل النص الأصلي إلى مرجع هندسي صارم من خلال إعادة بناء شاملة تركز على الدقة الرياضية، وجودة الافتراضات الفيزيائية، وتصحيح نقاط قد تؤدي إلى قرارات نمذجة خاطئة أو تفسير غير آمن للنتائج.</p>
+
+<p>لم تكن التحسينات تجميلية في أي مرحلة من مراحل الإعداد، بل كانت تصحيحية بطبيعتها، إذ تناولت نقاطاً جوهرية قد تمر مرور الكرام في المراجع السريعة لكنها تحمل آثاراً خطيرة على قرارات التصميم النهائية. على سبيل المثال، تم توضيح العلاقة الدقيقة بين درجات الحرية (<span class="en">DOF</span>) وحجم مصفوفة العنصر لعناصر <span class="en">Truss</span> و<span class="en">Beam</span> و<span class="en">Solid</span>، وهو ما يمنع الخلط بين الإطار المحلي والعالمي للنموذج. كما تم تفصيل معايير التقارب بشكل قاطع، حيث أُوضح أن تقارب المعالج التكراري لا يُقاس بنسبة عامة مثل <strong>5%</strong>، بل ببواقي القوة (<span class="en">Force Residuals</span>)، والإزاحة (<span class="en">Displacement</span>)، والطاقة (<span class="en">Energy</span>).</p>
+
+<p>كذلك تم الفصل الدقيق بين ظواهر الانغلاق العددي الثلاث: <span class="en">Shear Locking</span>، <span class="en">Volumetric Locking</span>، والقساوة العددية لعناصر <span class="en">Tet4</span>. كل ظاهرة منها تنشأ من آلية فيزيائية مختلفة وتتطلب علاجاً مختلفاً، والخلط بينها يؤدي إلى اختيار حلول خاطئة قد تزيد المشكلة بدلاً من حلها. وأُضيف بروتوكول <span class="en">V&V</span> (التحقق والتصديق) كمنهجية متكاملة تشمل اتزان ردود الأفعال، تقارب الشبكة، مسار انتقال الأحمال، وحساسية الفرضيات.</p>
+
+<p>أخيراً، تم توسيع قائمة الجودة لتصبح <strong>بوابة قرار عملية</strong> مكونة من 21 سؤالاً، تُمنع النتائج دون اجتيازها، وتم ربطها بقالب تقرير مؤسسي موحد يضمن توثيق الفرضيات والقيود بطريقة قابلة للمراجعة. هذا التحويل يرفع الوثيقة من مجرد مرجع سريع إلى دليل معايير مؤسسي يمكن اعتماده كأساس لمراجعة جودة التحليلات الإنشائية في المؤسسات الهندسية الكبرى.</p>
+
+<div class="callout gold">
+    <div class="callout-title"><span class="icon">★</span>قاعدة العمل الذهبية</div>
+    <div class="callout-body">
+        <p>لا تصبح نتيجة <span class="en">FEA</span> موثوقة لأنها ملونة وجذابة؛ بل لأنها نجت من ثلاث طبائق تحقق متتالية: <strong>صحة الفيزياء</strong> (هل النموذج يمثل الواقع؟)، <strong>صحة النموذج العددي</strong> (هل الحل يتقارب بشكل صحيح؟)، و<strong>صحة تفسير النتائج</strong> (هل نفهم ما تعنيه الأرقام؟). غياب أي طبقة من هذه الطبائق يُلغي موثوقية النتيجة بصرف النظر عن دقة المعالج أو جودة المش.</p>
+    </div>
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th style="width:25%">النقطة الفنية</th>
+            <th style="width:40%">الصياغة المحققة</th>
+            <th style="width:35%">الأثر على النموذج</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><strong>المعالج المباشر</strong> (<span class="en">Direct Solver</span>)</td>
+            <td>يعطي حلاً عددياً ضمن حدود التقريب والـ <span class="en">Round-off</span>، وليس دقة فيزيائية مطلقة.</td>
+            <td>لا يعوض سوء القيود أو فرضيات المادة. الدقة العددية لا تعني صحة فيزيائية.</td>
+        </tr>
+        <tr>
+            <td><strong>المعالج التكراري</strong> (<span class="en">Iterative</span>)</td>
+            <td>يعتمد على تقليل البواقي (<span class="en">Residuals</span>). ممتاز للنماذج الكبيرة لكنه حساس للقيود.</td>
+            <td>قد يفشل إذا كانت المصفوفة سيئة التكييف (<span class="en">Ill-conditioned</span>) أو التلامس شديد التعقيد.</td>
+        </tr>
+        <tr>
+            <td><strong>عناصر Truss</strong></td>
+            <td>مصفوفة محلية محورية غالباً 2×2 (في 2D) أو 3×3 (في 3D)، وتصبح 6×6 عالمياً.</td>
+            <td>يمنع الخلط بين درجات الحرية المحلية والعالمية عند تحليل النتائج.</td>
+        </tr>
+        <tr>
+            <td><strong>عنصر Tet4</strong></td>
+            <td>ليس ممنوعاً، لكنه قاسٍ وضعيف في الانحناء بسبب الانفعال الثابت (<span class="en">Constant Strain</span>).</td>
+            <td>يُفضل تجنبه في مناطق الإجهادات الحرجة، واستخدام <span class="en">Tet10</span> بدلاً منه.</td>
+        </tr>
+        <tr>
+            <td><strong>التفرد</strong> (<span class="en">Singularity</span>)</td>
+            <td>ليس تركيز إجهاد حقيقي؛ إنه حد رياضي حاد أو حمل/قيد صفري المساحة.</td>
+            <td>لا تستخدم إجهاد الذروة عندها للحكم على الفشل؛ القيمة لا تتقارب أبداً.</td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="callout warning">
+    <div class="callout-title"><span class="icon">!</span>تحذير حرج</div>
+    <div class="callout-body">
+        <p>اللون الأحمر على خريطة الإجهاد لا يعني بالضرورة فشلاً. قد يكون تفرداً عددية، أو أثراً لقيد مُفرط التصلب، أو حتى اختياراً سيئاً لمقياس الألوان. <strong>القرار الهندسي يجب أن يبنى على القيم المتقاربة في موقع فيزيائي صحيح، لا على اللون الذي يبدو مخيفاً.</strong></p>
+    </div>
+</div>
+
+</div>
+<!-- /executive summary -->
+
+<!-- ============ MAIN CONTENT ============ -->
+<div class="main-content">
+
+<div class="chapter-header">
+    <div class="chapter-meta">
+        <span class="chapter-num">01</span>
+        <span class="chapter-tag">Chapter One · Philosophical &amp; Methodological Framework</span>
+    </div>
+    <h2 class="chapter-title">الفصل الأول: الإطار الفلسفي والمنهجي</h2>
+</div>
+
+<p class="lead">قبل أي محاكاة، تُطرح أسئلة جوهرية تحدد مصير التحليل بأكمله: ما الذي نبحث عنه؟ ما الذي نتجاهله؟ ما الذي نتحقق منه؟ الإجابة عن هذه الأسئلة تشكل الفلسفة الحاكمة، وهي الأساس الذي يُبنى عليه كل ما يلي من قرارات نمذجة.</p>
+
+<p>تنطلق المحاكاة من محاولة الإجابة عن سؤالين: ما السؤال الفيزيائي الذي نحاول الإجابة عنه؟ وما المستوى المطلوب من الدقة؟ ثم تتفرع الأسئلة إلى: ما نوع التحليل المناسب؟ ما العناصر الأكثر تمثيلاً؟ وما بروتوكول التحقق الذي سيضمن أن النتائج تعكس الواقع؟ الإجابة المتأنية عن هذه الأسئلة قبل بناء النموذج توفر ساعات من إعادة العمل لاحقاً، وتحمي من قرارات تصميمية مبنية على نتائج مضللة.</p>
+
+<!-- ===== 13-point key principles list ===== -->
+<h3 style="font-family: 'Noto Kufi Arabic', sans-serif; font-size: 13pt; color: var(--navy); margin: 18px 0 10px 0; padding-right: 12px; border-right: 3px solid var(--red);">المبادئ المعرفية الثلاثة عشر للوثيقة</h3>
+
+<ol class="plan-list">
+    <li>الفلسفة الحاكمة والركائز المعرفية الأربعة تشكل الأساس الذي يحدد جودة كل خطوة لاحقة في النمذجة.</li>
+    <li>مكتبة العناصر واختيار النوع المناسب يحدد درجات الحرية المتاحة، صلابة النموذج، ودقة تمثيل الإجهاد.</li>
+    <li>الإطار الرياضي الحاكم يحدد شكل التشوه المتوقع داخل كل عنصر من خلال دوال الشكل.</li>
+    <li>متى نستخدم العناصر ومتى نتجنبها — معرفة حدود كل عنصر يمنع الأخطاء الصامتة في النماذج المختلطة.</li>
+    <li>ظواهر القفل العددي (Shear/Volumetric/Membrane Locking) و Hourglassing تؤدي إلى قساوة كاذبة في النموذج.</li>
+    <li>التفرد العددي وتمييزه عن تركيز الإجهاد الحقيقي — كلاهما يظهر في النتائج لكن المعالجة مختلفة تماماً.</li>
+    <li>التبسيط، الأحمال، والقيود الداخلية تُطبَّق على مساحة واقعية لا على عقدة مفردة، حفاظاً على فيزيائية الحمل.</li>
+    <li>نماذج التماس والاتصالات والقيود الداخلية تربط الأجزاء دون إضافة صلابة زائدة أو إزاحة كاذبة.</li>
+    <li>جودة المش ودراسة التقارب تضمن أن النتائج استقرت فيزيائياً وليست مجرد أرقام عابرة لحجم شبكة معين.</li>
+    <li>التحقق والتصديق (V&V) هما البوابة الأخيرة قبل اعتماد النتائج لأي قرار هندسي.</li>
+    <li>اختيار الحل (Solver) — ليس كل حل يناسب كل مسألة؛ الاختيار الخاطئ قد يعطي نتائج تبدو سليمة لكنها خاطئة فيزيائياً.</li>
+    <li>قائمة مراجعة جودة النموذج — 13 سؤالاً مرجعياً يُسأل نفسها قبل اعتماد أي تحليل FEA رسمي.</li>
+    <li>مراجع معتمدة للتحقق الفني — NAFEMS، ASME V&V 10، ANSYS/Abaqus/COMSOL Documentation.</li>
+</ol>
+
+<div class="subsection">
+    <h3>1.1 الفلسفة الحاكمة والركائز المعرفية الأربعة</h3>
+    <p>تنطلق الوثيقة من قاعدة مركزية: الدقة العددية وحدها لا تكفي. يجب أن يكون النموذج ممثلاً للواقع، وأن يكون الحل مستقراً فيزيائياً، وأن تمر النتائج عبر بوابات تحقق واضحة. المحاكاة الجيدة لا تُبنى على ثقة عمياء في البرنامج، بل على فهم فيزيائي عميق يمتد عبر ثلاث طبائق: التحقق من تركيز الإجهاد، التحقق من تقارب المش، والتحقق من صحة الفرضيات المادية.</p>
+    
+    <p>التحقق من تركيز الإجهاد يعني التمييز بين تركيز إجهاد حقيقي (يتقارب مع تنعيم المش نحو قيمة محدودة) وبين تفرد عددي (يستمر بالارتفاع دون استقرار). النوع الأول جزء أصيل من الفيزياء، أما الثاني فأثر رياضي صرف لا علاقة له بالواقع. التحقق من تقارب المش يعني التأكد من أن النتائج استقرت ولم تعد تعتمد على حجم الشبكة. التحقق من صحة الفرضيات المادية يعني أن نموذج المادة وخصائصها يمثلان الواقع فعلاً.</p>
+    
+    <div class="decision-row">
+        <div class="decision-box q">
+            <div class="q">متى تكون النتائج مقبولة؟</div>
+            <div class="a">عندما تجتاز ثلاث اختبارات: تقارب المش، اتزان ردود الأفعال، منطقية مسار انتقال الأحمال عبر الهيكل.</div>
+        </div>
+        <div class="decision-box a">
+            <div class="q">متى تكون النتائج مرفوضة؟</div>
+            <div class="a">عندما يظهر إجهاد لا يتقارب، أو ردود أفعال لا تساوي الأحمال، أو حركة جسم صلب غير مبررة.</div>
+        </div>
+    </div>
+    
+    <div class="callout info">
+        <div class="callout-title"><span class="icon">i</span>مبدأ الجودة الذهبية</div>
+        <div class="callout-body">
+            <p>أي نتيجة FEA يجب أن تُعامل على أنها <strong>مشتبهة حتى تثبت براءتها</strong>، وليس العكس. لا تعتمد نتيجة لمجرد أنها خرجت من البرنامج بألوان زاهية. مرّرها عبر بوابات التحقق الثلاث قبل اتخاذ أي قرار هندسي.</p>
+        </div>
+    </div>
+</div>
+
+<div class="subsection">
+    <h3>1.2 مكتبة العناصر واختيار النوع المناسب</h3>
+    <p>تشكل مكتبة العناصر العمود الفقري لأي نمذجة FEA. كل عنصر مصمم لتمثيل سلوك فيزيائي محدد، واستخدامه خارج نطاق تطبيقه ينتج نتائج تبدو منطقية لكنها خاطئة فيزيائياً. مثلاً، استخدام عنصر <span class="en">plane stress</span> لمحاكاة هيكل سميك يعطي إجهادات أقل من الواقع، بينما استخدام <span class="en">plane strain</span> لصفائح رقيقة يعطي إجهادات أعلى من الحقيقة — والفرق ليس في الدقة العددية بل في الفيزياء الأساسية المفترضة.</p>
+    
+    <p>كذلك، فإن رتبة العنصر (خطي، تربيعي، تكعيبي) تحدد قدرة النموذج على التقاط تدرجات الإجهاد الحادة. العنصر الخطي يفترض انفعالاً ثابتاً داخله، فهو أعمى عن تدرجات الإجهاد داخل العنصر الواحد ويحتاج إلى كثافة عالية لالتقاط ظواهر الانحناء. العنصر التربيعي يضيف عقدة وسطية تسمح بانفعال متغير، فيلتقط الانحناء بكثافة أقل بكثير.</p>
+    
+    <div class="element-grid">
+        <div class="element-card">
+            <div class="type">Truss / Link / Rod</div>
+            <div class="desc">عناصر محورية فقط — أحادية البعد، تحمل قوى شد/ضغط. مناسبة للجمالونات، الكابلات، القضبان ثنائية القوة. لا تمثل الانحناء.</div>
+        </div>
+        <div class="element-card">
+            <div class="type">Beam / Euler / Timoshenko</div>
+            <div class="desc">عناصر محورية ودورانية — مناسبة للإطارات، الأعمدة، الكمرات ذات الانحناء. تمثل القص والانحناء والالتواء.</div>
+        </div>
+        <div class="element-card">
+            <div class="type">Shell / Plate</div>
+            <div class="desc">عناصر سطحية بدرجات حرية انتقالية ودورانية — مناسبة للهياكل الرقيقة: خزانات، صفائح، هياكل المركبات، الأجنحة.</div>
+        </div>
+        <div class="element-card">
+            <div class="type">Plane Stress / Strain / Axisymmetric</div>
+            <div class="desc">عناصر ثنائية الأبعاد — للحالات ذات التناظر الهندسي الذي يسمح باختزال البعد الثالث. تختصر زمن الحساب بشكل كبير.</div>
+        </div>
+        <div class="element-card">
+            <div class="type">Solid (Tet / Hex / Wedge)</div>
+            <div class="desc">عناصر حجمية ثلاثية الأبعاد — للأشكال العامة بدون اختزال. الأكثر مرونة لكن الأكثر تكلفة حسابياً.</div>
+        </div>
+        <div class="element-card">
+            <div class="type">Tet4 / Tet10 / Hex8 / Hex20</div>
+            <div class="desc">رتبة العنصر تحدد الدقة: خطي (سريع لكن أقل دقة) أو تربيعي (أبطأ لكن أدق في الانحناء والتدرجات الحادة).</div>
+        </div>
+    </div>
+    
+    <h4>قاعدة حساب حجم مصفوفة العنصر</h4>
+    <p>إذا كان العنصر يملك <span class="en">n</span> عقدة، وكل عقدة تمتلك <span class="en">m</span> درجة حرية، فإن حجم مصفوفة جساءة العنصر يساوي:</p>
+    
+    <div class="eq-card">
+        <div class="eq-card-title">حجم مصفوفة العنصر (Element Stiffness Matrix Size)</div>
+        $$\text{Size}(K_e) = (n \times m) \times (n \times m)$$
+    </div>
+    
+    <table>
+        <thead>
+            <tr>
+                <th style="width:25%">العنصر</th>
+                <th class="center" style="width:12%">البعد</th>
+                <th class="center" style="width:12%">العقد (n)</th>
+                <th class="center" style="width:18%">DOF لكل عقدة (m)</th>
+                <th class="center" style="width:33%">حجم مصفوفة Kₑ</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Beam</strong> (3D)</td>
+                <td class="center">3D</td>
+                <td class="center">2</td>
+                <td class="center">6</td>
+                <td class="code">12 × 12</td>
+            </tr>
+            <tr>
+                <td><strong>Tet4</strong></td>
+                <td class="center">3D</td>
+                <td class="center">4</td>
+                <td class="center">3</td>
+                <td class="code">12 × 12</td>
+            </tr>
+            <tr>
+                <td><strong>Hex8</strong></td>
+                <td class="center">3D</td>
+                <td class="center">8</td>
+                <td class="center">3</td>
+                <td class="code">24 × 24</td>
+            </tr>
+            <tr>
+                <td><strong>Hex20</strong></td>
+                <td class="center">3D</td>
+                <td class="center">20</td>
+                <td class="center">3</td>
+                <td class="code">60 × 60</td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <h4>قواعد اختيار العنصر</h4>
+    <ol>
+        <li><strong>ابدأ بالبساطة:</strong> اختر أبسط عنصر يحقق الهدف — عدد العقد، نوع درجات الحرية، رتبة العنصر الأدنى المناسبة.</li>
+        <li><strong>لا تستخدم Tet4 للانحناء الحرجة:</strong> صياغة <span class="en">constant strain</span> في Tet4 تجعله قاسياً في الانحناء. استخدم Tet10 أو Wedge/Hex بدلاً منه، أو على الأقل كثّف المش بشكل واضح في مناطق الانحناء.</li>
+        <li><strong>اختر الرتبة حسب التدرج:</strong> استخدم عناصر تربيعية عند وجود تدرج إجهاد حاد (فيلتات، ثقوب، تركيز إجهاد). العنصر التربيعي يلتقط هذه الظواهر بعدد عناصر أقل بكثير من الخطي.</li>
+        <li><strong>راعِ درجات الحرية الدورانية:</strong> عناصر <span class="en">solid</span> لا تمتلك درجات حرية دورانية. لربط <span class="en">beam</span> أو <span class="en">shell</span> بـ <span class="en">solid</span>، استخدم <span class="en">coupling</span> أو قيود <span class="en">MPC</span> مناسبة.</li>
+    </ol>
+</div>
+
+</div>
+<!-- /section 1.1-1.2 -->
+
+<!-- ===== SECTION 1.3-1.4 ===== -->
+<div class="main-content">
+
+<div class="subsection">
+    <h3>1.3 الإطار الرياضي الحاكم</h3>
+    <p>يحدد الإطار الرياضي الحاكم شكل التشوه المتوقع داخل كل عنصر من خلال دوال الشكل، التي تربط إزاحات العقد بالإزاحة المستمرة داخل العنصر. هذه العلاقة هي جسر العبور من النظام المستمر إلى النظام المتقطع القابل للحل رقمياً. الدقة النهائية تعتمد على مدى قدرة دوال الشكل على تمثيل حقل التشوه الحقيقي.</p>
+    
+    <p>تنطلق الصياغة من الافتراض بأن الإزاحة داخل العنصر يمكن تقريبها بدلالة إزاحات العقد. ثم تُشتق الانفعالات من الإزاحات، وفي حالة المرونة الخطية الصغيرة تُحسب الإجهادات من الانفعالات عبر مصفوفة المادة. مصفوفة الجساءة تنتج من مبدأ الشغل الافتراضي أو مبدأ الطاقة الكامنة الدنيا، الذي يضمن أن النظام في حالة اتزان عندما تكون الطاقة الكامنة الكلية في قيمتها الدنيا.</p>
+    
+    <div class="math-display">
+        $$u(x) \approx N(x) \, d_e, \qquad \varepsilon = B \, d_e, \qquad \sigma = D \, \varepsilon \tag{1.1}$$
+    </div>
+    
+    <div class="math-display">
+        $$K_e = \int_{V_e} B^T D \, B \, dV, \qquad K \, u = F \tag{1.2}$$
+    </div>
+    
+    <div class="math-display">
+        $$\Pi(u) = U(u) - W(u), \qquad \delta\Pi = 0 \tag{1.3}$$
+    </div>
+    
+    <div class="math-display">
+        $$U = \frac{1}{2} \int_V \varepsilon^T D \, \varepsilon \, dV \tag{1.4}$$
+    </div>
+    
+    <p>المعادلة (1.1) تعبر عن التقريب الأساسي: إزاحة أي نقطة داخل العنصر تُحسب من إزاحات العقد مضروبة في دوال الشكل. المعادلة (1.2) تعطي مصفوفة جساءة العنصر ومصدر النظام الكلي. المعادلتان (1.3) و(1.4) تعبران عن مبدأ الطاقة الكامنة الدنيا: النظام في الاتزان عندما تكون الطاقة الكامنة الكلية في قيمتها الصغرى، وهذا يعطينا نفس معادلة الجساءة بشكل مستقل.</p>
+    
+    <p>للتحليل الديناميكي، تضاف مصفوفة الكتلة ومصفوفة التخميد لتظهر حركة العقدة عبر الزمن:</p>
+    
+    <div class="math-display">
+        $$M \, \ddot{u} + C \, \dot{u} + K \, u = F(t) \tag{1.5}$$
+    </div>
+    
+    <div class="decision-row">
+        <div class="decision-box q">
+            <div class="q">ما الذي تتحقق منه؟</div>
+            <div class="a">هل النموذج الرياضي الذي بنيته يُحَل بشكل صحيح؟ — تقارب المش، اتزان ردود الأفعال، مقارنة بـ benchmark.</div>
+        </div>
+        <div class="decision-box a">
+            <div class="q">ما الذي تصدقه؟</div>
+            <div class="a">هل النموذج الرياضي يمثل الواقع؟ — مقارنة بتجربة، بيانات مادة، ظروف تثبيت واقعية.</div>
+        </div>
+    </div>
+    
+    <h4>البواقي ومعيار التقارب</h4>
+    <p>تعتمد الطرق التكرارية على البواقي <span class="en">Residual</span> التي تقيس الفرق بين القوى الخارجية والقوى الداخلية. تناقص الباقي نحو الصفر يعني اقتراب النظام من الاتزان. إذا توقف الباقي عن التناقص، فهذا يعني إما مشكلة في النموذج (قيد زائد، اتصال ناقص) أو في المعالج (تقارب غير مستقر).</p>
+    
+    <div class="math-display">
+        $$R(u) = F_{ext} - F_{int}(u) \to 0 \tag{1.6}$$
+    </div>
+</div>
+
+<div class="subsection">
+    <h3>1.4 متى نستخدم العناصر ومتى نتجنبها</h3>
+    <p>تختلف جودة العناصر الثلاثية الأبعاد بشكل جوهري. عنصر <span class="en">Tet4</span> يعطي صلابة زائدة لأنه يفترض انفعالاً ثابتاً داخله، مما يجعله ضعيفاً في تمثيل الانحناء. عنصر <span class="en">Tet10</span> التربيعي أفضل بكثير لأنه يسمح بانفعال متغير. عناصر <span class="en">Hex8</span> و <span class="en">Hex20</span> عموماً أدق من Tet equivalents، لكنها تتطلب هندسة منتظمة قابلة للـ meshing منظّم.</p>
+    
+    <p>للهياكل الرقيقة جداً، يكون <span class="en">shell</span> أكثر دقة وفعالية من <span class="en">solid</span> بعدد قليل من الطبقات. محاولة نمذجة صفيحة بسماكة 1 ملم بعناصر <span class="en">solid</span> تتطلب على الأقل 3 عناصر عبر السمك، مما يرفع عدد العقد بشكل غير عملي. <span class="en">shell</span> يختزل هذا التعقيد رياضياً مع الحفاظ على الدقة الفيزيائية.</p>
+    
+    <div class="callout warning">
+        <div class="callout-title"><span class="icon">!</span>تحذير: لا تخلط بين العناصر المختلفة</div>
+        <div class="callout-body">
+            <p>محاولة ربط دوران عنصر <span class="en">beam</span> أو <span class="en">shell</span> بعقدة <span class="en">solid</span> مباشرة تترك درجة الحرية الدورانية طليقة — لأن <span class="en">solid</span> لا يمتلكها. النتيجة: مفصل صناعي عند نقطة الاتصال، وتوزيع إجهاد غير فيزيائي تماماً. استخدم دائماً <span class="en">coupling</span> أو <span class="en">MPC</span> مناسب.</p>
+        </div>
+    </div>
+</div>
+
+</div>
+<!-- /section 1.3-1.4 -->
+
+<!-- ===== SECTION 1.5-1.6 ===== -->
+<div class="main-content">
+
+<div class="subsection">
+    <h3>1.5 ظواهر القفل العددي وأنواعه</h3>
+    <p>القفل العددي ليس خطأ برمجياً؛ بل قيد كامن في صياغة العنصر نفسه. يظهر عندما تعجز دوال الشكل عن تمثيل تشوه فيزيائي حقيقي دون توليد انفعالات غير فيزيائية. النتيجة: عنصر أصلب من الواقع، إزاحات أقل من المتوقع، وإجهادات قد تكون خاطئة في المقدار أو التوزيع.</p>
+    
+    <p>هناك ثلاثة أنواع رئيسية للقفل العددي، لكل منها أعراضه وعلاجه. التشخيص الخاطئ قد يقود إلى تطبيق علاج يزيد المشكلة سوءاً. لذلك من الضروري فهم آلية كل نوع قبل اختيار العلاج.</p>
+    
+    <h4>أ) القفل القصي (Shear Locking)</h4>
+    <p>يظهر في العناصر الخطية ذات التكامل الكامل عند تعرضها للانحناء. تفشل دوال الشكل في تمثيل الانحناء الحقيقي، فتتولد انفعالات قص غير فيزيائية تقاوم التشوه. الأعراض: إزاحات أقل بكثير من الحساب اليدوي، صلابة زائدة في الكمرات والألواح. العلاج: استخدام عناصر تربيعية، أو صياغات <span class="en">enhanced strain</span>، أو التكامل المخفض مع تثبيت <span class="en">hourglass</span>.</p>
+    
+    <h4>ب) القفل الحجمي (Volumetric Locking)</h4>
+    <p>يظهر في المواد شبه غير القابلة للانضغاط (مطاط، لدنة عند <span class="math-inline">$\nu \to 0.5$</span>). العنصر يعجز عن تمثيل التشوه الحجمي، فتتجه الإزاحة إلى قيم صغيرة جداً بشكل غير فيزيائي. العلاج: عناصر <span class="en">mixed/hybrid</span> التي تفصل الضغط الهيدروستاتيكي عن الانفعال الانحرافي.</p>
+    
+    <h4>ج) القفل الغشائي (Membrane Locking)</h4>
+    <p>يظهر في العناصر القشرية المنحنية. تتولد انفعالات غشائية غير فيزيائية أثناء الانحناء. العلاج: عناصر <span class="en">shell</span> بصياغة <span class="en">MITC</span>، أو زيادة عدد العناصر عبر السمك.</p>
+    
+    <table>
+        <thead>
+            <tr>
+                <th style="width:25%">المشكلة</th>
+                <th style="width:37%">العلاج الموصى به</th>
+                <th style="width:38%">ملاحظة هندسية</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Shear locking</strong></td>
+                <td>عناصر تربيعية، <span class="en">enhanced strain</span>، أو التكامل المخفض مع <span class="en">hourglass control</span>.</td>
+                <td>التحقق بمقارنة الإزاحة المحسوبة مع الحساب اليدوي. إذا كانت أقل بـ 30%+ فالقفل القصي مشتبه به.</td>
+            </tr>
+            <tr>
+                <td><strong>Volumetric locking</strong></td>
+                <td>عناصر <span class="en">mixed/hybrid</span>، أو فصل الضغط عن الإزاحة.</td>
+                <td>راقب قيم الضغط الهيدروستاتيكي. إذا تذبذبت بشدة بين العقد المتجاورة، فالقفل الحجمي وارد.</td>
+            </tr>
+            <tr>
+                <td><strong>Hourglassing</strong></td>
+                <td>تفعيل <span class="en">hourglass control</span>، أو التكامل الكامل بدلاً من المخفض.</td>
+                <td>يظهر كأنماط تشوه متعرجة على شكل ساعة رملية. خطير لأنه يستهلك طاقة صفرية دون مقاومة فيزيائية.</td>
+            </tr>
+            <tr>
+                <td><strong>Membrane locking</strong></td>
+                <td>عناصر <span class="en">shell</span> بصياغة <span class="en">MITC</span>، أو عناصر <span class="en">flat shell</span> بدلاً من المنحنية.</td>
+                <td>شائع في القشريات المنحنية (قباب، أغشية). قلل انحناء العنصر الواحد أو استخدم صياغة بديلة.</td>
+            </tr>
+            <tr>
+                <td><strong>Tet4 قاسٍ</strong></td>
+                <td>التحويل إلى <span class="en">Tet10</span>، أو <span class="en">Wedge/Hex</span>، مع تكثيف المش.</td>
+                <td>صياغة <span class="en">constant strain</span> تجعل Tet4 غير مناسب للانحناء. تجنبه في المناطق الحرجة.</td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <div class="callout warning">
+        <div class="callout-title"><span class="icon">!</span>القاعدة الذهبية للتكامل المخفض</div>
+        <div class="callout-body">
+            <p>التكامل المخفض (<span class="en">Reduced Integration</span>) يحل مشكلة <span class="en">Shear Locking</span> لكنه يفتح باب <span class="en">Hourglassing</span>. لا تستخدم التكامل المخفض أبداً دون تفعيل <strong>Hourglass Control</strong>. وإلا، فالنتائج قد تحتوي أنماط تشوه وهمية لا تستهلك طاقة، وتظهر كأنها حقيقية لكنها غير فيزيائية تماماً.</p>
+        </div>
+    </div>
+</div>
+
+<div class="subsection">
+    <h3>1.6 التفرد العددي وتمييزه</h3>
+    <p>التفرد العددي ليس ظاهرة فيزيائية؛ بل أثر رياضي يظهر عند نقطة أو حافة حيث يذهب الإجهاد إلى ما لا نهاية بسبب هندسة أو قيد مثالي. المثال الأشهر: زاوية حادة داخلية بنصف قطر صفري، أو حمل نقطي على عقدة واحدة، أو قيد <span class="en">fixed</span> على حافة كاملة.</p>
+    
+    <p>تمييز التفرد العددي عن تركيز الإجهاد الحقيقي أمر حاسم. عند تنعيم المش في منطقة تركيز إجهاد حقيقي، تتقارب قيمة الإجهاد نحو رقم محدود. أما في التفرد العددي، فالإجهاد يستمر بالارتفاع دون استقرار مهما نُعّم المش. استخدام قيمة الإجهاد عند التفرد في حسابات الفشل يعطي عوامل أمان خاطئة — إما متفائلة بشكل خطير أو متشائمة بشكل غير اقتصادي.</p>
+    
+    <div class="math-display">
+        $$\sigma = \lim_{A \to 0} \frac{F}{A} \to \infty \tag{1.7}$$
+    </div>
+    
+    <table>
+        <thead>
+            <tr>
+                <th style="width:25%">الحالة</th>
+                <th style="width:37%">عند تنعيم المش</th>
+                <th style="width:38%">الإجراء في التقرير</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>تركيز إجهاد حقيقي</strong></td>
+                <td>القيمة تتقارب تدريجياً نحو رقم محدود. زيادة كثافة المش بنسبة 50% تغير النتيجة بأقل من 5%.</td>
+                <td>استخدم القيمة المتقاربة في حسابات الفشل والتعب. موضع آمن للاعتماد.</td>
+            </tr>
+            <tr>
+                <td><strong>تفرد عددي</strong></td>
+                <td>القيمة تستمر بالارتفاع دون استقرار. كل ضعف في كثافة المش يزيد الإجهاد.</td>
+                <td>لا تستخدم قيمة الذروة. اقرأ الإجهاد على مسافة <span class="en">St. Venant</span>، أو أضف نصف قطر/مساحة حمل.</td>
+            </tr>
+            <tr>
+                <td><strong>منطقة تلامس حادة</strong></td>
+                <td>ضغط تلامس موضعي مرتفع جداً يزداد مع تنعيم المش.</td>
+                <td>راقب ضغط التلامس المتكامل والحمل الكلي، لا القيمة اللحظية عند النقطة.</td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <div class="callout info">
+        <div class="callout-title"><span class="icon">i</span>مبدأ سانت فينانت</div>
+        <div class="callout-body">
+            <p>على مسافة تعادل بُعداً مميزاً واحداً للمقطع، يتلاشى تأثير تفاصيل تطبيق الحمل. لذا عند وجود تفرد، اقرأ الإجهاد على مسافة <span class="en">h</span> (بُعد المقطع) من نقطة الحمل/القيد. القيمة هناك فيزيائية وموثوقة، بينما القيمة عند النقطة ذاتها ليست كذلك.</p>
+        </div>
+    </div>
+</div>
+
+</div>
+<!-- /section 1.5-1.6 -->
+
+<!-- ===== SECTION 1.7-1.8 ===== -->
+<div class="main-content">
+
+<div class="subsection">
+    <h3>1.7 التبسيط، الأحمال، والقيود</h3>
+    <p>قبل أي محاكاة FEA، يجب فحص الهندسة لتبسيطها دون الإخلال بالدقة. ليس الهدف حذف التفاصيل، بل حذف ما لا يؤثر في مخرج القرار. الفيلت الصغير في منطقة إجهاد منخفض يمكن حذفه بأمان، لكن الفيلت نفسه في قاعدة عمود معرض لانحناء دوري يجب الإبقاء عليه بدقة لأنه قد يكون موقع بدء الكسر التعب.</p>
+    
+    <h4>أ) التبسيط (Defeaturing)</h4>
+    <p>القاعدة الأساسية: احذف ما لا يؤثر، احتفظ بما يؤثر. الفيلتات والثقوب الصغيرة في مناطق الإجهاد المنخفض تستهلك موارد حسابية هائلة دون فائدة. لكن نفس الفيلتات في مناطق الإجهاد الحرجة قد تكون العامل الحاسم في عمر التعب. التحديد الصحيح لمناطق القرار قبل التبسيط يضمن عدم فقدان المعلومات الحرجة.</p>
+    
+    <h4>ب) الأحمال (Loads)</h4>
+    <p>تطبيق الأحمال هو المكان الذي تفقد فيه كثير من النماذج مصداقيتها. الحمل النقطي على عقدة واحدة يولد تفرداً عددية لا علاقة له بالفيزياء. الحمل الموزع بشكل خاطئ قد يعطي ردود أفعال صحيحة لكن إجهادات محلية خاطئة. القاعدة: <strong>كل حمل فيزيائي يُطبق على مساحة، فنمذجه على مساحة</strong>.</p>
+    
+    <ul>
+        <li><strong>قوة يدوية:</strong> استخدم ضغطاً موزعاً على منطقة تماس اليد الفعلية، لا عقدة منفردة.</li>
+        <li><strong>وزن ذاتي:</strong> استخدم كثافة المادة وتسارع الجاذبية (9.81 m/s²)، لا قوة عشوائية مكافئة.</li>
+        <li><strong>عزم على جسم صلب:</strong> استخدم <span class="en">remote moment/force</span> على مساحة، لا عقدة واحدة.</li>
+        <li><strong>ضغط سائل:</strong> راعِ تغير الضغط مع العمق (هيدروستاتيكي)، لا ضغطاً ثابتاً.</li>
+    </ul>
+    
+    <h4>ج) القيود (Boundary Conditions)</h4>
+    <p>القيد المثالي <span class="en">Fixed Support</span> من أكثر مصادر التفرد والتصلب الزائد. القاعدة: إذا كان الجسم المتصل بنفس المادة والسماكة، فالقيد الكامل مبالغ فيه. استخدم قيوداً مرنة، أو نمذجة مشتركة، أو <span class="en">remote displacement</span> بمرونة محدودة.</p>
+    
+    <div class="callout warning">
+        <div class="callout-title"><span class="icon">!</span>اختبار القيود الأربعة</div>
+        <div class="callout-body">
+            <p>قبل اعتماد أي قيد، اسأل: (1) هل السطح ملحوم فعلاً بجسم أكثر جساءة بكثير؟ (2) هل يوجد دوران أو انزلاق صغير في الواقع؟ (3) هل يمكن تمثيل القيد بنوابض مرنة؟ (4) هل ردود الأفعال الناتجة منطقية وتساوي الأحمال الخارجية؟</p>
+        </div>
+    </div>
+</div>
+
+<div class="subsection">
+    <h3>1.8 نماذج التماس والاتصالات والقيود الداخلية</h3>
+    <p>القيود الداخلية هي القلب الفيزيائي لأي نموذج متعدد الأجزاء. القيد الخاطئ يعطي نتائج خاطئة بصرف النظر عن جودة المش أو دقة المعالج. أنواع الاتصال الأساسية: <span class="en">tie</span> (اتصال تام دون انزلاق)، <span class="en">contact</span> (تلامس مع احتمال فتح/انزلاق)، <span class="en">coupling</span> (ربط حركة عقد بمرجعية).</p>
+    
+    <h4>ربط Beam/Shell/Solid</h4>
+    <p>العنصر <span class="en">solid</span> لا يمتلك درجات حرية دورانية، فلربط <span class="en">beam</span> أو <span class="en">shell</span> به، يجب تحويل العزم إلى توزيع قوى على سطح. محاولة الربط المباشر تترك العزم طليقاً وتعطي مفصلاً صناعياً دون قصد.</p>
+    
+    <table>
+        <thead>
+            <tr>
+                <th style="width:25%">طريقة الربط</th>
+                <th style="width:38%">المعنى الفيزيائي</th>
+                <th style="width:37%">متى يُستخدم</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Tie / Shared Nodes</strong></td>
+                <td>اتصال تام دون انزلاق ولا فتح. العقد تتطابق حركياً.</td>
+                <td>عندما يكون الجزءان ملتحمين فيزيائياً (لحام كامل، التصاق كيميائي).</td>
+            </tr>
+            <tr>
+                <td><strong>Contact</strong></td>
+                <td>تلامس مع احتمال فتح/انزلاق/احتكاك. حالة التلامس تتغير مع الحمل.</td>
+                <td>عندما يكون هناك فاصل ميكانيكي أو احتكاك (مسامير، وصلات دوارة).</td>
+            </tr>
+            <tr>
+                <td><strong>RBE2 / Rigid</strong></td>
+                <td>ربط جاسئ تماماً. العقد التابعة تتبع المرجعية حركياً ودورانياً.</td>
+                <td>عندما تكون المنطقة فيزيائياً صلبة فعلاً (وصلة معدنية ثقيلة).</td>
+            </tr>
+            <tr>
+                <td><strong>RBE3 / Coupling</strong></td>
+                <td>توزيع الحمل دون إضافة صلابة. نقل الحركة كمتوسط مرجح.</td>
+                <td>عند نقل حمل/عزم دون تصلب صناعي للمنطقة.</td>
+            </tr>
+            <tr>
+                <td><strong>Distributed Coupling</strong></td>
+                <td>توزيع الحركة على مساحة بوزن مرجح، دون إضافة صلابة كبيرة.</td>
+                <td>لنقل حمولة من نقطة إلى سطح تلامس واقعي.</td>
+            </tr>
+            <tr>
+                <td><strong>MPC</strong></td>
+                <td>قيد متعدد النقاط — معادلة خطية تربط حركة عقد ببعضها.</td>
+                <td>للحالات الخاصة (محاكاة مفصلية، توافق مش مختلف، نقل حركة معرفة).</td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <div class="callout info">
+        <div class="callout-title"><span class="icon">i</span>قاعدة اختيار الربط</div>
+        <div class="callout-body">
+            <p>اسأل أربعة أسئلة قبل اختيار طريقة الربط: (1) هل العقد متطابقة حركياً؟ (2) هل التلامس يفتح/ينغلق؟ (3) هل هناك احتكاك؟ (4) هل الصلابة المضافة واقعية؟ الإجابات تحدد الطريقة المناسبة.</p>
+        </div>
+    </div>
+</div>
+
+</div>
+<!-- /section 1.7-1.8 -->
+
+<!-- ===== SECTION 1.9-1.10 ===== -->
+<div class="main-content">
+
+<div class="subsection">
+    <h3>1.9 جودة المش ودراسة التقارب</h3>
+    <p>جودة المش ليست رفاهية؛ بل شرط ضروري (وإن لم يكن كافياً) لاعتماد نتائج FEA. مش رديء قد يعطي نتائج تبدو منطقية لكنها خاطئة بنسبة قد تصل إلى 50% أو أكثر. الجودة العامة مهمة، لكن الجودة الموضعية في مناطق القرار أهم بكثير.</p>
+    
+    <h4>مقاييس جودة المش</h4>
+    <table>
+        <thead>
+            <tr>
+                <th style="width:22%">المقياس</th>
+                <th style="width:40%">المعنى</th>
+                <th style="width:38%">القراءة العملية</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Aspect Ratio</strong></td>
+                <td>استطالة العنصر. نسبة أطول ضلع لأقصر ضلع.</td>
+                <td>القرب من 1 أفضل. الطبقات الحدية قد تسمح بـ 10-20 في اتجاه التدفق.</td>
+            </tr>
+            <tr>
+                <td><strong>Jacobian</strong></td>
+                <td>جودة التحويل من العنصر المرجعي للحقيقي. يقيس مدى تشوه العنصر.</td>
+                <td>قيمة سالبة تعني عنصراً مقلوباً — خطأ حرج. قيمة قريبة من 1 ممتازة.</td>
+            </tr>
+            <tr>
+                <td><strong>Skewness</strong></td>
+                <td>انحراف الزوايا عن الشكل المثالي (90° للرباعي، 60° للمثلث).</td>
+                <td>أقل من 0.5 ممتاز. أكبر من 0.8 رديء. خطير في مناطق الإجهاد الحرجة.</td>
+            </tr>
+            <tr>
+                <td><strong>Warping</strong></td>
+                <td>خروج عقد العنصر الرباعي عن مستوى واحد.</td>
+                <td>مهم للقشريات. قيم كبيرة (>0.2) تُدمر دقة عناصر <span class="en">shell</span>.</td>
+            </tr>
+            <tr>
+                <td><strong>Element Quality</strong></td>
+                <td>مقياس شامل لتشوه العنصر. مزيج من المقاييس السابقة.</td>
+                <td>عنصر ذو جودة منخفضة يستهلك طاقة بلا داعٍ ويعطي نتائج غير مستقرة.</td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <h4>بروتوكول دراسة التقارب</h4>
+    <ol>
+        <li><strong>حدد كمية الاهتمام (QOI):</strong> إزاحة، إجهاد، رد فعل، عدد دورة. لا تستخدم إجهاد الذروة كـ QOI.</li>
+        <li><strong>أنشئ ثلاث شبكات على الأقل:</strong> خشن، متوسط، ناعم. كل شبكة تحسّن بمقدار ثابت.</li>
+        <li><strong>ثبّت كل العوامل الأخرى:</strong> نوع العنصر، الحدود، الأحمال. تغيير أي عامل يبطل المقارنة.</li>
+        <li><strong>ارسم الكمية مقابل عدد درجات الحرية (DOF).</strong> المنحنى يجب أن يقترب من خط أفقي مقارب.</li>
+        <li><strong>اعتبر النتيجة مستقرة</strong> عندما يصبح التغير ضمن 2-5%.</li>
+    </ol>
+    
+    <div class="callout gold">
+        <div class="callout-title"><span class="icon">★</span>ملاحظة حاسمة</div>
+        <div class="callout-body">
+            <p>تقارب المش: <strong>إذا حصلت على نتيجة لا تتقارب مع تنعيم المش، اشتبه في تفرد عددي</strong>. التفرد لا يتقارب مهما نُعّم المش. السؤال الأساسي: هل تتغير النتيجة؟ هل تستقر؟ هل تتوزع؟</p>
+        </div>
+    </div>
+</div>
+
+<div class="subsection">
+    <h3>1.10 اللاخطية: متى تصبح ضرورية وحتمية؟</h3>
+    <p>التحليل الخطي يقوم على ثلاث فرضيات: تشوهات صغيرة، مادة خطية، وقيود لا تتغير. اكسر واحدة منها، وفعّل اللاخطية. تجاهل هذا المبدأ يعني قبول نتائج قد تكون خطيرة بأكثر من اتجاه.</p>
+    
+    <p>اللاخطية ليست خياراً للدقة الزائدة؛ بل ضرورة فيزيائية في كثير من التطبيقات. النموذج الخطي يعطي إجابة واحدة ثابتة مهما كانت الأحمال كبيرة، وهذا مستحيل فيزيائياً — فالمواد تخضع، التلامسات تنفتح، والإزاحات تغير مسار الحمل. تجاهل هذه الظواهر يعني تصميماً على أرقام لا علاقة لها بالواقع.</p>
+    
+    <p>القرار بتفعيل اللاخطية يجب أن يبنى على فهم فيزيائي واضح للمشكلة، لا على مبدأ "الأفضل أن نكون آمنين". اللاخطية تضاعف زمن الحساب وقد تمنع التقارب في بعض الحالات. لذا يجب تفعيلها عند الحاجة فقط، ولكن بصرامة عندما تكون ضرورية.</p>
+    
+    <table>
+        <thead>
+            <tr>
+                <th style="width:25%">النوع</th>
+                <th style="width:37%">متى يظهر؟</th>
+                <th style="width:38%">مؤشرات التفعيل</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Geometric Nonlinearity</strong><br>اللاخطية الهندسية</td>
+                <td>الإزاحات تؤثر في مسار الحمل أو الجساءة. الإزاحات كبيرة نسبياً مقارنة بأبعاد الجسم.</td>
+                <td>كابلات، أغشية، انبعاج (<span class="en">Buckling</span>)، إزاحة أكبر من نصف السمك، تحليل ما بعد الانبعاج.</td>
+            </tr>
+            <tr>
+                <td><strong>Material Nonlinearity</strong><br>اللاخطية المادية</td>
+                <td>المادة تتجاوز المرونة الخطية. الإجهاد يصبح غير متناسب مع الانفعال.</td>
+                <td>لدونة (<span class="en">Plasticity</span>)، مطاط، زحف (<span class="en">Creep</span>)، ضرر (<span class="en">Damage</span>)، تشقق.</td>
+            </tr>
+            <tr>
+                <td><strong>Contact Nonlinearity</strong><br>اللاخطية التلامسية</td>
+                <td>مناطق التلامس تفتح أو تغلق أو تنزلق. الحالة تتغير أثناء التحميل.</td>
+                <td>مسامير، احتكاك، ضغط بين أجسام، تأثيرات فجوات، التلامس الدوري.</td>
+            </tr>
+            <tr>
+                <td><strong>Boundary Nonlinearity</strong><br>اللاخطية الحدية</td>
+                <td>القيود تتغير مع الحركة. جسم يصل إلى توقف ميكانيكي أثناء التشوه.</td>
+                <td>توقفات ميكانيكية، فجوات، قيود أحادية الاتجاه (<span class="en">One-sided BCs</span>).</td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <h4>قاعدة الإزاحة الكبيرة (Large Deflection)</h4>
+    <p>لا توجد قاعدة عالمية مثل "نصف السمك" تنطبق على كل المسائل، لكن المبدأ الفيزيائي واضح: إذا أصبحت الإزاحة كبيرة بما يكفي لتغيير اتجاه الأحمال أو صلابة النظام، فعّل اللاخطية الهندسية. مثلاً، كمرة بعمق 10 مم تتشوه 5 مم لا يمكن تحليلها خطياً بدقة، لأن الإزاحة غيّرت اتجاه الحمل بالنسبة للكمرة.</p>
+    
+    <p>في الكابلات والأغشية، اللاخطية الهندسية ضرورية حتى لإيجاد حالة الاتزان الأولى. بدونها، الكابل المعلق يعطي إزاحة لا نهائية لأن صلابته تنشأ من التوتر، والتوتر نفسه ينشأ من الإزاحة. هذه مشكلة <span class="en">Chicken-and-Egg</span> لا يحلها إلا المعالج اللاخطي.</p>
+    
+    <div class="callout warning">
+        <div class="callout-title"><span class="icon">!</span>خطأ شائع</div>
+        <div class="callout-body">
+            <p>إذا كان النموذج يعاني من انبعاج أو كابلات، فإن التحليل الخطي قد يعطي إجابة مرتبة لكنها غير واقعية. الإجابة الخطية لا تحتوي معلومات عن السلوك ما بعد الانبعاج، وقد تُظهر الهيكل مستقراً بينما هو في الحقيقة انهار. <strong>البطء العددي هنا ثمن مقبول للحقيقة الفيزيائية.</strong> إعطاء جواب سريع خاطئ أسوأ من لا إجابة.</p>
+        </div>
+    </div>
+    
+    <div class="callout info">
+        <div class="callout-title"><span class="icon">i</span>نصيحة عملية</div>
+        <div class="callout-body">
+            <p>إذا كنت غير متأكد من ضرورة اللاخطية، نفّذ تحليلين: خطي ولاخطي. إذا كانت النتائج متقاربة (أقل من 5% فرق)، فالتحليل الخطي كافٍ. إذا كانت متباعدة، فاللاخطية ضرورية ولا خيار آخر. هذه المقارنة نفسها تثبت أن قرارك مدروس وليس عشوائياً، وهو ما تحتاج إثباته في المراجعات الفنية.</p>
+        </div>
+    </div>
+</div>
+
+<div class="subsection">
+    <h3>1.11 التحقق والتصديق (V&V): بوابة الجودة</h3>
+    <p>التحقق والتصديق بوابتان مختلفتان تماماً. التحقق يجيب عن: هل حللنا المعادلات بشكل صحيح؟ أما التصديق فيجيب عن: هل المعادلات نفسها صحيحة؟ الخلط بينهما يؤدي إلى اعتماد نتائج تبدو سليمة لكنها خاطئة فيزيائياً.</p>
+    
+    <table>
+        <thead>
+            <tr>
+                <th style="width:20%">المرحلة</th>
+                <th style="width:40%">السؤال الجوهري</th>
+                <th style="width:40%">طريقة التنفيذ</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>التحقق</strong><br>(Verification)</td>
+                <td>هل حللنا النموذج الرياضي بشكل صحيح؟ هل الحل العددي دقيق؟</td>
+                <td>تقارب المش، اتزان ردود الأفعال، فحص جودة العناصر، مقارنة بـ benchmark.</td>
+            </tr>
+            <tr>
+                <td><strong>التصديق</strong><br>(Validation)</td>
+                <td>هل النموذج الرياضي يمثل الواقع؟ هل الفرضيات الفيزيائية صحيحة؟</td>
+                <td>مقارنة بتجربة فعلية، بيانات مادة حقيقية، ظروف تثبيت واقعية.</td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <h4>القفل الشائع لنتائج V&V</h4>
+    
+    <table>
+        <thead>
+            <tr>
+                <th style="width:30%">الحالة</th>
+                <th style="width:35%">عند تنعيم المش</th>
+                <th style="width:35%">الإجراء في التقرير</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>تركيز إجهاد حقيقي</strong></td>
+                <td>القيمة تتقارب تدريجياً نحو رقم محدود.</td>
+                <td>اعتُمدت القيمة. أثبت التقارب في التقرير.</td>
+            </tr>
+            <tr>
+                <td><strong>تفرد عددي</strong></td>
+                <td>القيمة تستمر بالارتفاع دون استقرار.</td>
+                <td>اقرأ الإجهاد على مسافة <span class="en">St. Venant</span>. استبعد القمة.</td>
+            </tr>
+            <tr>
+                <td><strong>ردود أفعال لا تتزن</strong></td>
+                <td>مجموعها لا يساوي الحمل الخارجي.</td>
+                <td>راجع القيود، الوحدات، اتجاه الأحمال. خطأ في النمذجة.</td>
+            </tr>
+            <tr>
+                <td><strong>توزيع إجهاد غير منطقي</strong></td>
+                <td>إجهاد عالٍ في منطقة منخفضة الحمل، أو العكس.</td>
+                <td>افحص مسار الحمل، اتصالات الأجزاء، صياغة العنصر.</td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <div class="callout success">
+        <div class="callout-title"><span class="icon">✓</span>قاعدة الاعتماد النهائية</div>
+        <div class="callout-body">
+            <p>أي نتيجة FEA يجب أن تُعامل كـ <strong>مشتبه بها حتى تثبت براءتها</strong>. لا تعتمد نتيجة لمجرد أنها خرجت بألوان زاهية. مرّرها عبر بوابات التحقق: تقارب المش، اتزان ردود الأفعال، منطق مسار الحمل. فقط بعدها اعتبرها جاهزة للقرار الهندسي.</p>
+        </div>
+    </div>
+</div>
+
+</div>
+<!-- /section 1.9-1.10 -->
+
+<!-- ===== SECTION 1.11-1.13 ===== -->
+<div class="main-content">
+
+<div class="subsection">
+    <h3>1.12 اختيار الحل (Solver) ومعايير التقارب</h3>
+    <p>اختيار نوع الحل ليس قراراً ثانوياً؛ بل قرار استراتيجي يحدد استقرار النموذج ودقته وسرعته. إذا لم يتطابق نوع الحل مع طبيعة المسألة (استاتيكية، ديناميكية، مودالية، لاخطية)، فقد يعطي البرنامج إجابة تبدو مرتبة لكنها غير واقعية.</p>
+    
+    <table>
+        <thead>
+            <tr>
+                <th style="width:20%">نوع الحل</th>
+                <th style="width:40%">المعنى والاستخدام</th>
+                <th style="width:40%">الميزات والقيود</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Sparse Direct</strong></td>
+                <td>حل مباشر عبر تحليل مصفوفة الجساءة. شائع للاستاتيكية الخطية واللاخطية.</td>
+                <td>قوي ومستقر، لكن يستهلك ذاكرة عالية. تكلفة O(N²) للذاكرة و O(N³) للحساب.</td>
+            </tr>
+            <tr>
+                <td><strong>Iterative</strong></td>
+                <td>حل تكراري عبر تقليل البواقي. مناسب للنماذج الكبيرة.</td>
+                <td>أقل استهلاكاً للذاكرة، لكن قد يفشل بدون preconditioning جيد. أسرع للنماذج الضخمة.</td>
+            </tr>
+            <tr>
+                <td><strong>Eigen / Modal</strong></td>
+                <td>يستخرج الترددات الطبيعية والأشكال الطبيعية.</td>
+                <td>أساسي لتحليل الاهتزازات والاستقرار الديناميكي. حساس للجودة الكتلية والقيود.</td>
+            </tr>
+            <tr>
+                <td><strong>Explicit</strong></td>
+                <td>تكامل زمني صريح، خطوة زمنية صغيرة جداً.</td>
+                <td>ممتاز للتصادمات، الانفجارات، العمليات سريعة الزمن. مكلف للعمليات البطيئة.</td>
+            </tr>
+            <tr>
+                <td><strong>Implicit (Nonlinear)</strong></td>
+                <td>تكامل ضمني تكراري، يحدث اتزان في كل خطوة.</td>
+                <td>مناسب للزحف، اللدونة، التلامس اللاخطي. قد يفشل بدون تحكم جيد في الخطوة.</td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <div class="callout info">
+        <div class="callout-title"><span class="icon">i</span>قاعدة اختيار الحل</div>
+        <div class="callout-body">
+            <p>اسأل خمسة أسئلة قبل الاختيار: (1) هل المسألة استاتيكية أم ديناميكية؟ (2) هل التشوه صغير أم كبير؟ (3) هل هناك تلامس متغير؟ (4) ما الزمن الكلي للحدث؟ (5) هل المادة لاخطية؟ الإجابات تحدد نوع الحل المناسب.</p>
+        </div>
+    </div>
+</div>
+
+<div class="subsection">
+    <h3>1.13 بوابة الجودة الهندسية: 21 سؤالاً قبل الحل والاعتماد</h3>
+    <p>هذه القائمة المرجعية تجمع كل ما سبق في أسئلة عملية تُسأل قبل اعتماد أي تحليل FEA رسمي. الإجابة بـ "لا" على أي سؤال تستوجب إعادة النظر في النموذج قبل اعتماد النتائج.</p>
+    
+    <table class="gate-table">
+        <thead>
+            <tr>
+                <th class="center" style="width:5%">#</th>
+                <th style="width:50%">سؤال الجودة</th>
+                <th class="center" style="width:10%">تحقق</th>
+                <th style="width:35%">الإجراء المصحح</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="group-start"><td colspan="4">المجموعة الأولى: النمذجة الفيزيائية (Physics Modeling)</td></tr>
+            <tr><td class="num">1</td><td>هل الهدف الهندسي قابل للقياس؟</td><td class="check">[ ]</td><td>عرّف مخرجاً واضحاً: إزاحة، إجهاد، عامل أمان.</td></tr>
+            <tr><td class="num">2</td><td>هل نوع التحليل يطابق فيزياء المشكلة؟</td><td class="check">[ ]</td><td>اختر Static, Modal, Transient, أو Explicit.</td></tr>
+            <tr><td class="num">3</td><td>هل المادة معرفة بما يكفي للقرار؟</td><td class="check">[ ]</td><td>أدخل منحنى لدونة/مطاط/زحف إذا لزم.</td></tr>
+            <tr><td class="num">4</td><td>هل تم تنظيف الجيومتري دون حذف تفاصيل مؤثرة؟</td><td class="check">[ ]</td><td>أعد الفيلتات أو الثقوب في مناطق الإجهاد الحرجة.</td></tr>
+            <tr><td class="num">5</td><td>هل رتبة النموذج 1D/2D/3D مبررة؟</td><td class="check">[ ]</td><td>استخدم تقليل الرتبة فقط عندما تدعمه الفيزياء.</td></tr>
+            
+            <tr class="group-start"><td colspan="4">المجموعة الثانية: العناصر والمش (Elements &amp; Mesh)</td></tr>
+            <tr><td class="num">6</td><td>هل نوع العنصر مناسب؟</td><td class="check">[ ]</td><td>استبدل Tet4 بعناصر تربوعية في مناطق الانحناء.</td></tr>
+            <tr><td class="num">7</td><td>هل جودة المش مقبولة في مناطق القرار؟</td><td class="check">[ ]</td><td>حسّن Skewness/Jacobian محلياً لا عالمياً.</td></tr>
+            <tr><td class="num">8</td><td>هل أُجريت دراسة تقارب لكمية القرار؟</td><td class="check">[ ]</td><td>نفذ ثلاث شبكات واثبت استقرار النتائج.</td></tr>
+            
+            <tr class="group-start"><td colspan="4">المجموعة الثالثة: الأحمال والقيود (Loads &amp; BCs)</td></tr>
+            <tr><td class="num">9</td><td>هل الأحمال موزعة على مساحة واقعية؟</td><td class="check">[ ]</td><td>استبدل الحمل النقطي بضغط أو Remote Force.</td></tr>
+            <tr><td class="num">10</td><td>هل القيود لا تخلق تصلباً زائداً؟</td><td class="check">[ ]</td><td>استبدل Fixed Support بقيود مرنة عند الحاجة.</td></tr>
+            <tr><td class="num">11</td><td>هل التلامس معرف بنوعه الحقيقي؟</td><td class="check">[ ]</td><td>حدد فتح/انزلاق/احتكاك، واختبر حساسية المعامل.</td></tr>
+            <tr><td class="num">12</td><td>هل الربط بين Beam/Shell/Solid متوافق؟</td><td class="check">[ ]</td><td>استخدم MPC/RBE3/Distributed Coupling.</td></tr>
+            <tr><td class="num">13</td><td>هل مسار انتقال الأحمال مستمر؟</td><td class="check">[ ]</td><td>افحص الأجزاء الطائرة والروابط المفقودة.</td></tr>
+            
+            <tr class="group-start"><td colspan="4">المجموعة الرابعة: التحقق المسبق (Pre-Solution Verification)</td></tr>
+            <tr><td class="num">14</td><td>هل توقعت التشوه ومناطق الإجهاد يدوياً؟</td><td class="check">[ ]</td><td>نفذ Hand Calculation أو نموذج مبسط.</td></tr>
+            <tr><td class="num">15</td><td>هل عولجت التفردات؟</td><td class="check">[ ]</td><td>تجاهل الذروة أو أضف نصف قطر/مساحة حمل.</td></tr>
+            <tr><td class="num">16</td><td>هل تم تفعيل اللاخطية عند الحاجة؟</td><td class="check">[ ]</td><td>فعّل Large Deflection أو مادة/تلامس لاخطي.</td></tr>
+            
+            <tr class="group-start"><td colspan="4">المجموعة الخامسة: التحقق البعدي (Post-Solution Verification)</td></tr>
+            <tr><td class="num">17</td><td>هل ردود الأفعال متزنة مع الأحمال؟</td><td class="check">[ ]</td><td>راجع القيود، الوحدات، التسارع، والكتلة.</td></tr>
+            <tr><td class="num">18</td><td>هل الوحدات متسقة في كل المدخلات؟</td><td class="check">[ ]</td><td>افحص SI أو N-mm-MPa ولا تخلط الكثافة والقوى.</td></tr>
+            <tr><td class="num">19</td><td>هل النتائج معروضة دون تضليل لوني؟</td><td class="check">[ ]</td><td>استخدم نفس مقياس الألوان، وحدد Averaged أم لا.</td></tr>
+            <tr><td class="num">20</td><td>هل الفرضيات موثقة وقابلة للمراجعة؟</td><td class="check">[ ]</td><td>اكتب حدود النموذج ومبررات التبسيط.</td></tr>
+            <tr><td class="num">21</td><td>هل القرار النهائي منفصل عن مناطق الشك؟</td><td class="check">[ ]</td><td>لا تبنِ قرار الفشل على قيد نقطي أو عنصر رديء.</td></tr>
+        </tbody>
+    </table>
+    
+    <div class="callout warning">
+        <div class="callout-title"><span class="icon">!</span>البنود الحرجة للاعتماد</div>
+        <div class="callout-body">
+            <p>البنود التالية تعتبر <strong>حرجة</strong>: 2 (نوع التحليل)، 8 (تقارب المش)، 10 (القيود)، 17 (ردود الأفعال)، 18 (الوحدات). فشل أي منها يمنع اعتماد النتيجة بصرف النظر عن بقية البنود. هذه البنود تمس جوهر الفيزياء ولا يمكن "تجاوزها" بحجة الضرورة الهندسية.</p>
+        </div>
+    </div>
+</div>
+
+</div>
+<!-- /section 1.13 quality gate -->
+
+<!-- ===== SECTION 1.14-1.15 ===== -->
+<div class="main-content">
+
+<div class="subsection">
+    <h3>1.14 قالب تقرير اعتماد FEA المؤسسي</h3>
+    <p>القالب الموحد ليس ترفاً بيروقراطياً؛ بل أداة لضمان أن كل تقرير يحتوي على المعلومات الضرورية للمراجعة الفنية والقرار الهندسي. بدونه، تصبح التقارير متفاوتة الجودة ويصعب مقارنتها أو تدقيقها.</p>
+    
+    <p>الهدف من القالب ليس فرض صياغة جامدة، بل ضمان أن كل تقرير <span class="en">FEA</span> رسمي يجيب عن الأسئلة الجوهرية التسعة التالية. الإجابة عن كل سؤال يجب أن تكون صريحة ومختصرة، لا فلسفية طويلة. المراجع الفني يبحث عن المعلومة لا عن البلاغة.</p>
+    
+    <ol class="report-template">
+        <li>
+            <strong>الهدف ونطاق القرار</strong>
+            ما السؤال الذي يجيب عنه التحليل؟ وما الذي لا يجيب عنه؟ تحديد دقيق للهدف يمنع التحليلات الزائدة ويوجه الجهد نحو القرار الفعلي. مثلاً: "التحليل يجيب عن عامل الأمان ضد الخضوع في حالة الحمل التشغيلي الأقصى، ولا يجيب عن عمر التعب ولا عن الاستقرار الديناميكي."
+        </li>
+        <li>
+            <strong>وصف النموذج</strong>
+            الجيومتري (المصدر، التبسيطات)، المواد (المصدر، المنحنيات)، الاتصالات (الأنواع، المواقع)، القيود (الأنواع، المواقع)، الأحمال (القيم، الاتجاهات، التوزيع)، الوحدات المستخدمة. كل عنصر يجب توثيقه بشكل يمكن للمراجع إعادة بناء النموذج منه.
+        </li>
+        <li>
+            <strong>فرضيات التبسيط</strong>
+            ماذا حذفنا؟ لماذا؟ وما أثره المتوقع؟ كل تبسيط يجب أن يُبرَّر فيزيائياً، لا بمجرد "لتقليل وقت الحساب". إذا حذفت فيلتاً صغيراً، اذكر أين هو ولماذا لا يؤثر. إذا استخدمت نموذج 2D بدلاً من 3D، اذكر الفرضية الفيزيائية (تناظر، طول كبير، إلخ).
+        </li>
+        <li>
+            <strong>المش والعناصر</strong>
+            نوع العناصر (مثل <span class="en">C3D10M</span> في <span class="en">Abaqus</span>)، الرتبة (خطي/تربيعي)، عدد العقد ومتوسطات <span class="en">DOF</span>، مقاييس الجودة (<span class="en">Aspect Ratio, Skewness, Jacobian</span>)، مناطق التنعم المحلي. هذه المعلومات تسمح للمراجع بتقييم جودة النموذج العددي.
+        </li>
+        <li>
+            <strong>التحقق العددي</strong>
+            تقارب المش (ثلاث شبكات على الأقل مع نسب التغير)، اتزان ردود الأفعال (نسبة الفرق عن الحمل الخارجي)، حساسية القيود (إن وُجدت). هذه القسم هو الذي يميز التقرير المهني عن التقرير الهاوي.
+        </li>
+        <li>
+            <strong>النتائج</strong>
+            إزاحات (قيم عظمى مع المواقع)، إجهادات (قيم عظمى مع المواقع، نوع الإجهاد)، انفعالات، ردود فعل، مع توضيح أماكن القراءة بدقة. تجنب عرض خرائط ملوّنة بدون أرقام — الأرقام هي القرار، الألوان للعرض فقط.
+        </li>
+        <li>
+            <strong>مناقشة التفردات</strong>
+            أين ظهرت التفردات؟ كيف عولجت؟ وما القيم المستبعدة؟ هذا القسم ضروري للشفافية المنهجية. إذا استبعدت إجهاداً عند قيد ثابت، اذكر ذلك صراحةً واشرح السبب (تفرد عددي، مبدأ سانت فينانت).
+        </li>
+        <li>
+            <strong>الاستنتاج</strong>
+            قرار واضح وصريح. مثال: "التصميم يحقق عامل أمان 1.72 ضد الخضوع في حالة الحمل القصوى، وهو يفوق الحد الأدنى المعتمد (1.5) بفارق 15%. لا توجد مناطق تركيز إجهاد تستدعي تحسين التصميم في النطاق الحالي". تجنب الاستنتاجات الغامضة مثل "النتائج تبدو مقبولة".
+        </li>
+        <li>
+            <strong>القيود والتوصيات</strong>
+            تجارب لازمة للتصديق، تحسينات مقترحة، أو نماذج لاخطية مستقبلية. هذا القسم يربط التحليل بالخطوات التالية في دورة التصميم، ويوضح ما يلزم قبل اعتماد النتائج نهائياً للإنتاج.
+        </li>
+    </ol>
+    
+    <div class="callout success">
+        <div class="callout-title"><span class="icon">✓</span>مثال جملة استنتاج جاهزة</div>
+        <div class="callout-body">
+            <p style="font-style: italic; border-right: 3px solid var(--green); padding-right: 12px;">"بناءً على التحليل الإنشائي اللاخطي المنجز، يحقق التصميم المقترح عامل أمان 1.72 مقابل الخضوع في حالة الحمل التشغيلي الأقصى، مع تقارب مش مثبت ضمن 3%. تُوصى بإجراء اختبار تجريبي على عينة واحدة على الأقل للتصديق النهائي قبل الاعتماد للإنتاج."</p>
+            <p>هذه الصياغة تحتوي على كل العناصر الضرورية: القرار، الرقم، الأساس المنهجي، والخطوة التالية. تقرير يفتقد أي من هذه العناصر يُعتبر غير مكتمل.</p>
+        </div>
+    </div>
+</div>
+
+<div class="subsection">
+    <h3>1.15 بطاقات معادلات وقرارات سريعة (Quick Reference)</h3>
+    <p>هذا القسم مصمم ليكون مرجعاً سريعاً على المكتب، يلخص المعادلات الجوهرية وقرارات استكشاف الأخطاء في صورة بطاقات يسهل الرجوع إليها أثناء العمل اليومي.</p>
+    
+    <h4>المعادلات الأساسية</h4>
+    <p>هذه المعادلات هي اللبنات الرياضية التي تشكل أساس كل تحليل <span class="en">FEA</span>. حفظها وفهم معانيها المتغيرات يوفر وقتاً ثميناً في تشخيص النتائج وتفسيرها.</p>
+    
+    <div class="eq-card">
+        <div class="eq-card-title">معادلات تقريب الحقل والعلاقات الأساسية</div>
+        $$u \approx N \, d_e \qquad \varepsilon = B \, d_e \qquad \sigma = D \, \varepsilon$$
+    </div>
+    
+    <div class="eq-card">
+        <div class="eq-card-title">مصفوفة الجساءة والنظام العالمي</div>
+        $$K_e = \int_{V_e} B^T D \, B \, dV \qquad K \, u = F$$
+    </div>
+    
+    <div class="eq-card">
+        <div class="eq-card-title">المعادلة الديناميكية العامة</div>
+        $$M \, \ddot{u} + C \, \dot{u} + K \, u = F(t)$$
+    </div>
+    
+    <div class="eq-card">
+        <div class="eq-card-title">معيار التقارب (البواقي)</div>
+        $$R = F_{ext} - F_{int} \to 0$$
+    </div>
+    
+    <h4>قرارات سريعة (Troubleshooting)</h4>
+    <p>هذه البطاقات تغطي الحالات الشائعة التي يواجهها كل محلل <span class="en">FEA</span>. كل صف يقدم عرضاً للعَرَض، ثم الإجراء المطلوب مباشرة.</p>
+    
+    <table>
+        <thead>
+            <tr>
+                <th style="width:35%">إذا رأيت...</th>
+                <th style="width:65%">افعل...</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>إجهاداً لا يتقارب مع تنعيم المش</strong></td>
+                <td>اشتبه في <span class="en">Singularity</span>، لا تستخدم الذروة، وأعد تمثيل الحمل/القيد. حوّل الحمل النقطي إلى ضغط موزع، أضف فيلتاً للزاوية الحادة، أو استخدم مسافة تقييم بعيدة عن النقطة.</td>
+            </tr>
+            <tr>
+                <td><strong>إزاحة أقل بكثير من الحساب اليدوي</strong></td>
+                <td>افحص <span class="en">Locking</span> (نوع العنصر؟ <span class="en">Tet4</span>؟)، القيود الزائدة (هل التثبيت مفرط؟)، ونوع العنصر. جرّب عنصراً تربيعياً، أو فعّل <span class="en">Enhanced Strain</span>، أو خفف القيود المفرطة.</td>
+            </tr>
+            <tr>
+                <td><strong>حركة جسم صلب أو تشوه طائر</strong></td>
+                <td>راجع القيود والاتصالات والتلامس. هل النموذج مقيد بشكل كافٍ؟ هل هناك فجوات في اتصالات الأجزاء؟ هل التلامس مهيأ بشكل صحيح؟</td>
+            </tr>
+            <tr>
+                <td><strong>ردود فعل لا تساوي الأحمال</strong></td>
+                <td>راجع الوحدات (الأكثر شيوعاً)، التسارع، الأحمال الموزعة، واتجاهات القيود. الفرق بنسبة 100% يعني خطأ في الوحدات. الفرق بنسبة 10% يعني قيداً مفقوداً أو اتصالاً ناقصاً.</td>
+            </tr>
+            <tr>
+                <td><strong>تقارب غير مستقر في التلامس</strong></td>
+                <td>صغّر خطوات التحميل، حسّن المش في منطقة التلامس، وراجع الاحتكاك. تفعيل <span class="en">Stabilization</span> قد يكون ضرورياً مؤقتاً، لكن لا تعتمده كحل دائم دون فهم سبب عدم الاستقرار.</td>
+            </tr>
+            <tr>
+                <td><strong>إجهاد عالٍ في قيد جاسئ (RBE2)</strong></td>
+                <td>استخدم توزيعاً أقل جساءة مثل <span class="en">RBE3</span> إذا كان ذلك فيزيائياً. <span class="en">RBE2</span> يفترض صلابة لا وجود لها في الواقع، فيركّز الإجهاد عند العقدة الرئيسية بطريقة غير فيزيائية.</td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <div class="callout gold">
+        <div class="callout-title"><span class="icon">★</span>قاعدة ذهبية للتشخيص</div>
+        <div class="callout-body">
+            <p>عند مواجهة نتيجة مشبوهة، اسأل أولاً: <strong>"هل النتيجة تتعارض مع الحساب اليدوي أو الحدس الفيزيائي؟"</strong> إذا نعم، فالمشكلة في النموذج (فيزياء أو قيود أو مش). إذا الإجابة لا، فالنتيجة صحيحة حتى لو بدت غريبة. لا ترفض نتيجة لمجرد أنها غير متوقعة، لكن لا تقبلها لمجرد أن المعالج أعطاها.</p>
+        </div>
+    </div>
+</div>
+
+</div>
+<!-- /section 1.14-1.15 -->
+
+<!-- ===== SECTION 1.16: REFERENCES ===== -->
+<div class="main-content">
+
+<div class="subsection">
+    <h3>1.16 مراجع معتمدة للتحقق الفني</h3>
+    <p>تم الاعتماد في إعداد هذه الوثيقة على مراجع عالمية موثوقة في ممارسة FEA و V&V، مع بقاء القرارات النهائية مرتبطة بدليل البرنامج المستخدم. هذه القائمة ليست شاملة، لكنها تغطي الأساسيات التي يجب أن تكون في مكتبة كل محلل FEA جاد.</p>
+    
+    <ol class="references-list">
+        <li>
+            <strong>NAFEMS — The Importance of Mesh Convergence</strong>
+            <span class="source">nafems.org · Technical Bulletin</span>
+            المرجع المعياري عالمياً في توثيق ممارسات FEA السليمة. يوضح أهمية دراسة تقارب المش وأن قبول حجم عنصر تاريخي دون معرفة أثره على الدقة ممارسة سيئة.
+        </li>
+        <li>
+            <strong>ASME V&V 10 — Verification and Validation in Computational Solid Mechanics</strong>
+            <span class="source">ASME · International Standard</span>
+            المعيار الدولي لمنهجية V&V في الميكانيكا الحاسوبية. يحدد بروتوكولات التحقق والتصديق بشكل رسمي معتمد.
+        </li>
+        <li>
+            <strong>ANSYS Documentation — Mesh Metric &amp; Element Reference</strong>
+            <span class="source">Ansys Inc. · Help System</span>
+            يعدد مقاييس الجودة (Aspect Ratio, Jacobian, Skewness, Warping) ويشرح القيم المثلى لكل مقياس حسب نوع العنصر.
+        </li>
+        <li>
+            <strong>Abaqus Documentation — Analysis User's Guide</strong>
+            <span class="source">Dassault Systèmes · Reference Manual</span>
+            مرجع شامل لأنواع العناصر، صياغات التكامل، أنواع القيود، وحلول اللاخطية. ضروري لفهم تفاصيل الصياغة.
+        </li>
+        <li>
+            <strong>A. F. Bower — Applied Mechanics of Solids</strong>
+            <span class="source">CRC Press · 2010 · ISBN 978-1439802472</span>
+            مرجع أكاديمي لظواهر Shear/Volumetric Locking وسبب الاستجابة القاسية غير الفيزيائية. متاح مجاناً على الإنترنت.
+        </li>
+        <li>
+            <strong>COMSOL Documentation — Using Reduced Integration</strong>
+            <span class="source">COMSOL Multiphysics · Reference Manual</span>
+            يشرح علاقة التكامل المخفض بـ Shear Locking وضرورة تثبيت Hourglassing. مرجع مفيد حتى لمستخدمي البرامج الأخرى.
+        </li>
+        <li>
+            <strong>T. Belytschko, W. K. Liu, B. Moran, K. I. Elkhodary — Nonlinear Finite Elements for Continua and Structures</strong>
+            <span class="source">Wiley · 2nd Edition · 2014</span>
+            المرجع الأكاديمي الأساسي للعناصر اللاخطية. يغطي صياغات العناصر، التكامل، اللاخطية المادية والهندسية بشكل معمّق.
+        </li>
+    </ol>
+    
+    <div class="callout info">
+        <div class="callout-title"><span class="icon">i</span>ملاحظة حول المراجع</div>
+        <div class="callout-body">
+            <p>المراجع المذكورة تقدم الإطار العام والمفاهيم. القرارات النهائية في النمذجة يجب أن تُبنى دائماً على دليل البرنامج المستخدم، لأن التفاصيل التقنية تختلف بين البرامج. ما يصلح في ANSYS قد لا يصلح في Abaqus، والعكس صحيح.</p>
+        </div>
+    </div>
+</div>
+
+</div>
+<!-- /section 1.11-1.13 -->
+
+<!-- ============ ENDING ============ -->
+<div class="ending">
+    <div class="ending-logo">
+        <svg viewBox="0 0 60 60" fill="none">
+            <rect x="3" y="3" width="54" height="54" stroke="#60A5FA" stroke-width="1.5" rx="3"/>
+            <line x1="3" y1="22" x2="57" y2="22" stroke="#60A5FA" stroke-width="0.8"/>
+            <line x1="3" y1="40" x2="57" y2="40" stroke="#60A5FA" stroke-width="0.8"/>
+            <line x1="22" y1="3" x2="22" y2="57" stroke="#60A5FA" stroke-width="0.8"/>
+            <line x1="40" y1="3" x2="40" y2="57" stroke="#60A5FA" stroke-width="0.8"/>
+            <circle cx="30" cy="30" r="6" fill="#DC2626"/>
+        </svg>
+    </div>
+    
+    <h2 class="ending-title">المرجع الاستراتيجي الشامل<br>في تحليل العناصر المحدودة</h2>
+    <div class="ending-divider"></div>
+    <p class="ending-text">
+        وثيقة مرجعية معتمدة لإعداد النمذجة والمحاكاة الهندسية المتقدمة. أُعدت لتكون مرجعاً عملياً قابلاً للطباعة والمراجعة الهندسية الموثوقة، مستقلة عن بيئة البرنامج وقابلة للتطبيق المباشر على برامج <span style="font-family: 'Inter', sans-serif;">Abaqus, ANSYS, COMSOL, Nastran</span>.
+    </p>
+    
+    <p class="ending-author">
+        إعداد: المهندس Khadhami Hayl
+    </p>
+    
+    <div class="ending-meta">
+        V&amp;V · FEA · A4 FORMAT · 2026 · ENGINEERING REFERENCE
+    </div>
+</div>
+
+<script>
+function renderKatex() {
+    if (typeof renderMathInElement === 'function') {
+        renderMathInElement(document.body, {
+            delimiters: [
+                {left: '$$', right: '$$', display: true},
+                {left: '$', right: '$', display: false},
+                {left: '\\(', right: '\\)', display: false},
+                {left: '\\[', right: '\\]', display: true}
+            ],
+            throwOnError: false,
+            errorColor: '#DC2626'
+        });
+        console.log('KaTeX rendered successfully');
+    }
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', renderKatex);
+} else {
+    renderKatex();
+}
+
+window.addEventListener('load', function() {
+    setTimeout(renderKatex, 100);
+});
+</script>
+
+</body>
+</html>

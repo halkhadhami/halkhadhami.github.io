@@ -9,6 +9,8 @@
     @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap');
 
     :root {
+      --container-pad: 24px;
+      --section-pad: 90px;
       --bg-crust: #11111b;
       --bg-mantle: #181825;
       --bg-base: #1e1e2e;
@@ -150,11 +152,11 @@
       width: 100%;
       max-width: 1240px;
       margin: 0 auto;
-      padding: 0 24px;
+      padding: 0 var(--container-pad);
     }
 
     .section {
-      padding: 90px 0;
+      padding: var(--section-pad) 0;
       position: relative;
       /* Keep section tops clear of the fixed navbar when jumping via anchors. */
       scroll-margin-top: 90px;
@@ -315,6 +317,79 @@
       color: #1449b6;
     }
 
+    /* Mobile navigation: the inline nav-links are swapped for a hamburger
+       toggle + slide-down glass panel at ≤992px. */
+    .nav-hamburger {
+      display: none;
+      background: var(--glass-card-bg);
+      border: 1px solid var(--glass-border);
+      color: var(--text-main);
+      width: 42px;
+      height: 42px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      transition: all var(--transition-fast);
+    }
+
+    .nav-hamburger:hover {
+      border-color: var(--brand-primary);
+    }
+
+    .nav-hamburger .hamburger-bar {
+      display: block;
+      width: 18px;
+      height: 2px;
+      border-radius: 2px;
+      background: var(--text-main);
+      transition: transform var(--transition-normal), opacity var(--transition-normal);
+    }
+
+    .nav-hamburger.open .hamburger-bar:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger.open .hamburger-bar:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open .hamburger-bar:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .mobile-menu {
+      position: fixed;
+      top: 76px;
+      left: 0;
+      right: 0;
+      z-index: 999;
+      display: none;
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--glass-border);
+      box-shadow: var(--shadow-md);
+    }
+
+    .mobile-menu.open {
+      display: block;
+    }
+
+    .mobile-menu-links {
+      list-style: none;
+      padding: 10px var(--container-pad) 18px;
+    }
+
+    .mobile-menu-links li {
+      border-bottom: 1px solid var(--glass-border);
+    }
+
+    .mobile-menu-links li:last-child {
+      border-bottom: none;
+    }
+
+    .mobile-menu-links .nav-link {
+      display: block;
+      padding: 14px 4px;
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
     /* Hero */
     .hero-section {
       padding-top: 160px;
@@ -345,7 +420,7 @@
     }
 
     .hero-title {
-      font-size: 3.5rem;
+      font-size: clamp(2rem, 1.1rem + 3.6vw, 3.5rem);
       font-weight: 800;
       letter-spacing: -0.03em;
       max-width: 960px;
@@ -664,7 +739,7 @@
     }
 
     .section-title {
-      font-size: 2.4rem;
+      font-size: clamp(1.7rem, 1.2rem + 1.9vw, 2.4rem);
       margin-bottom: 14px;
       letter-spacing: -0.02em;
     }
@@ -839,7 +914,7 @@
     }
 
     .download-title {
-      font-size: 2.6rem;
+      font-size: clamp(1.8rem, 1.3rem + 2vw, 2.6rem);
       margin-bottom: 14px;
     }
 
@@ -860,17 +935,70 @@
       text-align: center;
     }
 
+    /* Tablet and small laptops: swap nav-links for the hamburger menu,
+       tighten section rhythm, and collapse the features grid to 2 columns. */
     @media (max-width: 992px) {
-      .hero-title { font-size: 2.7rem; }
+      :root { --section-pad: 64px; }
       .nav-links { display: none; }
+      .nav-hamburger { display: inline-flex; }
+      .section-header { margin-bottom: 36px; }
+      .features-grid { grid-template-columns: repeat(2, 1fr); }
+      .download-banner { padding: 40px 24px; }
     }
+
+    /* Phones in landscape / narrow tablets. */
     @media (max-width: 768px) {
-      .hero-title { font-size: 2.1rem; }
-      .section { padding: 50px 0; scroll-margin-top: 80px; }
+      :root { --section-pad: 50px; --container-pad: 18px; }
+      .section { scroll-margin-top: 80px; }
       /* Declared after .section so this later rule wins at equal specificity:
          the hero must keep enough top padding to clear the fixed navbar. */
-      .hero-section { padding-top: 120px; }
+      .hero-section { padding-top: 120px; padding-bottom: 56px; }
+      .hero-subtitle { font-size: 1.05rem; }
+      .hero-badges { gap: 12px 20px; }
       .features-grid { grid-template-columns: 1fr; }
+      .comparison-table th,
+      .comparison-table td { padding: 12px 16px; font-size: 0.86rem; }
+      .simulator-body { padding: 16px; }
+      .window-title { display: none; }
+      .download-banner { padding: 36px 18px; }
+      .download-banner .btn-primary { width: 100%; justify-content: center; }
+    }
+
+    /* Small phones: keep every control inside the viewport and give touch
+       targets a comfortable size. */
+    @media (max-width: 480px) {
+      :root { --container-pad: 14px; }
+      .navbar { height: 64px; }
+      .mobile-menu { top: 64px; }
+      .logo-icon-svg { width: 30px; height: 30px; }
+      .brand-name { font-size: 1.05rem; }
+      .nav-actions { gap: 8px; }
+      /* Hide the navbar's inline download button — the hero CTA is a tap
+         away and keeping it would overflow a 320px row. */
+      .nav-actions > a.btn-primary { display: none; }
+      .icon-btn { padding: 8px 10px; }
+      .hero-section { padding-top: 100px; }
+      .hero-pill { font-size: 0.78rem; }
+      .hero-subtitle { font-size: 1rem; }
+      .hero-cta-group .btn-primary,
+      .hero-cta-group .btn-secondary {
+        width: 100%;
+        justify-content: center;
+      }
+      .hero-badges { flex-direction: column; gap: 10px; }
+      .simulator-header { flex-wrap: wrap; gap: 8px; }
+      .sim-toolbar { gap: 8px; }
+      .sim-lang-group { flex-wrap: wrap; }
+      .sim-result-text { font-size: 1.1rem; }
+      .faq-question { padding: 16px; font-size: 0.98rem; }
+      .faq-answer { padding: 0 16px; }
+      .faq-item.active .faq-answer { padding: 0 16px 16px; }
+    }
+
+    /* Touch devices: enlarge tappable controls regardless of viewport. */
+    @media (pointer: coarse) {
+      .icon-btn, .sim-action-btn, .sim-select { min-height: 44px; }
+      .nav-link { padding: 10px 0; }
     }
   </style>
 </head>
@@ -911,9 +1039,25 @@
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
           <span data-i18n="nav.download">Download</span>
         </a>
+
+        <button class="nav-hamburger" id="navHamburger" aria-label="Open navigation menu" aria-expanded="false">
+          <span class="hamburger-bar"></span>
+          <span class="hamburger-bar"></span>
+          <span class="hamburger-bar"></span>
+        </button>
       </div>
     </div>
   </header>
+
+  <!-- Mobile slide-down menu (shown at ≤992px) -->
+  <div class="mobile-menu" id="mobileMenu">
+    <ul class="mobile-menu-links">
+      <li><a href="#features" class="nav-link" data-i18n="nav.features">Features</a></li>
+      <li><a href="#simulator" class="nav-link" data-i18n="nav.demo">Live Demo</a></li>
+      <li><a href="#comparison" class="nav-link" data-i18n="nav.comparison">Comparison</a></li>
+      <li><a href="#faq" class="nav-link" data-i18n="nav.faq">FAQ</a></li>
+    </ul>
+  </div>
 
   <!-- Hero Section -->
   <section class="section hero-section" id="hero">
@@ -1579,6 +1723,27 @@
         document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
         if (!active) item.classList.add('active');
       });
+    });
+
+    // Mobile navigation menu
+    const navHamburger = document.getElementById('navHamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    function setMobileMenu(open) {
+      mobileMenu.classList.toggle('open', open);
+      navHamburger.classList.toggle('open', open);
+      navHamburger.setAttribute('aria-expanded', String(open));
+      navHamburger.setAttribute('aria-label', open ? 'Close navigation menu' : 'Open navigation menu');
+    }
+    navHamburger?.addEventListener('click', () => {
+      setMobileMenu(!mobileMenu.classList.contains('open'));
+    });
+    // Close the menu after navigating to a section, or when the viewport
+    // grows back past the breakpoint where the inline links reappear.
+    mobileMenu?.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => setMobileMenu(false));
+    });
+    window.matchMedia('(min-width: 993px)').addEventListener('change', e => {
+      if (e.matches) setMobileMenu(false);
     });
 
     updateSimulation();

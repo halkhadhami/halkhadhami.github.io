@@ -1,0 +1,1814 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Khadhami Translator — Instant Desktop Translation for Windows 10 & 11</title>
+  <meta name="description" content="Khadhami Translator is a lightning-fast, privacy-first desktop translation software for Windows with instant mouse selection popup, 10+ neural translation engines, offline lexicon explorer, and screen OCR.">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap');
+
+    :root {
+      --container-pad: 24px;
+      --section-pad: 90px;
+      --bg-crust: #11111b;
+      --bg-mantle: #181825;
+      --bg-base: #1e1e2e;
+      --bg-surface0: #313244;
+      --bg-surface1: #45475a;
+      --bg-surface2: #585b70;
+      --text-main: #cdd6f4;
+      --text-sub: #a6adc8;
+      --text-dim: #7f849c;
+      
+      --brand-primary: #89b4fa;
+      --brand-primary-hover: #b4befe;
+      --brand-secondary: #cba6f7;
+      --brand-accent: #f5c2e7;
+      --brand-success: #a6e3a1;
+      --brand-warning: #fab387;
+      --brand-danger: #f38ba8;
+      --brand-sapphire: #74c7ec;
+
+      --glass-bg: rgba(30, 30, 46, 0.78);
+      --glass-border: rgba(205, 214, 244, 0.12);
+      --glass-card-bg: rgba(49, 50, 68, 0.55);
+      --glass-card-hover: rgba(69, 71, 90, 0.72);
+      --glow-primary: rgba(137, 180, 250, 0.25);
+      --glow-mauve: rgba(203, 166, 247, 0.2);
+
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+      --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.4);
+      --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.5);
+      --shadow-glow: 0 0 35px var(--glow-primary);
+
+      --font-heading: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-arabic: 'Cairo', 'Segoe UI', Tahoma, sans-serif;
+
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --radius-xl: 28px;
+      --radius-full: 9999px;
+
+      --transition-fast: 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    [data-theme="light"] {
+      --bg-crust: #dce0e8;
+      --bg-mantle: #e6e9ef;
+      --bg-base: #eff1f5;
+      --bg-surface0: #ccd0da;
+      --bg-surface1: #bcc0cc;
+      --bg-surface2: #acb0be;
+      --text-main: #4c4f69;
+      --text-sub: #5c5f77;
+      --text-dim: #6c6f85;
+
+      --brand-primary: #1e66f5;
+      --brand-primary-hover: #04a5e5;
+      --brand-secondary: #8839ef;
+      --brand-accent: #ea76cb;
+      --brand-success: #40a02b;
+      --brand-warning: #df8e1d;
+      --brand-danger: #d20f39;
+      --brand-sapphire: #209fb5;
+
+      --glass-bg: rgba(239, 241, 245, 0.85);
+      --glass-border: rgba(76, 79, 105, 0.14);
+      --glass-card-bg: rgba(255, 255, 255, 0.7);
+      --glass-card-hover: rgba(255, 255, 255, 0.95);
+      --glow-primary: rgba(30, 102, 245, 0.15);
+      --glow-mauve: rgba(136, 57, 239, 0.12);
+
+      --shadow-sm: 0 2px 8px rgba(76, 79, 105, 0.08);
+      --shadow-md: 0 8px 24px rgba(76, 79, 105, 0.12);
+      --shadow-lg: 0 16px 40px rgba(76, 79, 105, 0.16);
+
+      /* Status colors darkened so check/cross icons and pills keep ≥4.5:1
+         contrast on the light Catppuccin Latte surfaces. */
+      --brand-success: #2c7a1e;
+      --brand-danger: #b00b30;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+      overflow-x: hidden;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--bg-crust);
+      color: var(--text-main);
+      line-height: 1.6;
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(circle at 15% 20%, var(--glow-primary) 0%, transparent 45%),
+        radial-gradient(circle at 85% 60%, var(--glow-mauve) 0%, transparent 40%),
+        radial-gradient(circle at 50% 90%, rgba(116, 199, 236, 0.1) 0%, transparent 40%);
+      background-attachment: fixed;
+      transition: background-color var(--transition-normal), color var(--transition-normal);
+    }
+
+    [dir="rtl"] body,
+    [dir="rtl"] h1, [dir="rtl"] h2, [dir="rtl"] h3, [dir="rtl"] h4, [dir="rtl"] p,
+    [dir="rtl"] button, [dir="rtl"] input, [dir="rtl"] select, [dir="rtl"] textarea {
+      font-family: var(--font-arabic);
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: var(--font-heading);
+      color: var(--text-main);
+      font-weight: 700;
+      line-height: 1.25;
+    }
+
+    [dir="rtl"] h1, [dir="rtl"] h2, [dir="rtl"] h3, [dir="rtl"] h4 {
+      font-family: var(--font-arabic);
+    }
+
+    a {
+      color: var(--brand-primary);
+      text-decoration: none;
+      transition: color var(--transition-fast);
+    }
+
+    a:hover {
+      color: var(--brand-primary-hover);
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 var(--container-pad);
+    }
+
+    .section {
+      padding: var(--section-pad) 0;
+      position: relative;
+      /* Keep section tops clear of the fixed navbar when jumping via anchors. */
+      scroll-margin-top: 90px;
+    }
+
+    .hero-section {
+      scroll-margin-top: 0;
+    }
+
+    /* Navbar */
+    .navbar-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--glass-border);
+      transition: all var(--transition-normal);
+    }
+
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 76px;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .logo-icon-svg {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-sm);
+      filter: drop-shadow(0 2px 8px var(--glow-primary));
+      transition: transform var(--transition-normal);
+    }
+
+    .brand-logo:hover .logo-icon-svg {
+      transform: rotate(10deg) scale(1.08);
+    }
+
+    .brand-name {
+      font-family: var(--font-heading);
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--text-main);
+      letter-spacing: -0.02em;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .nav-link {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--text-sub);
+      position: relative;
+      padding: 6px 0;
+      transition: color var(--transition-fast);
+    }
+
+    .nav-link:hover {
+      color: var(--text-main);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .icon-btn {
+      background: var(--glass-card-bg);
+      border: 1px solid var(--glass-border);
+      color: var(--text-main);
+      padding: 8px 14px;
+      border-radius: var(--radius-full);
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all var(--transition-fast);
+    }
+
+    .icon-btn:hover {
+      background: var(--glass-card-hover);
+      border-color: var(--brand-primary);
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-secondary) 100%);
+      color: #11111b;
+      border: none;
+      padding: 12px 24px;
+      border-radius: var(--radius-full);
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 16px var(--glow-primary);
+      transition: all var(--transition-normal);
+      text-decoration: none;
+    }
+
+    .btn-primary:hover {
+      color: #11111b;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px var(--glow-primary);
+      filter: brightness(1.08);
+    }
+
+    .btn-secondary {
+      background: var(--glass-card-bg);
+      border: 1px solid var(--glass-border);
+      color: var(--text-main);
+      padding: 12px 24px;
+      border-radius: var(--radius-full);
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all var(--transition-fast);
+      text-decoration: none;
+    }
+
+    .btn-secondary:hover {
+      background: var(--glass-card-hover);
+      border-color: var(--brand-primary);
+      transform: translateY(-2px);
+      color: var(--brand-primary);
+    }
+
+    [data-theme="light"] .section-pill {
+      background: rgba(30, 102, 245, 0.12);
+      color: #1449b6;
+    }
+
+    [data-theme="light"] .sim-engine-badge {
+      color: #1449b6;
+    }
+
+    /* Mobile navigation: the inline nav-links are swapped for a hamburger
+       toggle + slide-down glass panel at ≤992px. */
+    .nav-hamburger {
+      display: none;
+      background: var(--glass-card-bg);
+      border: 1px solid var(--glass-border);
+      color: var(--text-main);
+      width: 42px;
+      height: 42px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      transition: all var(--transition-fast);
+    }
+
+    .nav-hamburger:hover {
+      border-color: var(--brand-primary);
+    }
+
+    .nav-hamburger .hamburger-bar {
+      display: block;
+      width: 18px;
+      height: 2px;
+      border-radius: 2px;
+      background: var(--text-main);
+      transition: transform var(--transition-normal), opacity var(--transition-normal);
+    }
+
+    .nav-hamburger.open .hamburger-bar:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger.open .hamburger-bar:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open .hamburger-bar:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .mobile-menu {
+      position: fixed;
+      top: 76px;
+      left: 0;
+      right: 0;
+      z-index: 999;
+      display: none;
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--glass-border);
+      box-shadow: var(--shadow-md);
+    }
+
+    .mobile-menu.open {
+      display: block;
+    }
+
+    .mobile-menu-links {
+      list-style: none;
+      padding: 10px var(--container-pad) 18px;
+    }
+
+    .mobile-menu-links li {
+      border-bottom: 1px solid var(--glass-border);
+    }
+
+    .mobile-menu-links li:last-child {
+      border-bottom: none;
+    }
+
+    .mobile-menu-links .nav-link {
+      display: block;
+      padding: 14px 4px;
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    /* Hero */
+    .hero-section {
+      padding-top: 160px;
+      padding-bottom: 80px;
+      text-align: center;
+    }
+
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      border-radius: var(--radius-full);
+      background: var(--glass-card-bg);
+      border: 1px solid var(--glass-border);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--brand-primary);
+      margin-bottom: 24px;
+    }
+
+    .hero-pill-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--brand-success);
+      box-shadow: 0 0 10px var(--brand-success);
+    }
+
+    .hero-title {
+      font-size: clamp(2rem, 1.1rem + 3.6vw, 3.5rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      max-width: 960px;
+      margin: 0 auto 20px;
+      line-height: 1.15;
+    }
+
+    .text-gradient {
+      background: linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-secondary) 50%, var(--brand-accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: 1.22rem;
+      color: var(--text-sub);
+      max-width: 740px;
+      margin: 0 auto 36px;
+      font-weight: 400;
+    }
+
+    .hero-cta-group {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+
+    .hero-badges {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 28px;
+      flex-wrap: wrap;
+      color: var(--text-dim);
+      font-size: 0.88rem;
+      font-weight: 500;
+    }
+
+    .hero-badge-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Simulator */
+    .simulator-container {
+      margin: 40px auto 0;
+      max-width: 780px;
+    }
+
+    .simulator-window {
+      background: var(--bg-base);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg), var(--shadow-glow);
+      overflow: hidden;
+      text-align: left;
+    }
+
+    [dir="rtl"] .simulator-window {
+      text-align: right;
+    }
+
+    .simulator-header {
+      background: var(--bg-mantle);
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--glass-border);
+    }
+
+    .window-controls {
+      display: flex;
+      gap: 8px;
+    }
+
+    .window-dot {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+    }
+    .dot-red { background: #f38ba8; }
+    .dot-yellow { background: #fab387; }
+    .dot-green { background: #a6e3a1; }
+
+    .window-title {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-dim);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .simulator-body {
+      padding: 20px;
+      background: var(--bg-base);
+    }
+
+    .sim-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .sim-lang-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .sim-select {
+      background: var(--bg-surface0);
+      border: 1px solid var(--glass-border);
+      color: var(--text-main);
+      padding: 6px 12px;
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      font-weight: 500;
+      outline: none;
+      cursor: pointer;
+    }
+
+    .sim-swap-btn {
+      background: var(--bg-surface0);
+      border: 1px solid var(--glass-border);
+      color: var(--text-sub);
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    .sim-swap-btn:hover {
+      background: var(--bg-surface1);
+      color: var(--brand-primary);
+      transform: rotate(180deg);
+    }
+
+    .sim-engine-badge {
+      background: var(--bg-surface0);
+      border: 1px solid var(--glass-border);
+      padding: 6px 12px;
+      border-radius: var(--radius-sm);
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--brand-primary);
+    }
+
+    .sim-source-box {
+      background: var(--bg-mantle);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      padding: 14px;
+      margin-bottom: 12px;
+    }
+
+    .sim-source-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .sim-source-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      color: var(--text-dim);
+      text-transform: uppercase;
+    }
+
+    .sim-textarea {
+      width: 100%;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: var(--text-main);
+      font-family: inherit;
+      font-size: 1.05rem;
+      resize: none;
+      min-height: 48px;
+    }
+
+    .sim-result-box {
+      background: var(--bg-surface0);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      min-height: 100px;
+    }
+
+    .sim-result-text {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 6px;
+      line-height: 1.4;
+    }
+
+    .sim-translit {
+      font-size: 0.85rem;
+      color: var(--text-dim);
+      font-style: italic;
+      margin-bottom: 12px;
+    }
+
+    .sim-alternatives {
+      border-top: 1px dashed var(--glass-border);
+      padding-top: 10px;
+      margin-top: 10px;
+    }
+
+    .sim-alt-title {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-dim);
+      margin-bottom: 6px;
+    }
+
+    .sim-alt-item {
+      font-size: 0.88rem;
+      color: var(--brand-success);
+      display: inline-block;
+      background: rgba(166, 227, 161, 0.1);
+      padding: 3px 10px;
+      border-radius: var(--radius-sm);
+      margin-right: 6px;
+      margin-bottom: 4px;
+    }
+
+    [dir="rtl"] .sim-alt-item {
+      margin-right: 0;
+      margin-left: 6px;
+    }
+
+    [data-theme="light"] .sim-alt-item {
+      background: rgba(44, 122, 30, 0.12);
+    }
+
+    .sim-footer-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 14px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .sim-action-btns {
+      display: flex;
+      gap: 8px;
+    }
+
+    .sim-action-btn {
+      background: var(--bg-surface1);
+      border: 1px solid var(--glass-border);
+      color: var(--text-main);
+      padding: 6px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all var(--transition-fast);
+    }
+
+    .sim-action-btn:hover {
+      background: var(--brand-primary);
+      color: #11111b;
+    }
+
+    .sim-toast {
+      font-size: 0.82rem;
+      color: var(--brand-success);
+      font-weight: 600;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .sim-toast.show {
+      opacity: 1;
+    }
+
+    /* Features Grid */
+    .section-header {
+      text-align: center;
+      max-width: 680px;
+      margin: 0 auto 50px;
+    }
+
+    .section-pill {
+      display: inline-block;
+      padding: 4px 14px;
+      border-radius: var(--radius-full);
+      background: rgba(137, 180, 250, 0.12);
+      color: var(--brand-primary);
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 14px;
+    }
+
+    .section-title {
+      font-size: clamp(1.7rem, 1.2rem + 1.9vw, 2.4rem);
+      margin-bottom: 14px;
+      letter-spacing: -0.02em;
+    }
+
+    .section-desc {
+      font-size: 1.08rem;
+      color: var(--text-sub);
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+    }
+
+    .feature-card {
+      background: var(--glass-card-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: 30px;
+      transition: all var(--transition-normal);
+      backdrop-filter: blur(16px);
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      background: var(--glass-card-hover);
+      border-color: var(--brand-primary);
+      box-shadow: var(--shadow-md), var(--shadow-glow);
+    }
+
+    .feature-icon-box {
+      width: 52px;
+      height: 52px;
+      border-radius: var(--radius-md);
+      background: var(--bg-surface0);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--brand-primary);
+      margin-bottom: 18px;
+      font-size: 1.5rem;
+    }
+
+    .feature-title {
+      font-size: 1.25rem;
+      margin-bottom: 10px;
+    }
+
+    .feature-text {
+      font-size: 0.92rem;
+      color: var(--text-sub);
+      line-height: 1.6;
+    }
+
+    /* Comparison Table */
+    .comparison-table-wrapper {
+      overflow-x: auto;
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      background: var(--glass-card-bg);
+      backdrop-filter: blur(16px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+
+    [dir="rtl"] .comparison-table {
+      text-align: right;
+    }
+
+    .comparison-table th,
+    .comparison-table td {
+      padding: 16px 22px;
+      border-bottom: 1px solid var(--glass-border);
+      font-size: 0.92rem;
+    }
+
+    .comparison-table th {
+      background: var(--bg-surface0);
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .comparison-table th.highlight,
+    .comparison-table td.highlight {
+      background: rgba(137, 180, 250, 0.08);
+      font-weight: 700;
+      color: var(--brand-primary);
+    }
+
+    .check-icon { color: var(--brand-success); font-weight: bold; }
+    .cross-icon { color: var(--brand-danger); font-weight: bold; }
+
+    /* FAQ */
+    .faq-list {
+      max-width: 800px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .faq-item {
+      background: var(--glass-card-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+
+    .faq-item.active {
+      border-color: var(--brand-primary);
+      background: var(--glass-card-hover);
+    }
+
+    .faq-question {
+      width: 100%;
+      background: transparent;
+      border: none;
+      padding: 18px 22px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-main);
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    [dir="rtl"] .faq-question {
+      text-align: right;
+    }
+
+    .faq-chevron {
+      transition: transform var(--transition-normal);
+      color: var(--brand-primary);
+    }
+
+    .faq-item.active .faq-chevron {
+      transform: rotate(180deg);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height var(--transition-normal), padding var(--transition-normal);
+      padding: 0 22px;
+      color: var(--text-sub);
+      font-size: 0.92rem;
+      line-height: 1.6;
+    }
+
+    .faq-item.active .faq-answer {
+      max-height: 250px;
+      padding: 0 22px 18px;
+    }
+
+    /* Download Banner */
+    .download-banner {
+      background: linear-gradient(135deg, rgba(137, 180, 250, 0.15) 0%, rgba(203, 166, 247, 0.15) 100%);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-xl);
+      padding: 50px 30px;
+      text-align: center;
+      box-shadow: var(--shadow-lg), var(--shadow-glow);
+    }
+
+    .download-title {
+      font-size: clamp(1.8rem, 1.3rem + 2vw, 2.6rem);
+      margin-bottom: 14px;
+    }
+
+    .download-desc {
+      font-size: 1.15rem;
+      color: var(--text-sub);
+      max-width: 600px;
+      margin: 0 auto 30px;
+    }
+
+    /* Footer */
+    .footer {
+      background: var(--bg-crust);
+      border-top: 1px solid var(--glass-border);
+      padding: 50px 0 25px;
+      font-size: 0.88rem;
+      color: var(--text-dim);
+      text-align: center;
+    }
+
+    /* Tablet and small laptops: swap nav-links for the hamburger menu,
+       tighten section rhythm, and collapse the features grid to 2 columns. */
+    @media (max-width: 992px) {
+      :root { --section-pad: 64px; }
+      .nav-links { display: none; }
+      .nav-hamburger { display: inline-flex; }
+      .section-header { margin-bottom: 36px; }
+      .features-grid { grid-template-columns: repeat(2, 1fr); }
+      .download-banner { padding: 40px 24px; }
+    }
+
+    /* Phones in landscape / narrow tablets. */
+    @media (max-width: 768px) {
+      :root { --section-pad: 50px; --container-pad: 18px; }
+      .section { scroll-margin-top: 80px; }
+      /* Declared after .section so this later rule wins at equal specificity:
+         the hero must keep enough top padding to clear the fixed navbar. */
+      .hero-section { padding-top: 120px; padding-bottom: 56px; }
+      .hero-subtitle { font-size: 1.05rem; }
+      .hero-badges { gap: 12px 20px; }
+      .features-grid { grid-template-columns: 1fr; }
+      .comparison-table th,
+      .comparison-table td { padding: 12px 16px; font-size: 0.86rem; }
+      .simulator-body { padding: 16px; }
+      .window-title { display: none; }
+      .download-banner { padding: 36px 18px; }
+      .download-banner .btn-primary { width: 100%; justify-content: center; }
+    }
+
+    /* Small phones: keep every control inside the viewport and give touch
+       targets a comfortable size. */
+    @media (max-width: 480px) {
+      :root { --container-pad: 14px; }
+      .navbar { height: 64px; }
+      .mobile-menu { top: 64px; }
+      .logo-icon-svg { width: 30px; height: 30px; }
+      .brand-name { font-size: 1.05rem; }
+      .nav-actions { gap: 8px; }
+      /* Hide the navbar's inline download button — the hero CTA is a tap
+         away and keeping it would overflow a 320px row. */
+      .nav-actions > a.btn-primary { display: none; }
+      .icon-btn { padding: 8px 10px; }
+      .hero-section { padding-top: 100px; }
+      .hero-pill { font-size: 0.78rem; }
+      .hero-subtitle { font-size: 1rem; }
+      .hero-cta-group .btn-primary,
+      .hero-cta-group .btn-secondary {
+        width: 100%;
+        justify-content: center;
+      }
+      .hero-badges { flex-direction: column; gap: 10px; }
+      .simulator-header { flex-wrap: wrap; gap: 8px; }
+      .sim-toolbar { gap: 8px; }
+      .sim-lang-group { flex-wrap: wrap; }
+      .sim-result-text { font-size: 1.1rem; }
+      .faq-question { padding: 16px; font-size: 0.98rem; }
+      .faq-answer { padding: 0 16px; }
+      .faq-item.active .faq-answer { padding: 0 16px 16px; }
+    }
+
+    /* Touch devices: enlarge tappable controls regardless of viewport. */
+    @media (pointer: coarse) {
+      .icon-btn, .sim-action-btn, .sim-select { min-height: 44px; }
+      .nav-link { padding: 10px 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="navbar-header">
+    <div class="container navbar">
+      <a href="#hero" class="brand-logo">
+        <svg class="logo-icon-svg" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="48" height="48" rx="12" fill="#1e1e2e"/>
+          <path d="M12 16H36M24 16V34M16 34H32" stroke="#89b4fa" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="34" cy="32" r="6" fill="#cba6f7"/>
+          <path d="M32 32L34 34L37 30" stroke="#11111b" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="brand-name">Khadhami Translator</span>
+      </a>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="#features" class="nav-link" data-i18n="nav.features">Features</a></li>
+          <li><a href="#simulator" class="nav-link" data-i18n="nav.demo">Live Demo</a></li>
+          <li><a href="#comparison" class="nav-link" data-i18n="nav.comparison">Comparison</a></li>
+          <li><a href="#faq" class="nav-link" data-i18n="nav.faq">FAQ</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="icon-btn" id="langToggleBtn" title="Switch Language">
+          <span id="langLabel">العربية</span>
+        </button>
+
+        <button class="icon-btn" id="themeToggleBtn" title="Toggle Theme">
+          <span id="themeIcon">☀️</span>
+        </button>
+
+        <a href="https://download.khadhami.com/translator/KhadhamiTranslate-v2.2.19-Setup.exe" class="btn-primary" data-download>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+          <span data-i18n="nav.download">Download</span>
+        </a>
+
+        <button class="nav-hamburger" id="navHamburger" aria-label="Open navigation menu" aria-expanded="false">
+          <span class="hamburger-bar"></span>
+          <span class="hamburger-bar"></span>
+          <span class="hamburger-bar"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile slide-down menu (shown at ≤992px) -->
+  <div class="mobile-menu" id="mobileMenu">
+    <ul class="mobile-menu-links">
+      <li><a href="#features" class="nav-link" data-i18n="nav.features">Features</a></li>
+      <li><a href="#simulator" class="nav-link" data-i18n="nav.demo">Live Demo</a></li>
+      <li><a href="#comparison" class="nav-link" data-i18n="nav.comparison">Comparison</a></li>
+      <li><a href="#faq" class="nav-link" data-i18n="nav.faq">FAQ</a></li>
+    </ul>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="section hero-section" id="hero">
+    <div class="container">
+      <div class="hero-pill">
+        <span class="hero-pill-dot"></span>
+        <span data-i18n="hero.pill">Enhanced Neural Fallbacks & Hybrid Link Engine</span>
+      </div>
+
+      <h1 class="hero-title" data-i18n="hero.title">
+        Instant Translation at Your Cursor. <br>
+        <span class="text-gradient">Anywhere on Windows.</span>
+      </h1>
+
+      <p class="hero-subtitle" data-i18n="hero.subtitle">
+        Translate any text, document, browser tab, or image in milliseconds with a single mouse selection. Powered by 10+ neural AI engines, offline local dictionaries, and zero-telemetry privacy.
+      </p>
+
+      <div class="hero-cta-group">
+        <a href="https://download.khadhami.com/translator/KhadhamiTranslate-v2.2.19-Setup.exe" class="btn-primary" data-download>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+          <span data-i18n="hero.btnDownload">Download Setup (64-bit)</span>
+        </a>
+        <a href="#simulator" class="btn-secondary" data-i18n="hero.btnDemo">
+          <span>Try Live Demo</span>
+        </a>
+      </div>
+
+      <div class="hero-badges">
+        <div class="hero-badge-item">✓ <span data-i18n="hero.badge1">Windows 10 & 11 (64-bit)</span></div>
+        <div class="hero-badge-item">✓ <span data-i18n="hero.badge2">10+ Translation Engines</span></div>
+        <div class="hero-badge-item">✓ <span data-i18n="hero.badge3">100% Offline Capable</span></div>
+        <div class="hero-badge-item">✓ <span data-i18n="hero.badge4">Zero Telemetry & Private</span></div>
+      </div>
+
+      <!-- Interactive Simulator -->
+      <div class="simulator-container" id="simulator">
+        <div class="simulator-window">
+          <div class="simulator-header">
+            <div class="window-controls">
+              <span class="window-dot dot-red"></span>
+              <span class="window-dot dot-yellow"></span>
+              <span class="window-dot dot-green"></span>
+            </div>
+            <div class="window-title">
+              <span data-i18n="sim.title">Khadhami Floating Popup — Interactive Simulation</span>
+            </div>
+            <div style="font-size:0.75rem; color:var(--text-dim);" data-i18n="sim.shortcut">Hotkeys: Ctrl+Q / Double-Click</div>
+          </div>
+
+          <div class="simulator-body">
+            <div class="sim-toolbar">
+              <div class="sim-lang-group">
+                <select class="sim-select" id="simSourceLang">
+                  <option value="en" selected>English</option>
+                  <option value="ar">العربية</option>
+                  <option value="fr">Français</option>
+                  <option value="de">Deutsch</option>
+                  <option value="es">Español</option>
+                </select>
+
+                <button class="sim-swap-btn" id="simSwapBtn" title="Swap Languages">⇄</button>
+
+                <select class="sim-select" id="simTargetLang">
+                  <option value="ar" selected>العربية</option>
+                  <option value="en">English</option>
+                  <option value="fr">Français</option>
+                  <option value="de">Deutsch</option>
+                  <option value="es">Español</option>
+                </select>
+              </div>
+
+              <div class="sim-engine-badge">
+                <select class="sim-select" id="simEngineSelect" style="background:transparent; border:none; color:var(--brand-primary); font-weight:bold; padding:0;">
+                  <option value="google" selected>Google Translate</option>
+                  <option value="deepl">DeepL Pro / Free</option>
+                  <option value="bing">Microsoft Bing</option>
+                  <option value="lingva">Lingva Translate</option>
+                  <option value="dictionary">Local Dictionary (Offline)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="sim-source-box">
+              <div class="sim-source-header">
+                <span class="sim-source-label" data-i18n="sim.sourceLabel">Source Text</span>
+                <button class="icon-btn" id="simSpeakSourceBtn" style="padding:2px 8px; font-size:0.75rem;">🔊</button>
+              </div>
+              <textarea class="sim-textarea" id="simSourceText" placeholder="Type or paste any text or URL here...">Instant neural translation with mouse selection</textarea>
+            </div>
+
+            <div class="sim-result-box">
+              <div class="sim-result-text" id="simResultText">ترجمة عصبية فورية بمجرد تحديد النص بالماوس</div>
+              <div class="sim-translit" id="simTranslit">Tarjama 'asabiyya fawriyya bimujarrad tahdid an-nass bil-maws</div>
+
+              <div class="sim-alternatives" id="simAltContainer">
+                <div class="sim-alt-title" data-i18n="sim.altTitle">Alternative Translations:</div>
+                <span class="sim-alt-item">ترجمة فورية بالماوس</span>
+                <span class="sim-alt-item">الترجمة الفورية العصبية</span>
+              </div>
+            </div>
+
+            <div class="sim-footer-actions">
+              <div class="sim-action-btns">
+                <button class="sim-action-btn" id="simCopyBtn"><span data-i18n="sim.btnCopy">Copy</span></button>
+                <button class="sim-action-btn" id="simSpeakTargetBtn"><span data-i18n="sim.btnListen">Listen</span></button>
+                <button class="sim-action-btn" id="simRetryBtn"><span data-i18n="sim.btnRetry">Retry</span></button>
+              </div>
+              <div class="sim-toast" id="simToast" data-i18n="sim.toast">✓ Copied to clipboard!</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Grid -->
+  <section class="section" id="features">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-pill" data-i18n="feat.pill">Everything You Need</span>
+        <h2 class="section-title" data-i18n="feat.title">Engineered for Frictionless Desktop Productivity</h2>
+        <p class="section-desc" data-i18n="feat.desc">Built natively for Windows with low memory overhead, sub-50ms hotkey response, and deep OS integration.</p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon-box">⚡</div>
+          <h3 class="feature-title" data-i18n="feat.f1Title">Instant Mouse Selection Popup</h3>
+          <p class="feature-text" data-i18n="feat.f1Desc">Highlight text anywhere — in PDFs, Word documents, IDEs, games, or browsers — and a sleek non-intrusive translation popup appears right beside your cursor.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-box">🌐</div>
+          <h3 class="feature-title" data-i18n="feat.f2Title">Multi-Engine AI Routing</h3>
+          <p class="feature-text" data-i18n="feat.f2Desc">Choose Google Translate, DeepL, Microsoft Bing, Lingva, LibreTranslate, Yandex, or Baidu yourself. The selected provider never changes automatically.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-box">🔒</div>
+          <h3 class="feature-title" data-i18n="feat.f3Title">100% Private Mode</h3>
+          <p class="feature-text" data-i18n="feat.f3Desc">Switch to Private Mode with one click: cloud requests are strictly disabled and translations route entirely through local offline dictionaries with zero data leakage.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-box">📚</div>
+          <h3 class="feature-title" data-i18n="feat.f4Title">Lexicon & IPA Phonetics Explorer</h3>
+          <p class="feature-text" data-i18n="feat.f4Desc">Explore rich definitions, IPA phonetics, part-of-speech groupings (noun, verb, adj), and interactive click-to-lookup synonym pills directly inside the app.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-box">🧠</div>
+          <h3 class="feature-title" data-i18n="feat.f5Title">Personal Translation Memory</h3>
+          <p class="feature-text" data-i18n="feat.f5Desc">Teach the app your domain-specific terminology. Save custom phrasing in your local Translation Memory to automatically override cloud translations forever.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-box">📷</div>
+          <h3 class="feature-title" data-i18n="feat.f6Title">Screen OCR & Audio Speech TTS</h3>
+          <p class="feature-text" data-i18n="feat.f6Desc">Capture untypeable text from videos, scanned images, and locked interfaces using built-in Windows OCR, accompanied by natural voice pronunciation.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Comparison Table -->
+  <section class="section" id="comparison">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-pill" data-i18n="comp.pill">Benchmark</span>
+        <h2 class="section-title" data-i18n="comp.title">How Khadhami Compares</h2>
+        <p class="section-desc" data-i18n="comp.desc">See why professionals choose Khadhami Translator over legacy tools and single-provider desktop apps.</p>
+      </div>
+
+      <div class="comparison-table-wrapper">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th data-i18n="comp.feature">Feature</th>
+              <th class="highlight">Khadhami Translator</th>
+              <th data-i18n="comp.deepl">DeepL Desktop</th>
+              <th data-i18n="comp.qtranslate">Legacy QTranslate</th>
+              <th data-i18n="comp.extensions">Browser Extensions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td data-i18n="comp.r1">Instant Mouse Selection Popup</td>
+              <td class="highlight"><span class="check-icon">✓</span> Native Win32/WPF</td>
+              <td><span class="cross-icon">✗</span> (Hotkey only)</td>
+              <td><span class="check-icon">✓</span> (Legacy 32-bit)</td>
+              <td><span class="cross-icon">✗</span> (Browser only)</td>
+            </tr>
+            <tr>
+              <td data-i18n="comp.r2">Multi-Engine Intelligent Failover</td>
+              <td class="highlight"><span class="check-icon">✓</span> 10+ Engines</td>
+              <td><span class="cross-icon">✗</span> (DeepL only)</td>
+              <td><span class="cross-icon">✗</span> (Broken APIs)</td>
+              <td><span class="cross-icon">✗</span> (Single engine)</td>
+            </tr>
+            <tr>
+              <td data-i18n="comp.r3">Google-only VPN Fallback</td>
+              <td class="highlight"><span class="check-icon">✓</span> Direct / Proxy Route</td>
+              <td><span class="check-icon">✓</span></td>
+              <td><span class="cross-icon">✗</span></td>
+              <td><span class="cross-icon">✗</span></td>
+            </tr>
+            <tr>
+              <td data-i18n="comp.r4">Live Clickable Hybrid Links</td>
+              <td class="highlight"><span class="check-icon">✓</span> URL Safe Linkification</td>
+              <td><span class="cross-icon">✗</span></td>
+              <td><span class="cross-icon">✗</span></td>
+              <td><span class="check-icon">✓</span></td>
+            </tr>
+            <tr>
+              <td data-i18n="comp.r5">Offline Dictionary & Lexicon Explorer</td>
+              <td class="highlight"><span class="check-icon">✓</span> Built-in XDXF + IPA</td>
+              <td><span class="cross-icon">✗</span></td>
+              <td><span class="check-icon">✓</span></td>
+              <td><span class="cross-icon">✗</span></td>
+            </tr>
+            <tr>
+              <td data-i18n="comp.r6">Personal Translation Memory</td>
+              <td class="highlight"><span class="check-icon">✓</span> 100% Local Glossary</td>
+              <td><span class="check-icon">✓</span> (Cloud account req)</td>
+              <td><span class="cross-icon">✗</span></td>
+              <td><span class="cross-icon">✗</span></td>
+            </tr>
+            <tr>
+              <td data-i18n="comp.r7">Privacy & Zero-Telemetry Mode</td>
+              <td class="highlight"><span class="check-icon">✓</span> Zero Tracking</td>
+              <td><span class="cross-icon">✗</span> (Telemetry on)</td>
+              <td><span class="check-icon">✓</span></td>
+              <td><span class="cross-icon">✗</span> (Analytics)</td>
+            </tr>
+            <tr>
+              <td data-i18n="comp.r8">Lightweight Memory Footprint</td>
+              <td class="highlight"><span class="check-icon">✓</span> ~40 MB RAM (.NET 8)</td>
+              <td><span class="cross-icon">✗</span> ~250 MB (Electron)</td>
+              <td><span class="check-icon">✓</span> ~25 MB</td>
+              <td><span class="cross-icon">✗</span> (Shared RAM)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section" id="faq">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-pill" data-i18n="faq.pill">Got Questions?</span>
+        <h2 class="section-title" data-i18n="faq.title">Frequently Asked Questions</h2>
+        <p class="section-desc" data-i18n="faq.desc">Find answers to technical and operational questions about Khadhami Translator.</p>
+      </div>
+
+      <div class="faq-list">
+        <div class="faq-item active">
+          <button class="faq-question">
+            <span data-i18n="faq.q1">Does Khadhami Translator work over VPNs and high-speed networks?</span>
+            <span class="faq-chevron">▼</span>
+          </button>
+          <div class="faq-answer">
+            <p data-i18n="faq.a1">Yes, with an important limit: no app can guarantee Google's free web service on every shared VPN IP. Khadhami tries both Google web hosts, and its optional Google-only fallback can retry through a direct connection or a separate HTTP proxy without changing translators. Full-tunnel VPN users may still need another node, VPN split tunneling, or a Google Cloud key.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span data-i18n="faq.q2">Do I need to pay for API keys to use the app?</span>
+            <span class="faq-chevron">▼</span>
+          </button>
+          <div class="faq-answer">
+            <p data-i18n="faq.a2">No. Google, Lingva, MyMemory, LibreTranslate, and offline dictionaries can be used without a paid key. DeepL, Azure/Bing, Baidu, and Yandex use their own keys when required. Providers change only when you choose one.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span data-i18n="faq.q3">What are the default shortcut hotkeys?</span>
+            <span class="faq-chevron">▼</span>
+          </button>
+          <div class="faq-answer">
+            <p data-i18n="faq.a3">By default, you can press Ctrl+Q to translate selected text instantly, double-click selected text, or press Ctrl+Alt+D to open the full Workspace & Lexicon Explorer. All shortcuts can be customized in Settings.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span data-i18n="faq.q4">How does Personal Translation Memory work?</span>
+            <span class="faq-chevron">▼</span>
+          </button>
+          <div class="faq-answer">
+            <p data-i18n="faq.a4">When you edit any translation and click 'Save to Memory', Khadhami stores your preferred translation in a local atomic database. Whenever that exact word or phrase is translated in the future, your preferred phrasing is automatically used.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span data-i18n="faq.q5">Is my data sent to any third-party analytics?</span>
+            <span class="faq-chevron">▼</span>
+          </button>
+          <div class="faq-answer">
+            <p data-i18n="faq.a5">Zero telemetry. Khadhami Translator contains no telemetry, user tracking, or advertising scripts. Translation requests travel directly between your machine and your chosen provider, or remain 100% local when Private Mode is enabled.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Download Banner -->
+  <section class="section" id="download">
+    <div class="container">
+      <div class="download-banner">
+        <h2 class="download-title" data-i18n="down.title">Elevate Your Translation Workflow Today</h2>
+        <p class="download-desc" data-i18n="down.desc">Download the standalone, lightweight installer for Windows 10 & 11 and experience instant, multi-engine translation at your cursor.</p>
+
+        <a href="https://download.khadhami.com/translator/KhadhamiTranslate-v2.2.19-Setup.exe" class="btn-primary" data-download style="padding:18px 40px; font-size:1.15rem;">
+          <span data-i18n="down.btn">Download Khadhami Translator</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p data-i18n="footer.rights">© 2026 Hayl Khadhami & Contributors. Distributed under the MIT License.</p>
+      <p style="margin-top:6px; color:var(--text-dim);" data-i18n="footer.tech">Engineered with .NET 8, WPF, & Catppuccin Design.</p>
+    </div>
+  </footer>
+
+  <script>
+    const translations = {
+      en: {
+        'nav.features': 'Features',
+        'nav.demo': 'Live Demo',
+        'nav.comparison': 'Comparison',
+        'nav.faq': 'FAQ',
+        'nav.download': 'Download',
+
+        'hero.pill': 'Enhanced Neural Fallbacks & Hybrid Link Engine',
+        'hero.title': 'Instant Translation at Your Cursor. <br><span class="text-gradient">Anywhere on Windows.</span>',
+        'hero.subtitle': 'Translate any text, document, browser tab, or image in milliseconds with a single mouse selection. Powered by 10+ neural AI engines, offline local dictionaries, and zero-telemetry privacy.',
+        'hero.btnDownload': 'Download Setup (64-bit)',
+        'hero.btnDemo': 'Try Live Demo',
+        'hero.badge1': 'Windows 10 & 11 (64-bit)',
+        'hero.badge2': '10+ Translation Engines',
+        'hero.badge3': '100% Offline Capable',
+        'hero.badge4': 'Zero Telemetry & Private',
+
+        'sim.title': 'Khadhami Floating Popup — Interactive Simulation',
+        'sim.shortcut': 'Hotkeys: Ctrl+Q / Double-Click',
+        'sim.sourceLabel': 'Source Text',
+        'sim.altTitle': 'Alternative Translations:',
+        'sim.btnCopy': 'Copy',
+        'sim.btnListen': 'Listen',
+        'sim.btnRetry': 'Retry',
+        'sim.toast': '✓ Copied to clipboard!',
+
+        'feat.pill': 'Everything You Need',
+        'feat.title': 'Engineered for Frictionless Desktop Productivity',
+        'feat.desc': 'Built natively for Windows with low memory overhead, sub-50ms hotkey response, and deep OS integration.',
+        'feat.f1Title': 'Instant Mouse Selection Popup',
+        'feat.f1Desc': 'Highlight text anywhere — in PDFs, Word documents, IDEs, games, or browsers — and a sleek non-intrusive translation popup appears right beside your cursor.',
+        'feat.f2Title': 'Multi-Engine AI Routing',
+        'feat.f2Desc': 'Choose Google Translate, DeepL, Microsoft Bing, Lingva, LibreTranslate, Yandex, or Baidu yourself. The selected provider never changes automatically.',
+        'feat.f3Title': '100% Private Mode',
+        'feat.f3Desc': 'Switch to Private Mode with one click: cloud requests are strictly disabled and translations route entirely through local offline dictionaries with zero data leakage.',
+        'feat.f4Title': 'Lexicon & IPA Phonetics Explorer',
+        'feat.f4Desc': 'Explore rich definitions, IPA phonetics, part-of-speech groupings (noun, verb, adj), and interactive click-to-lookup synonym pills directly inside the app.',
+        'feat.f5Title': 'Personal Translation Memory',
+        'feat.f5Desc': 'Teach the app your domain-specific terminology. Save custom phrasing in your local Translation Memory to automatically override cloud translations forever.',
+        'feat.f6Title': 'Screen OCR & Audio Speech TTS',
+        'feat.f6Desc': 'Capture untypeable text from videos, scanned images, and locked interfaces using built-in Windows OCR, accompanied by natural voice pronunciation.',
+
+        'comp.pill': 'Benchmark',
+        'comp.title': 'How Khadhami Compares',
+        'comp.desc': 'See why professionals choose Khadhami Translator over legacy tools and single-provider desktop apps.',
+        'comp.feature': 'Feature',
+        'comp.deepl': 'DeepL Desktop',
+        'comp.qtranslate': 'Legacy QTranslate',
+        'comp.extensions': 'Browser Extensions',
+        'comp.r1': 'Instant Mouse Selection Popup',
+        'comp.r2': 'Multi-Engine Intelligent Failover',
+        'comp.r3': 'Google-only VPN Fallback',
+        'comp.r4': 'Live Clickable Hybrid Links',
+        'comp.r5': 'Offline Dictionary & Lexicon Explorer',
+        'comp.r6': 'Personal Translation Memory',
+        'comp.r7': 'Privacy & Zero-Telemetry Mode',
+        'comp.r8': 'Lightweight Memory Footprint',
+
+        'faq.pill': 'Got Questions?',
+        'faq.title': 'Frequently Asked Questions',
+        'faq.desc': 'Find answers to technical and operational questions about Khadhami Translator.',
+        'faq.q1': 'Does Khadhami Translator work over VPNs and high-speed networks?',
+        'faq.a1': 'Yes, with an important limit: no app can guarantee Google\'s free web service on every shared VPN IP. Khadhami tries both Google web hosts, and its optional Google-only fallback can retry through a direct connection or a separate HTTP proxy without changing translators. Full-tunnel VPN users may still need another node, VPN split tunneling, or a Google Cloud key.',
+        'faq.q2': 'Do I need to pay for API keys to use the app?',
+        'faq.a2': 'No. Google, Lingva, MyMemory, LibreTranslate, and offline dictionaries can be used without a paid key. DeepL, Azure/Bing, Baidu, and Yandex use their own keys when required. Providers change only when you choose one.',
+        'faq.q3': 'What are the default shortcut hotkeys?',
+        'faq.a3': 'By default, you can press Ctrl+Q to translate selected text instantly, double-click selected text, or press Ctrl+Alt+D to open the full Workspace & Lexicon Explorer. All shortcuts can be customized in Settings.',
+        'faq.q4': 'How does Personal Translation Memory work?',
+        'faq.a4': 'When you edit any translation and click \'Save to Memory\', Khadhami stores your preferred translation in a local atomic database. Whenever that exact word or phrase is translated in the future, your preferred phrasing is automatically used.',
+        'faq.q5': 'Is my data sent to any third-party analytics?',
+        'faq.a5': 'Zero telemetry. Khadhami Translator contains no telemetry, user tracking, or advertising scripts. Translation requests travel directly between your machine and your chosen provider, or remain 100% local when Private Mode is enabled.',
+
+        'down.title': 'Elevate Your Translation Workflow Today',
+        'down.desc': 'Download the standalone, lightweight installer for Windows 10 & 11 and experience instant, multi-engine translation at your cursor.',
+        'down.btn': 'Download Khadhami Translator',
+
+        'footer.rights': '© 2026 Hayl Khadhami & Contributors. Distributed under the MIT License.',
+        'footer.tech': 'Engineered with .NET 8, WPF, & Catppuccin Design.'
+      },
+
+      ar: {
+        'nav.features': 'المميزات',
+        'nav.demo': 'تجربة حية',
+        'nav.comparison': 'المقارنة',
+        'nav.faq': 'الأسئلة الشائعة',
+        'nav.download': 'تحميل البرنامج',
+
+        'hero.pill': 'تعزيز الاتصال العصبي والمحرك الهجين للروابط',
+        'hero.title': 'ترجمة فورية عند مؤشر الفأرة. <br><span class="text-gradient">في أي مكان على ويندوز.</span>',
+        'hero.subtitle': 'ترجم أي نص أو مستند أو تبويب متصفح أو صورة في أجزاء من الثانية بمجرد تحديد النص بالماوس. مدعوم بأكثر من 10 محركات ذكاء اصطناعي، وقواميس محلية بدون إنترنت، وخصوصية تامة بدون أي تتبع.',
+        'hero.btnDownload': 'تحميل البرنامج (64 بت)',
+        'hero.btnDemo': 'جرب العرض التفاعلي',
+        'hero.badge1': 'ويندوز 10 و 11 (64 بت)',
+        'hero.badge2': 'أكثر من 10 محركات ترجمة',
+        'hero.badge3': 'يعمل بالكامل بدون إنترنت',
+        'hero.badge4': 'خصوصية مطلقة بدون تتبع',
+
+        'sim.title': 'نافذة خضمي المنبثقة — محاكاة تفاعلية',
+        'sim.shortcut': 'اختصارات: Ctrl+Q / نقر مزدوج',
+        'sim.sourceLabel': 'النص الأصلي',
+        'sim.altTitle': 'ترجمات بديلة:',
+        'sim.btnCopy': 'نسخ',
+        'sim.btnListen': 'استماع',
+        'sim.btnRetry': 'إعادة المحاولة',
+        'sim.toast': '✓ تم النسخ إلى الحافظة!',
+
+        'feat.pill': 'كل ما تحتاجه للإنتاجية',
+        'feat.title': 'مصمم لإنتاجية فائقة وسلسة على سطح المكتب',
+        'feat.desc': 'مبني أصلياً لويندوز باستهلاك ذاكرة ضئيل، واستجابة فورية للاختصارات في أقل من 50 مللي ثانية، وتكامل عميق مع النظام.',
+        'feat.f1Title': 'نافذة منبثقة بمجرد تحديد النص',
+        'feat.f1Desc': 'حدد أي نص في أي تطبيق — في ملفات PDF، وورد، برامج البرمجة، الألعاب أو المتصفحات — وستظهر نافذة ترجمة أنيقة بجانب مؤشر الماوس فوراً.',
+        'feat.f2Title': 'توجيه ذكي بين عدة محركات ذكاء اصطناعي',
+        'feat.f2Desc': 'اختر بنفسك Google أو DeepL أو Microsoft Bing أو Lingva أو LibreTranslate أو Yandex أو Baidu. لا يتغير المزود المحدد تلقائياً أبداً.',
+        'feat.f3Title': 'الوضع الخاص بنسبة 100%',
+        'feat.f3Desc': 'فعّل الوضع الخاص بضغطة زر واحدة: يتم حظر جميع الاتصالات السحابية وتوجيه الترجمات بالكامل عبر القواميس المحلية لضمان سرية بياناتك.',
+        'feat.f4Title': 'مستكشف القاموس والرموز الصوتية IPA',
+        'feat.f4Desc': 'استعرض تعريفات الكلمات الدقيقة، واللفظ الصوتي IPA، وتصنيفات أقسام الكلام (اسم، فعل، صفة)، مع شرائح المرادفات التفاعلية القابلة للنقر.',
+        'feat.f5Title': 'ذاكرة الترجمة والمصطلحات الشخصية',
+        'feat.f5Desc': 'علم البرنامج مصطلحاتك الخاصة. احفظ صياغاتك المفضلة في ذاكرة الترجمة المحلية لتطبيقها تلقائياً وتجاوز الترجمات السحابية دائماً.',
+        'feat.f6Title': 'التعرف البصري على النصوص OCR والنطق الصوتي',
+        'feat.f6Desc': 'استخرج النصوص من الفيديوهات والصور والواجهات المقفلة باستخدام محرك OCR المدمج في ويندوز، مع الاستماع للنطق البشري الطبيعي.',
+
+        'comp.pill': 'المقارنة المعيارية',
+        'comp.title': 'كيف يتفوق مترجم خضمي',
+        'comp.desc': 'تعرف على سبب اختيار المحترفين لبرنامج خضمي بدلاً من الأدوات القديمة وتطبيقات المحرك الواحد.',
+        'comp.feature': 'الميزة',
+        'comp.deepl': 'تطبيق DeepL',
+        'comp.qtranslate': 'QTranslate القديم',
+        'comp.extensions': 'إضافات المتصفح',
+        'comp.r1': 'نافذة منبثقة بمجرد تحديد النص بالماوس',
+        'comp.r2': 'تحويل ذكي بين عدة محركات ترجمة',
+        'comp.r3': 'مسار Google الاحتياطي المخصص مع VPN',
+        'comp.r4': 'روابط تفاعلية حية وقابلة للنقر',
+        'comp.r5': 'قاموس محلي ومستكشف مصطلحات ولفظ صوتي',
+        'comp.r6': 'ذاكرة ترجمة ومسرد مصطلحات شخصي',
+        'comp.r7': 'وضع الخصوصية بدون أي تتبع أو إعلانات',
+        'comp.r8': 'استهلاك خفيف للذاكرة والرام',
+
+        'faq.pill': 'هل لديك استفسار؟',
+        'faq.title': 'الأسئلة الأكثر شيوعاً',
+        'faq.desc': 'إجابات على الأسئلة التقنية والتشغيلية حول مترجم خضمي.',
+        'faq.q1': 'هل يعمل البرنامج مع برامج الـ VPN والشبكات السريعة؟',
+        'faq.a1': 'نعم، مع قيد مهم: لا يستطيع أي تطبيق ضمان خدمة Google المجانية عبر كل عنوان VPN مشترك. يجرب خضمي مضيفي Google، ويمكن للمسار الاحتياطي الاختياري الخاص بـ Google إعادة المحاولة عبر اتصال مباشر أو وكيل HTTP منفصل دون تغيير محرك الترجمة. قد يحتاج مستخدمو VPN ذي النفق الكامل إلى عقدة أخرى أو تقسيم النفق أو مفتاح Google Cloud.',
+        'faq.q2': 'هل أحتاج لشراء مفاتيح API لاستخدام البرنامج؟',
+        'faq.a2': 'لا. يمكن استخدام Google وLingva وMyMemory وLibreTranslate والقواميس المحلية دون مفتاح مدفوع. تستخدم DeepL وBing وBaidu وYandex مفاتيحها عند الحاجة، ولا يتغير المزود إلا باختيارك.',
+        'faq.q3': 'ما هي الاختصارات الافتراضية للوحة المفاتيح؟',
+        'faq.a3': 'يمكنك الضغط على Ctrl+Q لترجمة النص المحدد فوراً، أو النقر المزدوج على النص بالماوس، أو الضغط على Ctrl+Alt+D لفتح مساحة العمل الكاملة.',
+        'faq.q4': 'كيف تعمل ذاكرة الترجمة الشخصية (المسرد)؟',
+        'faq.a4': 'عندما تعدل أي ترجمة وتضغط على "حفظ في الذاكرة"، يحفظ البرنامج صياغتك محلياً، ويستخدمها تلقائياً في كل مرة تترجم فيها تلك الكلمة مستقبلاً.',
+        'faq.q5': 'هل يتم إرسال بياناتي أو تتبع نشاطي؟',
+        'faq.a5': 'لا يوجد أي تتبع على الإطلاق. لا يحتوي البرنامج على أي أدوات تحليل أو تتبع أو إعلانات. بياناتك تنتقل مباشرة إلى المحرك المختار أو تبقى محلية بالكامل في الوضع الخاص.',
+
+        'down.title': 'ارتقِ بتجربة الترجمة على جهازك اليوم',
+        'down.desc': 'حمّل برنامج التثبيت الخفيف والمستقل لنظامي ويندوز 10 و 11 واستمتع بترجمة عصبية فورية عند مؤشر الفأرة.',
+        'down.btn': 'تحميل مترجم خضمي',
+
+        'footer.rights': '© 2026 هيل خضمي والمساهمون. موزَّع بموجب ترخيص MIT.',
+        'footer.tech': 'صُنِع باستخدام ‎.NET 8‎ و WPF وتصميم Catppuccin.'
+      }
+    };
+
+    let currentLang = 'en';
+
+    function applyLanguage(lang) {
+      currentLang = lang;
+      document.documentElement.lang = lang;
+      document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (translations[lang] && translations[lang][key]) {
+          el.innerHTML = translations[lang][key];
+        }
+      });
+
+      const langLabel = document.getElementById('langLabel');
+      if (langLabel) {
+        langLabel.textContent = lang === 'ar' ? 'English' : 'العربية';
+      }
+
+      // Re-render the simulator so its dynamic labels follow the new language.
+      updateSimulation();
+    }
+
+    document.getElementById('langToggleBtn')?.addEventListener('click', () => {
+      applyLanguage(currentLang === 'en' ? 'ar' : 'en');
+    });
+
+    const themeToggleBtn = document.getElementById('themeToggleBtn');
+    const themeIcon = document.getElementById('themeIcon');
+    function applyTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      if (themeIcon) themeIcon.textContent = theme === 'dark' ? '☀️' : '🌙';
+    }
+
+    themeToggleBtn?.addEventListener('click', () => {
+      const cur = document.documentElement.getAttribute('data-theme') || 'dark';
+      applyTheme(cur === 'dark' ? 'light' : 'dark');
+    });
+
+    // Simulator Logic
+    const simSourceText = document.getElementById('simSourceText');
+    const simSourceLang = document.getElementById('simSourceLang');
+    const simTargetLang = document.getElementById('simTargetLang');
+    const simEngineSelect = document.getElementById('simEngineSelect');
+    const simResultText = document.getElementById('simResultText');
+    const simTranslit = document.getElementById('simTranslit');
+    const simAltContainer = document.getElementById('simAltContainer');
+    const simToast = document.getElementById('simToast');
+
+    function escapeHtml(text) {
+      return text.replace(/[&<>"']/g, ch => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+      }[ch]));
+    }
+
+    const simDatabase = {
+      'instant neural translation with mouse selection': {
+        ar: { text: 'ترجمة عصبية فورية بمجرد تحديد النص بالماوس', translit: "Tarjama 'asabiyya fawriyya bimujarrad tahdid an-nass bil-maws", alts: ['ترجمة فورية بالماوس', 'الترجمة الفورية العصبية'] },
+        fr: { text: 'Traduction neuronale instantanée par sélection à la souris', translit: 'Traduction neuronale instantanee', alts: ['Traduction rapide au curseur', 'Traduction directe'] }
+      },
+      'workspace': {
+        ar: { text: 'مساحة العمل', translit: 'Masahat al-amal', alts: ['بيئة العمل', 'ورشة العمل'] },
+        en: { text: 'Workspace', translit: '/ˈwɜːkspeɪs/', alts: ['Work area', 'Workroom'] }
+      },
+      'memory': {
+        ar: { text: 'ذاكرة', translit: 'Dhakira', alts: ['حفظ', 'تذكار'] },
+        en: { text: 'Memory', translit: '/ˈmɛməri/', alts: ['Recall', 'Remembrance'] }
+      }
+    };
+
+    function updateSimulation() {
+      const input = (simSourceText.value || '').trim();
+      const tl = simTargetLang.value;
+      const engine = simEngineSelect.value;
+
+      if (!input) {
+        simResultText.textContent = '...';
+        simTranslit.textContent = '';
+        simAltContainer.style.display = 'none';
+        return;
+      }
+
+      if (input.startsWith('http://') || input.startsWith('https://') || input.startsWith('www.')) {
+        const safeUrl = input.startsWith('www.') ? `https://${input}` : input;
+        simResultText.innerHTML = `<a href="${escapeHtml(safeUrl)}" target="_blank" rel="noopener" style="color:var(--brand-primary); text-decoration:underline;">${escapeHtml(input)}</a>`;
+        simTranslit.textContent = currentLang === 'ar'
+          ? 'رابط ويب تفاعلي مباشر (قابل للنقر)'
+          : 'Live interactive web link (Clickable)';
+        simAltContainer.style.display = 'none';
+        return;
+      }
+
+      const lower = input.toLowerCase();
+      if (simDatabase[lower] && simDatabase[lower][tl]) {
+        const match = simDatabase[lower][tl];
+        simResultText.textContent = match.text;
+        simTranslit.textContent = match.translit;
+        simAltContainer.style.display = 'block';
+        simAltContainer.innerHTML = `
+          <div class="sim-alt-title">${currentLang === 'ar' ? 'ترجمات بديلة:' : 'Alternative Translations:'}</div>
+          ${match.alts.map(alt => `<span class="sim-alt-item">${alt}</span>`).join('')}
+        `;
+      } else {
+        let translated = tl === 'ar' ? `ترجمة: ${input}` : `Translation: ${input}`;
+        simResultText.textContent = translated;
+        simTranslit.textContent = currentLang === 'ar'
+          ? `[${engine.toUpperCase()}] مخرجات عصبية موثقة`
+          : `[${engine.toUpperCase()}] Verified neural output`;
+        simAltContainer.style.display = 'none';
+      }
+    }
+
+    simSourceText?.addEventListener('input', updateSimulation);
+    simSourceLang?.addEventListener('change', updateSimulation);
+    simTargetLang?.addEventListener('change', updateSimulation);
+    simEngineSelect?.addEventListener('change', updateSimulation);
+
+    document.getElementById('simSwapBtn')?.addEventListener('click', () => {
+      const t = simSourceLang.value;
+      simSourceLang.value = simTargetLang.value;
+      simTargetLang.value = t;
+      const r = simResultText.textContent;
+      if (r && r !== '...') simSourceText.value = r;
+      updateSimulation();
+    });
+
+    document.getElementById('simCopyBtn')?.addEventListener('click', () => {
+      const text = simResultText.textContent;
+      if (text && text !== '...') {
+        navigator.clipboard.writeText(text).then(() => {
+          simToast.classList.add('show');
+          setTimeout(() => simToast.classList.remove('show'), 2200);
+        });
+      }
+    });
+
+    document.getElementById('simSpeakSourceBtn')?.addEventListener('click', () => {
+      const text = simSourceText.value;
+      if (text && 'speechSynthesis' in window) {
+        const u = new SpeechSynthesisUtterance(text);
+        u.lang = simSourceLang.value;
+        window.speechSynthesis.speak(u);
+      }
+    });
+
+    document.getElementById('simSpeakTargetBtn')?.addEventListener('click', () => {
+      const text = simResultText.textContent;
+      if (text && text !== '...' && 'speechSynthesis' in window) {
+        const u = new SpeechSynthesisUtterance(text);
+        u.lang = simTargetLang.value;
+        window.speechSynthesis.speak(u);
+      }
+    });
+
+    document.getElementById('simRetryBtn')?.addEventListener('click', () => {
+      simResultText.style.opacity = '0.3';
+      setTimeout(() => {
+        simResultText.style.opacity = '1';
+        updateSimulation();
+      }, 200);
+    });
+
+    // FAQ
+    document.querySelectorAll('.faq-item').forEach(item => {
+      item.querySelector('.faq-question')?.addEventListener('click', () => {
+        const active = item.classList.contains('active');
+        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+        if (!active) item.classList.add('active');
+      });
+    });
+
+    // Mobile navigation menu
+    const navHamburger = document.getElementById('navHamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    function setMobileMenu(open) {
+      mobileMenu.classList.toggle('open', open);
+      navHamburger.classList.toggle('open', open);
+      navHamburger.setAttribute('aria-expanded', String(open));
+      navHamburger.setAttribute('aria-label', open ? 'Close navigation menu' : 'Open navigation menu');
+    }
+    navHamburger?.addEventListener('click', () => {
+      setMobileMenu(!mobileMenu.classList.contains('open'));
+    });
+    // Close the menu after navigating to a section, or when the viewport
+    // grows back past the breakpoint where the inline links reappear.
+    mobileMenu?.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => setMobileMenu(false));
+    });
+    window.matchMedia('(min-width: 993px)').addEventListener('change', e => {
+      if (e.matches) setMobileMenu(false);
+    });
+
+    updateSimulation();
+
+    // ── Dynamic download links ──────────────────────────────────────────
+    // A tiny manifest (generated by Build-Release.ps1 and uploaded beside
+    // the installer) always describes the newest build, so these buttons
+    // follow every future release automatically — whatever the exe is
+    // named. The static hrefs already point at the download server, so the
+    // buttons work even if the manifest fetch is blocked.
+    const DOWNLOAD_BASE_URL = 'https://download.khadhami.com/translator/';
+    const DOWNLOAD_MANIFEST_URL = `${DOWNLOAD_BASE_URL}latest.json`;
+    const DOWNLOAD_MANIFEST_SCRIPT_URL = `${DOWNLOAD_BASE_URL}latest.js`;
+    const EMBEDDED_DOWNLOAD_VERSION = '2.2.19';
+    const compareVersions = (left, right) => {
+      const a = String(left || '').split('.').map(part => Number.parseInt(part, 10) || 0);
+      const b = String(right || '').split('.').map(part => Number.parseInt(part, 10) || 0);
+      for (let index = 0; index < Math.max(a.length, b.length); index += 1) {
+        const difference = (a[index] || 0) - (b[index] || 0);
+        if (difference !== 0) return difference;
+      }
+      return 0;
+    };
+    const resolveInstallerUrl = manifest => {
+      // Prefer a filename and construct the URL locally. This allows any future
+      // installer filename while preventing the manifest from redirecting a
+      // download button to another website.
+      const filename = typeof manifest?.filename === 'string' ? manifest.filename.trim() : '';
+      if (filename && filename.length <= 180 && /\.exe$/i.test(filename) && !/[\\/?#]/.test(filename)) {
+        return `${DOWNLOAD_BASE_URL}${encodeURIComponent(filename)}`;
+      }
+
+      // Backward compatibility for an older manifest that contains only url.
+      try {
+        const candidate = new URL(manifest?.url);
+        const trustedBase = new URL(DOWNLOAD_BASE_URL);
+        if (candidate.protocol === 'https:' && candidate.origin === trustedBase.origin &&
+            candidate.pathname.startsWith(trustedBase.pathname) && /\.exe$/i.test(candidate.pathname)) {
+          return candidate.href;
+        }
+      } catch { /* Invalid or missing URL. */ }
+      return null;
+    };
+    const applyManifest = manifest => {
+      // A stale server manifest must never downgrade a freshly published page.
+      const installerUrl = resolveInstallerUrl(manifest);
+      if (installerUrl && compareVersions(manifest.version, EMBEDDED_DOWNLOAD_VERSION) >= 0) {
+        document.querySelectorAll('a[data-download]').forEach(a => { a.href = installerUrl; });
+      }
+    };
+    (async () => {
+      try {
+        const res = await fetch(`${DOWNLOAD_MANIFEST_URL}?t=${Date.now()}`, { cache: 'no-store' });
+        if (!res.ok) throw new Error(`Manifest request failed: ${res.status}`);
+        applyManifest(await res.json());
+      } catch {
+        // CORS blocked the direct fetch (e.g. page opened from the local
+        // disk) — retry through the JSONP-style script route, which is not
+        // subject to CORS.
+        window.__khadhamiManifest = applyManifest;
+        const s = document.createElement('script');
+        s.src = `${DOWNLOAD_MANIFEST_SCRIPT_URL}?t=${Date.now()}`;
+        document.body.appendChild(s);
+      }
+    })();
+  </script>
+</body>
+</html>
